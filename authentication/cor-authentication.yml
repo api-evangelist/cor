@@ -1,0 +1,48 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/cor-openapi.json, openapi/cor-resource-allocation-openapi.json, https://developers.projectcor.com/api-reference/auth/jwt-authorization-by-client-credentials
+docs: https://developers.projectcor.com/api-reference/auth/jwt-authorization-by-client-credentials
+summary:
+  types:
+  - http
+  - oauth2
+  primary: OAuth 2.0 issuing JWT bearer tokens
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: All COR API requests are authorized with a JWT bearer token obtained
+    from the OAuth token endpoint.
+  sources:
+  - openapi/cor-openapi.json
+  - openapi/cor-resource-allocation-openapi.json
+- name: basicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/cor-openapi.json
+oauth2:
+  token_url: https://api.projectcor.com/v1/oauth/token
+  alternate_token_url: https://api.projectcor.com/v1/oauth2/token
+  refresh_url: https://api.projectcor.com/v1/oauth/refreshtoken
+  grant_types:
+  - client_credentials
+  - authorization_code
+  - password
+  - refresh_token
+  token_format: JWT
+  response_fields:
+  - access_token
+  - token_type
+  - expires_in
+  - refresh_token
+  scopes: []
+  scopes_note: The COR API does not declare granular OAuth scopes; access is governed
+    by the authenticated user's workspace role/permissions.
+notes:
+- COR documents four JWT authorization flows (authorization code, client credentials,
+  user credentials, refresh token) plus a GET /me endpoint to resolve the authenticated
+  user.
+- The hosted MCP server (mcp.projectcor.com) authenticates with OAuth 2.0 over
+  Streamable HTTP.
