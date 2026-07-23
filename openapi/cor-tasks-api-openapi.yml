@@ -1,0 +1,1197 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Tasks API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Tasks
+paths:
+  /tasks:
+    get:
+      tags:
+      - Tasks
+      summary: Get Tasks
+      description: Retrieves a paginated list of tasks. By default, responses are paginated with 20 items per page.
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type:
+          - integer
+          - boolean
+          default: 1
+        description: 'Page number (default: 1). Set to `false` to disable pagination.'
+      - name: perPage
+        in: query
+        schema:
+          type: integer
+          default: 20
+        description: 'Number of items per page (default: 20).'
+      - name: filters
+        in: query
+        schema:
+          type: string
+        description: 'Filters for the task list, expressed as a JSON object **URL-encoded** into this query string.
+
+
+          **Examples of common keys**
+
+
+          - **`projects`** — One project ID, or an array of project IDs.
+
+          - **`pm`** — One user ID, or an array of user IDs for the task PM.
+
+          - **`status`** — One status or several; examples: `nueva`, `en_proceso`, `finalizada`.
+
+
+          **Other supported keys** in the same object include `labels`, `categories`, `clients`, `collaborator`, `priority`, and `sprints`.
+
+
+          **Important:** Use only this parameter for filtering. Do **not** add extra query parameters such as `?project_id=` or `?user_id=`.'
+      - name: order
+        in: query
+        schema:
+          type: string
+        description: 'Optional sort specification as a JSON object **URL-encoded** into this query string.
+
+
+          For each field you want to sort by, set the value to **`ASC`** or **`DESC`** (where supported).
+
+
+          **Sortable fields** include `client`, `project`, `task`, `deadline`, `datetime`, `pm`, `priority`, and `sprint`.
+
+
+          The response also uses a default tie-breaker: the task''s defined order ascending.'
+      responses:
+        '200':
+          description: Paginated list of tasks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTasksResponse'
+    post:
+      tags:
+      - Tasks
+      summary: Create a task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskInput'
+      responses:
+        '200':
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+  /tasks/{task_id}:
+    get:
+      tags:
+      - Tasks
+      summary: Get task by ID
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Task details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+    put:
+      tags:
+      - Tasks
+      summary: Update a Task
+      description: Update Task attributes
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskUpdateInput'
+      responses:
+        '200':
+          description: Task updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+    delete:
+      tags:
+      - Tasks
+      summary: Delete a Task
+      description: Delete a Task
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Task deleted successfully
+  /tasks/search-by-title/{title}:
+    get:
+      tags:
+      - Tasks
+      summary: Get tasks by title
+      parameters:
+      - name: title
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+  /tasks/{task_id}/messages:
+    get:
+      tags:
+      - Tasks
+      summary: Get messages by Task
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+    post:
+      tags:
+      - Tasks
+      summary: Post task message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageInput'
+      responses:
+        '200':
+          description: Message posted successfully
+  /tasks/{task_id}/attachments:
+    get:
+      tags:
+      - Tasks
+      summary: Get task attachments
+      description: Lists attachments for a task (paginated), excluding child versions.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: ID of the task
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 1
+        description: Current page number
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+        description: Number of items per page
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: object
+          default:
+            created_at: DESC
+        description: 'Sort criteria (e.g. `{"created_at": "DESC"}`)'
+      responses:
+        '200':
+          description: Paginated list of attachments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskAttachmentListResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                nullable: true
+                example: null
+    post:
+      tags:
+      - Tasks
+      summary: Upload task attachments
+      description: Uploads one or more files to a task via multipart/form-data.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: ID of the task (task_log_id)
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: File(s) to upload
+                available:
+                  type: boolean
+                  default: true
+                  description: Whether the file is visible
+                session_token:
+                  type: string
+                  nullable: true
+                  default: null
+                  description: Session token to group uploads and defer notification
+                attachment_parent_id:
+                  type: integer
+                  nullable: true
+                  default: null
+                  description: ID of the parent attachment (for versioning)
+                status:
+                  type: string
+                  nullable: true
+                  default: null
+                  enum:
+                  - approved
+                  - pending
+                  - required
+                  - null
+                  description: Attachment status
+                created_from:
+                  type: string
+                  default: task_panel
+                  enum:
+                  - task_panel
+                  - rework
+                  - feedback
+                  description: Origin of the upload
+      responses:
+        '200':
+          description: Files uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskAttachmentUploadResponse'
+        '400':
+          description: No files could be uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttachmentUploadBadRequest'
+        '417':
+          description: Task not found (validation failed)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorArray'
+    delete:
+      tags:
+      - Tasks
+      summary: Delete task attachments
+      description: Deletes one or more attachments from a task.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: ID of the task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - attachments
+              properties:
+                attachments:
+                  oneOf:
+                  - type: array
+                    items:
+                      type: integer
+                  - type: integer
+                  description: ID(s) of the attachment(s) to delete
+                lastPage:
+                  type: integer
+                  description: Last page number (used for re-pagination)
+                order:
+                  type: object
+                  default:
+                    created_at: DESC
+                  description: Sort criteria for replacement elements
+      responses:
+        '200':
+          description: Attachments deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskAttachmentDeleteResponse'
+        '404':
+          description: Attachment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CORErrorResponse'
+              example:
+                status: ERROR
+                code: FS003
+                message: Undefined attachment
+        '417':
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CORCustomError'
+              example:
+                status: 417
+                name: CORCustomError
+                code: AC001
+                message: exists validation failed on taskId
+  /tasks/{task_id}/attachments/source/{source_type}:
+    post:
+      tags:
+      - Tasks
+      summary: Create task attachment from external source
+      description: Creates an attachment from an external source (Google Drive, Dropbox, OneDrive).
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: ID of the task
+      - name: source_type
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - GoogleDrive
+          - DropBox
+          - OneDrive
+        description: 'External file source: `GoogleDrive`, `DropBox`, or `OneDrive`'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - filename
+              - originalname
+              properties:
+                filename:
+                  type: string
+                  description: URL or path of the file in the external provider
+                originalname:
+                  type: string
+                  description: Original file name with extension
+                size:
+                  type: integer
+                  default: 0
+                  description: File size in bytes
+                available:
+                  type: boolean
+                  default: true
+                  description: Whether the file is visible
+                session_token:
+                  type: string
+                  nullable: true
+                  default: null
+                  description: Token to group uploads
+      responses:
+        '200':
+          description: Attachment created from external source
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskAttachmentSourceResponse'
+        '400':
+          description: Invalid source_type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CORCustomError'
+              example:
+                status: 400
+                name: CORCustomError
+                code: AC001
+                message: Invalid source type
+        '417':
+          description: Task not found (validation failed)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorArray'
+  /tasks/{task_id}/members:
+    get:
+      tags:
+      - Tasks
+      summary: GET task members
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of task members
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /tasks/{task_id}/collaborators:
+    get:
+      tags:
+      - Tasks
+      summary: Get task collaborators
+      description: Returns only the collaborators assigned to a task — users directly assigned to work on it.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: The ID of the task
+      responses:
+        '200':
+          description: List of task collaborators
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskCollaboratorSummary'
+    post:
+      tags:
+      - Tasks
+      summary: Assign collaborators to a task
+      description: Sets the list of collaborators assigned to a task. The operation is a **sync** — the array provided represents the desired final state. Users present in the array but not yet assigned will be added; users currently assigned but absent from the array will be removed.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: The ID of the task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskCollaboratorsInput'
+      responses:
+        '200':
+          description: Returns the updated array of collaborators
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskCollaborator'
+        '400':
+          description: Invalid task ID or invalid users array
+        '417':
+          description: Validation error (task not found in company, or one or more user IDs are invalid)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: exists validation failed on task_id
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        project_id:
+          type: integer
+        description:
+          type: string
+        deadline:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+          - nueva
+          - en_proceso
+          - estancada
+          - finalizada
+        priority:
+          type: integer
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          description: 0 = Low, 1 = Medium, 2 = High, 3 = Urgent
+        archived:
+          type: boolean
+    Attachment:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        url:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    TaskAttachmentSourceResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        source:
+          type: string
+          description: Source provider (e.g. `GoogleDrive`)
+        size:
+          type: integer
+        file_type:
+          type: string
+        media_type:
+          type: string
+        user_id:
+          type: integer
+        discussions_id:
+          type: integer
+          nullable: true
+        session_token:
+          type: string
+          nullable: true
+    LeaveType:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type_code:
+          type: string
+        company_id:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        icon_name:
+          type: string
+    CORCustomError:
+      type: object
+      properties:
+        status:
+          type: integer
+        name:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
+    TaskCollaboratorsInput:
+      type: object
+      required:
+      - collaborators
+      properties:
+        collaborators:
+          type: array
+          items:
+            type: integer
+          description: Array of user IDs that should be assigned to the task. Pass an empty array [] to remove all collaborators.
+        reasignEstimate:
+          type: boolean
+          default: false
+          description: If true, redistributes the estimated hours evenly among the new collaborators.
+    AttachmentUploadError:
+      type: object
+      properties:
+        filename:
+          type: string
+        message:
+          type: string
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+    User:
+      allOf:
+      - $ref: '#/components/schemas/UserBase'
+      - type: object
+        properties:
+          labels:
+            type: array
+            items:
+              $ref: '#/components/schemas/Label'
+            nullable: true
+    TaskAttachmentDeleteResponse:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        elements:
+          type: array
+          description: Attachments from the last page that fill the gaps left by deleted items
+          items:
+            $ref: '#/components/schemas/TaskAttachmentDetail'
+    AttachmentUploadBadRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ERROR
+        code:
+          type: string
+          example: FS001
+        message:
+          type: string
+          example: Unable to upload any file
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentUploadError'
+    AttachmentInput:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID Attachment
+        name:
+          type: string
+          description: Name of file
+        url:
+          type: string
+          description: public-url provided by COR
+        type:
+          type: string
+          description: File type
+        source:
+          type: string
+          description: 'Source of file: attachments S#, Drive, One Drive, Dropbox'
+    TaskCollaborator:
+      type: object
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        picture:
+          type: string
+        user_position_id:
+          type: integer
+          nullable: true
+        role_id:
+          type: integer
+        userPosition:
+          type: object
+          nullable: true
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+        pivot:
+          type: object
+          properties:
+            user_id:
+              type: integer
+            task_log_id:
+              type: integer
+            created_at:
+              type: string
+            estimated_by_user:
+              type: integer
+    Label:
+      type: object
+      properties:
+        id:
+          type: integer
+        hex:
+          type: string
+          description: Hex color code
+        hsl:
+          type: string
+          nullable: true
+        rgb:
+          type: string
+          nullable: true
+        lang:
+          type: string
+        name:
+          type: string
+        color_id:
+          type: integer
+    ValidationErrorArray:
+      type: array
+      items:
+        type: object
+        properties:
+          field:
+            type: string
+          validation:
+            type: string
+          message:
+            type: string
+    TaskInput:
+      type: object
+      required:
+      - title
+      properties:
+        title:
+          type: string
+          description: Task Title
+        project_id:
+          type: integer
+          description: Project ID
+    TaskAttachmentDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+        size:
+          type: integer
+          description: File size in bytes
+        source:
+          type: string
+          description: Storage source (e.g. `S3`, `GoogleDrive`, `DropBox`, `OneDrive`)
+        user_id:
+          type: integer
+        available:
+          type: boolean
+        file_type:
+          type: string
+          description: File extension (e.g. `png`, `pdf`)
+        media_type:
+          type: string
+          description: Media category (e.g. `image`, `pdf`, `video`)
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        originalname:
+          type: string
+          description: Original file name
+        discussions_id:
+          type: integer
+          nullable: true
+        parent_type:
+          type: string
+          description: Parent entity type (e.g. `tasks`)
+        name:
+          type: string
+        parent_id:
+          type: integer
+        attachment_parent_id:
+          type: integer
+          nullable: true
+          description: Parent attachment ID for versioning
+        version:
+          type: integer
+        status:
+          type: string
+          nullable: true
+          enum:
+          - approved
+          - pending
+          - required
+          - null
+        currentVersionData:
+          type: object
+          nullable: true
+        currentVersionId:
+          type: integer
+        currentVersion:
+          type: integer
+        user:
+          type: object
+          properties:
+            id:
+              type: integer
+            first_name:
+              type: string
+            last_name:
+              type: string
+            picture:
+              type: string
+        graphicsCount:
+          type: string
+          nullable: true
+        taskLogReworksId:
+          type: integer
+          nullable: true
+        createdFrom:
+          type: string
+          description: 'Origin: `task_panel`, `rework`, or `feedback`'
+    TaskUpdateInput:
+      type: object
+      required:
+      - title
+      properties:
+        title:
+          type: string
+          description: Task Title
+        project_id:
+          type: integer
+          description: Project ID
+        description:
+          type: string
+          description: Description
+        deadline:
+          type: string
+          format: date-time
+          description: Deadline
+        status:
+          type: string
+          enum:
+          - nueva
+          - en_proceso
+          - estancada
+          - finalizada
+          description: Task status
+        priority:
+          type: integer
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          description: 'Task Priority: 0 = Low, 1 = Medium, 2 = High, 3 = Urgent'
+        archived:
+          type: boolean
+          description: Archived task
+    Leave:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        company_id:
+          type: integer
+        leave_type_id:
+          type: integer
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        all_day:
+          type: boolean
+        leaveType:
+          $ref: '#/components/schemas/LeaveType'
+    TaskAttachmentUploadResponse:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskAttachmentUploadedFile'
+        files_q:
+          type: integer
+          description: Total number of attachments currently on the task
+        errors:
+          type: array
+          description: Present only when individual files failed (size exceeded or invalid extension)
+          items:
+            $ref: '#/components/schemas/AttachmentUploadError'
+    UserBase:
+      type: object
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        picture:
+          type: string
+          description: URL to user's profile picture
+        email:
+          type: string
+          format: email
+        cuil:
+          type: string
+        remaining_hours:
+          type: number
+        user_position_id:
+          type: integer
+        role_id:
+          type: integer
+          description: 1=C-Level, 2=Director, 3=Project Manager, 4=Collaborator, 5=Freelancer, 6=Client
+        daily_hours:
+          type: number
+        plan_id:
+          type: integer
+          description: 4=Project Management, 5=Capacity Planning
+        plan_name:
+          type: string
+        hidden:
+          type: boolean
+        position_name:
+          type: string
+          nullable: true
+        category_id:
+          type: integer
+          nullable: true
+        category_name:
+          type: string
+          nullable: true
+        gmt:
+          type: string
+          description: UTC offset from the user's last login location. Indicates the timezone configured at their last login.
+          example: -03:00
+        leaves:
+          type: array
+          items:
+            $ref: '#/components/schemas/Leave'
+    TaskAttachmentUploadedFile:
+      type: object
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        source:
+          type: string
+        size:
+          type: integer
+        filename:
+          type: string
+          description: Internal storage path
+        available:
+          type: boolean
+        item_id:
+          type: integer
+        originalname:
+          type: string
+        attachment_parent_id:
+          type: integer
+          nullable: true
+        file_type:
+          type: string
+        discussions_id:
+          type: integer
+          nullable: true
+        user_id:
+          type: integer
+        parent_id:
+          type: integer
+        type:
+          type: string
+          description: Parent type (e.g. `tasks`)
+        version:
+          type: integer
+        status:
+          type: string
+          nullable: true
+        token:
+          type: string
+          description: Unique file token
+        company_id:
+          type: integer
+        task_log_reworks_id:
+          type: integer
+          nullable: true
+        task_log_id:
+          type: integer
+        media_type:
+          type: string
+        graphics_count:
+          type: string
+          nullable: true
+        created_from:
+          type: string
+    TaskAttachmentListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of attachments
+        perPage:
+          type: integer
+          description: Items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last page number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskAttachmentDetail'
+    CORErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
+    TaskCollaboratorSummary:
+      type: object
+      description: Summary of a collaborator assigned to a task (used in GET /tasks/{task_id}/collaborators)
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        picture:
+          type: string
+        remaining_hours:
+          type: number
+        estimated_by_user:
+          type: integer
+    MessageInput:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Text Message
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentInput'
+          description: Optional attachments
+    PaginatedTasksResponse:
+      type: object
+      description: Paginated response for tasks list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of tasks
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of tasks for the current page
+          items:
+            $ref: '#/components/schemas/Task'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

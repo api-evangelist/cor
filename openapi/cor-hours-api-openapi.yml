@@ -1,0 +1,542 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Hours API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Hours
+paths:
+  /hours:
+    get:
+      tags:
+      - Hours
+      summary: Get Hours
+      description: Retrieves a paginated list of time entries. By default, responses are paginated with 20 items per page.
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type:
+          - integer
+          - boolean
+          default: 1
+        description: 'Page number (default: 1). Set to `false` to disable pagination.'
+      - name: perPage
+        in: query
+        schema:
+          type: integer
+          default: 20
+        description: 'Number of items per page (default: 20).'
+      - name: filters
+        in: query
+        schema:
+          type: string
+        description: 'URL-encoded JSON object with filter criteria. Available fields: `dateStart` (YYYY-MM-DD), `dateDeadline` (YYYY-MM-DD), `clients` (array), `projects` (array), `users` (array), `labels` (array), `teams` (array).'
+      - name: orderBy
+        in: query
+        schema:
+          type: string
+        description: 'URL-encoded JSON object for sorting. Example: {"by":"start","order":"ASC"}.'
+      responses:
+        '200':
+          description: Paginated list of time entries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedHoursResponse'
+              example:
+                total_hours: '4.0000000000000000'
+                total_cost: 4714.285714285714
+                data:
+                - id: 39517591
+                  start: '2026-02-06 00:00:00'
+                  stop: '2026-02-06 02:00:00'
+                  duration: '2.0000000000000000'
+                  cost: 2357.142857142857
+                  user_id: 8546
+                  task_log_id: 11122850
+                  project_id: null
+                  client_id: null
+                  created_at: '2026-02-06 12:50:12'
+                  status: pending
+                  status_changed_by: null
+                  status_changed_at: null
+                  type: TASK
+                  task_log_rework_id: null
+                  comments: null
+                  user:
+                    id: 8546
+                    first_name: Daniel
+                    last_name: Guzman
+                    picture: https://user-images.projectcor.com/production/Upload/ProfilePictures/50x50/c-2336-248213441263.jpeg
+                    remaining_hours: 88
+                    timezone: America/Buenos_Aires
+                    gmt: -03:00
+                  client: null
+                  project: null
+                  task:
+                    id: 11122850
+                    title: Armado de contenido v1
+                    project_id: 878491
+                    task_father: null
+                    status: nueva
+                    father: null
+                    project:
+                      id: 878491
+                      name: Creacion de Contenido
+                      client_id: 31405
+                      contract_id: null
+                      client:
+                        id: 31405
+                        name: Cloud Solution
+                        client_status_id: 1
+                      has_expired_contract: false
+                    labels: []
+                  userPosition: null
+                  billInput: null
+                total: '1'
+                perPage: 20
+                page: '1'
+                lastPage: 1
+    post:
+      tags:
+      - Hours
+      summary: Post hours
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HourInput'
+      responses:
+        '200':
+          description: Hours logged successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hour'
+  /hours/status-change:
+    post:
+      tags:
+      - Hours
+      summary: Change status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - status
+              - counters
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - pending
+                  - approved
+                  - discarded
+                  - under_review
+                  - invoiced
+                  - paid
+                  description: Hour status
+                counters:
+                  type: array
+                  items:
+                    type: integer
+                  description: Array of counter IDs
+      responses:
+        '200':
+          description: Status changed successfully
+  /hours/status-bills-change:
+    post:
+      tags:
+      - Hours
+      summary: Status bill change
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - receiptNumber
+              - counters
+              properties:
+                receiptNumber:
+                  type: integer
+                  description: Receipt Number
+                counters:
+                  type: array
+                  items:
+                    type: integer
+                  description: Array of counters
+      responses:
+        '200':
+          description: Status changed successfully
+  /hours/by-day/{datetime}:
+    get:
+      tags:
+      - Hours
+      summary: Get Hours By Date
+      description: 'datetime: datetime in unix format'
+      parameters:
+      - name: datetime
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+          description: In UNIX Time
+      responses:
+        '200':
+          description: Hours for the specified date
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Hour'
+  /hours/by-day/weigh:
+    post:
+      tags:
+      - Hours
+      summary: Update status of weigh hours
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - task_log_id
+              - start
+              properties:
+                task_log_id:
+                  type: integer
+                  description: Task ID
+                start:
+                  type: string
+                  format: date-time
+                  description: Start Timestamp
+      responses:
+        '200':
+          description: Status updated successfully
+  /hours/accept-suggested/{datetime}:
+    post:
+      tags:
+      - Hours
+      summary: Accept suggested hours
+      description: 'datetime: datetime in unix format'
+      parameters:
+      - name: datetime
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+          description: In Unix Time
+      responses:
+        '200':
+          description: Suggested hours accepted successfully
+components:
+  schemas:
+    Hour:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of the time entry
+        start:
+          type: string
+          format: date-time
+          description: Start timestamp of the time entry
+        stop:
+          type: string
+          format: date-time
+          description: Stop timestamp of the time entry
+        duration:
+          type: string
+          description: Duration of the time entry in hours
+        cost:
+          type: number
+          description: Calculated cost for this time entry
+        user_id:
+          type: integer
+          description: ID of the user who logged the hours
+        task_log_id:
+          type: integer
+          description: ID of the task this time entry is logged against
+        project_id:
+          type:
+          - integer
+          - 'null'
+          description: Project ID (null when the task has no associated project)
+        client_id:
+          type:
+          - integer
+          - 'null'
+          description: Client ID (null when the task has no associated client)
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the time entry was created
+        status:
+          type: string
+          enum:
+          - pending
+          - approved
+          - rejected
+          - paid
+          description: Current approval status of the time entry
+        status_changed_by:
+          type:
+          - integer
+          - 'null'
+          description: ID of the user who last changed the status (null if status has not been changed)
+        status_changed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the status was last changed (null if status has not been changed)
+        type:
+          type: string
+          description: Type of time entry (e.g. `TASK`)
+        task_log_rework_id:
+          type:
+          - integer
+          - 'null'
+          description: Rework ID if this time entry is associated with a rework, otherwise null
+        comments:
+          type:
+          - string
+          - 'null'
+          description: Optional comments on the time entry
+        user:
+          type: object
+          description: Summary of the user who logged the time entry
+          properties:
+            id:
+              type: integer
+            first_name:
+              type: string
+            last_name:
+              type: string
+            picture:
+              type: string
+              description: URL to the user's profile picture
+            remaining_hours:
+              type: number
+              description: Remaining available hours for the user
+            timezone:
+              type: string
+              description: User's timezone (e.g. `America/Buenos_Aires`)
+            gmt:
+              type: string
+              description: GMT offset (e.g. `-03:00`)
+        client:
+          type:
+          - object
+          - 'null'
+          description: Client information (null when the task has no associated client)
+        project:
+          type:
+          - object
+          - 'null'
+          description: Project information (null when the task has no associated project)
+        task:
+          type: object
+          description: Task this time entry is logged against
+          properties:
+            id:
+              type: integer
+              description: Task ID
+            title:
+              type: string
+              description: Task title
+            project_id:
+              type:
+              - integer
+              - 'null'
+              description: ID of the project this task belongs to
+            task_father:
+              type:
+              - integer
+              - 'null'
+              description: ID of the parent task, if any
+            status:
+              type: string
+              description: Current status of the task
+            father:
+              type:
+              - object
+              - 'null'
+              description: Parent task summary (null if no parent task)
+              properties:
+                id:
+                  type: integer
+                title:
+                  type: string
+            project:
+              type:
+              - object
+              - 'null'
+              description: Project this task belongs to (null if no project)
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                client_id:
+                  type: integer
+                contract_id:
+                  type:
+                  - integer
+                  - 'null'
+                client:
+                  type: object
+                  description: Client that owns the project
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    client_status_id:
+                      type: integer
+                has_expired_contract:
+                  type: boolean
+            labels:
+              type: array
+              description: Labels assigned to the task
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  hex:
+                    type: string
+                    description: Hex color code for the label
+                  names:
+                    type: array
+                    description: Localized label names
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        lang:
+                          type: string
+                          description: Language code (e.g. `en`, `es`, `pt`, `fr`)
+        userPosition:
+          type:
+          - object
+          - 'null'
+          description: User's position information (null if not set)
+        billInput:
+          type:
+          - object
+          - 'null'
+          description: Billing information, present when the time entry has been invoiced (status `paid`)
+          properties:
+            id:
+              type: integer
+              description: Bill input ID
+            entity_id:
+              type: integer
+              description: ID of the time entry this billing relates to
+            bill_id:
+              type: integer
+              description: ID of the associated bill
+            updated_at:
+              type: string
+              format: date-time
+              description: Last update timestamp
+            bill:
+              type: object
+              description: Associated bill details
+              properties:
+                id:
+                  type: integer
+                receipt_number:
+                  type: string
+                  description: Receipt or invoice number
+        rework_hour:
+          type:
+          - object
+          - 'null'
+          description: Rework details, present when `task_log_rework_id` is set
+          properties:
+            requested_by:
+              type: string
+              description: Source of the rework request (e.g. `internal`)
+            description:
+              type: string
+              description: Description of the rework
+            'on':
+              type: string
+              format: date-time
+              description: Date the rework was requested
+    HourInput:
+      type: object
+      required:
+      - task_log_id
+      - start
+      properties:
+        task_log_id:
+          type: integer
+          description: Task ID
+        start:
+          type: string
+          format: date-time
+          description: Start Timestamp
+        stop:
+          type: string
+          format: date-time
+          description: Stop Timestamp
+    PaginatedHoursResponse:
+      type: object
+      description: Paginated response for time entries list
+      properties:
+        total_hours:
+          type: string
+          description: Total hours summed across all entries matching the query
+        total_cost:
+          type: number
+          description: Total cost summed across all entries matching the query
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of time entries
+        perPage:
+          type:
+          - string
+          - integer
+          description: Number of items per page
+        page:
+          type:
+          - string
+          - integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of time entries for the current page
+          items:
+            $ref: '#/components/schemas/Hour'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

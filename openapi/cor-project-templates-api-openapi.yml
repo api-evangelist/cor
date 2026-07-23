@@ -1,0 +1,86 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Project Templates API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Project Templates
+paths:
+  /projectTemplates:
+    get:
+      tags:
+      - Project Templates
+      summary: Get Project Templates
+      description: Retrieves a paginated list of project templates. By default, responses are paginated with 20 items per page.
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type:
+          - integer
+          - boolean
+          default: 1
+        description: 'Page number (default: 1). Set to `false` to disable pagination.'
+      - name: perPage
+        in: query
+        schema:
+          type: integer
+          default: 20
+        description: 'Number of items per page (default: 20).'
+      - name: filters
+        in: query
+        schema:
+          type: string
+        description: 'URL-encoded JSON object with filter criteria. Available fields: `name` (string).'
+      responses:
+        '200':
+          description: Paginated list of project templates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProjectTemplatesResponse'
+components:
+  schemas:
+    ProjectTemplate:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    PaginatedProjectTemplatesResponse:
+      type: object
+      description: Paginated response for project templates list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of project templates
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of project templates for the current page
+          items:
+            $ref: '#/components/schemas/ProjectTemplate'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

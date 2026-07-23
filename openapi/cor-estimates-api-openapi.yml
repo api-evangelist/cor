@@ -1,0 +1,156 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Estimates API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Estimates
+paths:
+  /projects/{project_id}/project_estimate:
+    get:
+      tags:
+      - Estimates
+      summary: Get Project Estimates
+      description: Get a list of associated project estimates
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of project estimates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectEstimate'
+    post:
+      tags:
+      - Estimates
+      summary: Add Project Estimate
+      description: Create an associated project estimates
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectEstimateInput'
+      responses:
+        '200':
+          description: Project estimate created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectEstimate'
+  /projects/{project_id}/project_estimate/{project_estimate_id}:
+    put:
+      tags:
+      - Estimates
+      summary: Update a Project Estimate
+      description: Modify an associated project estimates
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: project_estimate_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectEstimateInput'
+      responses:
+        '200':
+          description: Project estimate updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectEstimate'
+    delete:
+      tags:
+      - Estimates
+      summary: Delete a Project Estimate
+      description: Delete an associated project estimates
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: project_estimate_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Project estimate deleted successfully
+components:
+  schemas:
+    ProjectEstimateInput:
+      type: object
+      required:
+      - title
+      - cost
+      - datetime
+      properties:
+        title:
+          type: string
+          description: Title of estimate
+        cost:
+          type: string
+          description: Cost of the estimate
+        datetime:
+          type: string
+          format: date
+          description: Date of the estimate
+        currency_id:
+          type: integer
+          description: Currency of the project-estimate
+        fee_id:
+          type: integer
+          description: Related Fee
+    ProjectEstimate:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        cost:
+          type: string
+        datetime:
+          type: string
+          format: date
+        currency_id:
+          type: integer
+        fee_id:
+          type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

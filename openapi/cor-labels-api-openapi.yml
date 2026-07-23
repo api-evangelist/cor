@@ -1,0 +1,243 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Labels API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Labels
+paths:
+  /projects/{project_id}/labels:
+    get:
+      tags:
+      - Labels
+      summary: Get project labels
+      description: 'Returns project label categories and available labels for the company (same shape as grouped categories for the project entity type), plus the labels currently assigned to the given project in **`selected`**.
+
+
+        Use **`GET /categories/labels-model?model=project`** for a simpler category tree without per-project selection. To **assign or remove** labels on a project, use **`PUT /projects/{project_id}`** with a `labels` array.'
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Project ID. Must belong to the authenticated user's company.
+      - name: page
+        in: query
+        required: false
+        schema:
+          type:
+          - integer
+          - boolean
+          default: false
+        description: Pagination page number. Set to false (the default) to disable pagination.
+      - name: perPage
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+        description: Page size when pagination is enabled.
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '{}'
+        description: JSON object as a string (must be valid JSON) for sort criteria passed to the label query.
+      - name: filters
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '{}'
+        description: JSON object as a string (must be valid JSON) with filter criteria for the grouped labels query (e.g. `ids`, `name`, `limit`).
+      responses:
+        '200':
+          description: Grouped project labels and labels assigned to this project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectLabelsResponse'
+        '400':
+          description: Validation error (e.g. invalid JSON in `order` or `filters`, or project not found / not in company)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CORCustomError'
+  /categories/labels-model:
+    get:
+      tags:
+      - Labels
+      summary: Get Categories and Labels
+      description: 'Returns categories for the company, each with its labels, filtered by which entity type those categories apply to (users, projects, or tasks). Names are returned in the authenticated user''s language.
+
+
+        Use **`model`** to choose the taxonomy: `user` for user/operation labels, `project` for project labels, and `task` for task labels. Any other value yields a validation error.'
+      parameters:
+      - name: model
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - user
+          - project
+          - task
+          default: user
+        description: 'Entity type whose category/label tree to return: `user` (user labels), `project` (project labels), `task` (task labels).'
+        example: user
+      - name: is_filterable
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+        description: When `true` (default), only categories with `is_filterable` set are returned. Use `false` to include categories that are not marked filterable.
+      responses:
+        '400':
+          description: Missing or unknown `model` (e.g. empty `model`, or a value not in `user` | `project` | `task`)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: List of categories with their associated labels
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+              example:
+              - id: 101
+                name: Development Team
+                labels:
+                - id: 3001
+                  hex: '#FF5733'
+                  hsl: null
+                  rgb: null
+                  lang: en
+                  name: Backend
+                  color_id: 10
+                - id: 3002
+                  hex: '#33FF57'
+                  hsl: null
+                  rgb: null
+                  lang: en
+                  name: Frontend
+                  color_id: 11
+                - id: 3003
+                  hex: '#3357FF'
+                  hsl: null
+                  rgb: null
+                  lang: en
+                  name: QA
+                  color_id: 12
+                - id: 3004
+                  hex: '#FF33A1'
+                  hsl: null
+                  rgb: null
+                  lang: en
+                  name: DevOps
+                  color_id: 13
+              - id: 102
+                name: Sales Team
+                labels:
+                - id: 4001
+                  hex: '#FFC300'
+                  hsl: null
+                  rgb: null
+                  lang: en
+                  name: Lead Generation
+                  color_id: 14
+                - id: 4002
+                  hex: '#FF5733'
+                  hsl: null
+                  rgb: null
+                  lang: en
+                  name: Account Management
+                  color_id: 15
+components:
+  schemas:
+    ProjectLabelsResponse:
+      type: object
+      required:
+      - labels
+      properties:
+        labels:
+          type: array
+          description: Categories with their labels, scoped to the project label entity type.
+          items:
+            $ref: '#/components/schemas/Category'
+        selected:
+          type: array
+          description: Labels currently assigned to the project (present when a valid `project_id` is provided).
+          items:
+            $ref: '#/components/schemas/Label'
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/Label'
+    CORCustomError:
+      type: object
+      properties:
+        status:
+          type: integer
+        name:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
+    Label:
+      type: object
+      properties:
+        id:
+          type: integer
+        hex:
+          type: string
+          description: Hex color code
+        hsl:
+          type: string
+          nullable: true
+        rgb:
+          type: string
+          nullable: true
+        lang:
+          type: string
+        name:
+          type: string
+        color_id:
+          type: integer
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: integer
+          format: int32
+        message:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

@@ -1,0 +1,176 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Brands API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Brands
+paths:
+  /brands:
+    get:
+      tags:
+      - Brands
+      summary: Get Brands
+      description: Retrieves a paginated list of brands. By default, responses are paginated with 20 items per page.
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type:
+          - integer
+          - boolean
+          default: 1
+        description: 'Page number (default: 1). Set to `false` to disable pagination.'
+      - name: perPage
+        in: query
+        schema:
+          type: integer
+          default: 20
+        description: 'Number of items per page (default: 20).'
+      responses:
+        '200':
+          description: Paginated list of brands
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBrandsResponse'
+    post:
+      tags:
+      - Brands
+      summary: Create a brand
+      description: Create a new brand entity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrandInput'
+      responses:
+        '200':
+          description: Brand created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brand'
+  /brands/{brand_id}:
+    get:
+      tags:
+      - Brands
+      summary: Get brand by ID
+      parameters:
+      - name: brand_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Brand details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brand'
+    put:
+      tags:
+      - Brands
+      summary: Update a brand
+      description: Update a brand entity.
+      parameters:
+      - name: brand_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Brand Name
+                client_id:
+                  type: integer
+                  description: Client ID
+      responses:
+        '200':
+          description: Brand updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brand'
+    delete:
+      tags:
+      - Brands
+      summary: Delete a brand
+      description: Destroy a brand entity.
+      parameters:
+      - name: brand_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Brand deleted successfully
+components:
+  schemas:
+    PaginatedBrandsResponse:
+      type: object
+      description: Paginated response for brands list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of brands
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of brands for the current page
+          items:
+            $ref: '#/components/schemas/Brand'
+    BrandInput:
+      type: object
+      required:
+      - name
+      - client_id
+      properties:
+        name:
+          type: string
+          description: Brand Name
+        client_id:
+          type: integer
+          description: Client ID
+    Brand:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        client_id:
+          type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

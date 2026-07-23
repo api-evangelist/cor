@@ -1,0 +1,141 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Working Time API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Working Time
+paths:
+  /working-time:
+    post:
+      tags:
+      - Working Time
+      summary: Create or update working time
+      description: 'Creates or updates the user''s working time schedule.
+
+
+        **Fields:**
+
+        - `dayOfWeek` — Day of the week (1 = Sunday, 7 = Saturday)
+
+        - `start` — Start time in HH:MM format (24-hour clock)
+
+        - `end` — End time in HH:MM format (24-hour clock)
+
+        - `breakTime` — Break duration in hours. Valid values: 0, 0.25, 0.5, 0.75, 1, 1.5, 2'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkingTimeInput'
+            example:
+              userId: 11111
+              companyId: 11111
+              workingTimes:
+              - dayOfWeek: '1'
+                start: 09:00
+                end: '18:00'
+                breakTime: '0'
+              - dayOfWeek: '2'
+                start: 09:00
+                end: '18:00'
+                breakTime: '1'
+      responses:
+        '200':
+          description: Working time saved successfully
+  /working-time/company/with/users:
+    get:
+      tags:
+      - Working Time
+      summary: Get working time users
+      description: Gets information about working time for all users in the company. The response is an object where keys are user IDs and values are arrays of working time entries.
+      responses:
+        '200':
+          description: Working time data grouped by user ID
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/WorkingTime'
+              example:
+                '12345':
+                - daily_hours: 9
+                  day_of_week: 1
+                  start_at: 09:00:00
+                  end_at: '18:00:00'
+                  user_id: 12345
+                  break_time: 0
+                - daily_hours: 8
+                  day_of_week: 2
+                  start_at: 09:00:00
+                  end_at: '18:00:00'
+                  user_id: 12345
+                  break_time: 1
+components:
+  schemas:
+    WorkingTimeInput:
+      type: object
+      required:
+      - userId
+      - companyId
+      - workingTimes
+      properties:
+        userId:
+          type: integer
+          description: User ID
+        companyId:
+          type: integer
+          description: Company ID
+        workingTimes:
+          type: array
+          items:
+            type: object
+            properties:
+              dayOfWeek:
+                type: string
+                description: Day of the week (1=Sunday, 7=Saturday)
+              start:
+                type: string
+                description: Start time in HH:MM format (24-hour clock)
+              end:
+                type: string
+                description: End time in HH:MM format (24-hour clock)
+              breakTime:
+                type: string
+                description: Break duration in hours (0, 0.25, 0.5, 0.75, 1, 1.5, 2)
+    WorkingTime:
+      type: object
+      properties:
+        daily_hours:
+          type: number
+        day_of_week:
+          type: integer
+          description: Day of the week (1=Sunday, 7=Saturday)
+        start_at:
+          type: string
+          description: Start time (HH:MM:SS)
+        end_at:
+          type: string
+          description: End time (HH:MM:SS)
+        user_id:
+          type: integer
+        break_time:
+          type: number
+          description: Break duration in hours
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

@@ -1,0 +1,1461 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Projects API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Projects
+paths:
+  /projects:
+    get:
+      tags:
+      - Projects
+      summary: Get Projects
+      description: Retrieves a paginated list of projects for the company. Supports filtering by client, dates, status, health, and more. By default, responses are paginated with 20 items per page.
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type:
+          - integer
+          - boolean
+          default: 1
+        description: 'Page number (default: 1). Set to `false` to disable pagination and return all results.'
+      - name: perPage
+        in: query
+        schema:
+          type: integer
+          default: 20
+        description: 'Number of items per page when pagination is active (default: 20).'
+      - name: filters
+        in: query
+        schema:
+          type: string
+        description: 'URL-encoded JSON object with filter criteria. Available fields: `dateStart` (YYYY-MM-DD), `dateEnd` (YYYY-MM-DD), `client_id` (number), `team_id` (number), `user_id` (number), `brand_id` (number), `product_id` (number), `status` ("finished"|"in_process"|"suspended"), `health` (1-4), `archived` (1=archived, 2=active).'
+      responses:
+        '200':
+          description: Paginated list of projects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProjectsResponse'
+    post:
+      tags:
+      - Projects
+      summary: Create a project
+      description: 'Create a new project entity.
+
+
+        **Time estimation modes** — Projects support three mutually exclusive ways to estimate time (set via the Profitability tab in the UI):
+
+
+        1. **Total hours** (default): send only `estimated_time`.
+
+        2. **By positions**: set `estimated_by_position: true` and provide `users_positions` with `estimated_time` per position.
+
+        3. **By categories**: set `estimation_by_categories: 1` (or `true`) and provide `categories` with `estimated_time` per category.
+
+
+        When using `income_type: "hourly_rate"`, also set `estimated_by_hourly_rates: true` and assign a ratecard via `ratecard_id`.
+
+
+        > **Note:** These fields are unrelated to the **Project Estimates** endpoints (`/projects/{project_id}/project_estimate`), which manage budget line items (title, cost, fee).'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectInput'
+            examples:
+              totalHours:
+                summary: Total hours estimation
+                value:
+                  name: Website Redesign
+                  client_id: 10
+                  start: '2026-05-01'
+                  estimated_time: 120
+                  income_type: fee
+                  fee_id: 5
+                  currency_id: 1
+              byPositions:
+                summary: Estimation by positions
+                value:
+                  name: Mobile App
+                  client_id: 10
+                  start: '2026-05-01'
+                  estimated_by_position: true
+                  income_type: hourly_rate
+                  estimated_by_hourly_rates: true
+                  ratecard_id: 3
+                  currency_id: 1
+                  users_positions:
+                  - id: 1
+                    estimated_time: 80
+                  - id: 2
+                    estimated_time: 40
+              byCategories:
+                summary: Estimation by categories
+                value:
+                  name: Brand Campaign
+                  client_id: 10
+                  start: '2026-06-01'
+                  estimation_by_categories: 1
+                  income_type: fee
+                  fee_id: 5
+                  currency_id: 1
+                  categories:
+                  - id: 7
+                    estimated_time: 60
+                  - id: 8
+                    estimated_time: 30
+      responses:
+        '200':
+          description: Project created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+  /projects/{project_id}:
+    get:
+      tags:
+      - Projects
+      summary: Get project by ID
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Project details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+    put:
+      tags:
+      - Projects
+      summary: Update a project
+      description: 'Update a project entity. Include only the fields you want to change.
+
+
+        **Time estimation** — You can switch estimation mode by updating `estimated_by_position` / `estimation_by_categories` together with `users_positions` / `categories`. Positions present in the project but absent from the `users_positions` array will have their estimated hours reset to 0 (or be soft-deleted if no hours have been logged against them).
+
+
+        > These fields are unrelated to **Project Estimates** (`/projects/{project_id}/project_estimate`), which manage budget line items.'
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectPutUpdateBody'
+            examples:
+              updateLabels:
+                summary: Update labels only
+                value:
+                  labels: []
+              switchToByPositions:
+                summary: Switch to estimation by positions
+                value:
+                  estimated_by_position: true
+                  estimation_by_categories: false
+                  users_positions:
+                  - id: 1
+                    estimated_time: 80
+                  - id: 2
+                    estimated_time: 40
+              updateHourlyRates:
+                summary: Enable hourly rates with ratecard
+                value:
+                  estimated_by_hourly_rates: true
+                  ratecard_id: 3
+                  income_type: hourly_rate
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProjectPutUpdateBody'
+      responses:
+        '200':
+          description: Project updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+    delete:
+      tags:
+      - Projects
+      summary: Delete a project
+      description: Destroy a project entity.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Project deleted successfully
+  /projects/search-by-name/{project_name}:
+    get:
+      tags:
+      - Projects
+      summary: Get projects by name
+      parameters:
+      - name: project_name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+  /projects/{id}/messages:
+    post:
+      tags:
+      - Projects
+      summary: Post project message
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MessageInput'
+      responses:
+        '200':
+          description: Message posted successfully
+  /projects/{project_id}/messages:
+    get:
+      tags:
+      - Projects
+      summary: Get messages by project
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+  /projects/{project_id}/project_cost:
+    get:
+      tags:
+      - Projects
+      summary: Get Project Costs
+      description: Get a list of associated project costs
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of project costs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectCost'
+    post:
+      tags:
+      - Projects
+      summary: Add Project Cost
+      description: Create an associated project cost
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectCostInput'
+      responses:
+        '200':
+          description: Project cost created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectCost'
+  /projects/{project_id}/project_cost/{project_cost_id}:
+    put:
+      tags:
+      - Projects
+      summary: Update Project Cost
+      description: Update an associated project cost
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: project_cost_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectCostInput'
+      responses:
+        '200':
+          description: Project cost updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectCost'
+    delete:
+      tags:
+      - Projects
+      summary: Delete Project Cost
+      description: Delete an associated project cost
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: project_cost_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Project cost deleted successfully
+  /projects/{project_id}/attachments:
+    get:
+      tags:
+      - Projects
+      summary: Get attachment by Project
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of attachments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Attachment'
+  /projects/{project_id}/labels:
+    get:
+      tags:
+      - Projects
+      summary: Get project labels
+      description: 'Returns project label categories and available labels for the company (same shape as grouped categories for the project entity type), plus the labels currently assigned to the given project in **`selected`**.
+
+
+        Use **`GET /categories/labels-model?model=project`** for a simpler category tree without per-project selection. To **assign or remove** labels on a project, use **`PUT /projects/{project_id}`** with a `labels` array.'
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Project ID. Must belong to the authenticated user's company.
+      - name: page
+        in: query
+        required: false
+        schema:
+          type:
+          - integer
+          - boolean
+          default: false
+        description: Pagination page number. Set to false (the default) to disable pagination.
+      - name: perPage
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+        description: Page size when pagination is enabled.
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '{}'
+        description: JSON object as a string (must be valid JSON) for sort criteria passed to the label query.
+      - name: filters
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '{}'
+        description: JSON object as a string (must be valid JSON) with filter criteria for the grouped labels query (e.g. `ids`, `name`, `limit`).
+      responses:
+        '200':
+          description: Grouped project labels and labels assigned to this project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectLabelsResponse'
+        '400':
+          description: Validation error (e.g. invalid JSON in `order` or `filters`, or project not found / not in company)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CORCustomError'
+  /projects/{project_id}/collaborators:
+    get:
+      tags:
+      - Projects
+      summary: Get project collaborators
+      description: Get users and teams collaborators from project.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of project collaborators
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectCollaborator'
+        '400':
+          description: Validation error (e.g. project not found or not in company)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: CORCustomError
+                  code:
+                    type: string
+                    example: PC001
+                  message:
+                    type: string
+    post:
+      tags:
+      - Projects
+      summary: Add project collaborators
+      description: Add individual collaborators to project.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                usersIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: Array of user IDs to add as collaborators
+      responses:
+        '201':
+          description: Collaborators added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Collaborators added successfully
+        '400':
+          description: Validation error (e.g. project or users invalid)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: CORCustomError
+                  code:
+                    type: string
+                    example: PC001
+                  message:
+                    type: string
+  /projects/{project_id}/collaborators/{user_id}:
+    delete:
+      tags:
+      - Projects
+      summary: Delete project collaborator
+      description: Delete individual collaborator from project.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Collaborator deleted successfully
+        '400':
+          description: Validation error (e.g. project or user not found)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: CORCustomError
+                  code:
+                    type: string
+                    example: PC001
+                  message:
+                    type: string
+  /projects/{project_id}/project_estimate:
+    get:
+      tags:
+      - Projects
+      summary: Get Project Estimates
+      description: Get a list of associated project estimates
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of project estimates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectEstimate'
+    post:
+      tags:
+      - Projects
+      summary: Add Project Estimate
+      description: Create an associated project estimates
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectEstimateInput'
+      responses:
+        '200':
+          description: Project estimate created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectEstimate'
+  /projects/{project_id}/project_estimate/{project_estimate_id}:
+    put:
+      tags:
+      - Projects
+      summary: Update a Project Estimate
+      description: Modify an associated project estimates
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: project_estimate_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectEstimateInput'
+      responses:
+        '200':
+          description: Project estimate updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectEstimate'
+    delete:
+      tags:
+      - Projects
+      summary: Delete a Project Estimate
+      description: Delete an associated project estimates
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: project_estimate_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Project estimate deleted successfully
+  /projects/{project_id}/ratecard:
+    get:
+      tags:
+      - Projects
+      summary: Get project ratecard
+      description: Returns the ratecard currently assigned to the project, or `null` if none is assigned. The ratecard defines pricing configurations (positions, rates, custom percentages) used when `estimated_by_hourly_rates` is enabled.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Ratecard assigned to the project (or null)
+          content:
+            application/json:
+              schema:
+                nullable: true
+                allOf:
+                - $ref: '#/components/schemas/Ratecard'
+components:
+  schemas:
+    Attachment:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        url:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    ProjectEstimateInput:
+      type: object
+      required:
+      - title
+      - cost
+      - datetime
+      properties:
+        title:
+          type: string
+          description: Title of estimate
+        cost:
+          type: string
+          description: Cost of the estimate
+        datetime:
+          type: string
+          format: date
+          description: Date of the estimate
+        currency_id:
+          type: integer
+          description: Currency of the project-estimate
+        fee_id:
+          type: integer
+          description: Related Fee
+    ProjectCollaborator:
+      type: object
+      description: Collaborator item returned by GET /projects/{project_id}/collaborators
+      properties:
+        id:
+          type: integer
+          description: User ID
+        first_name:
+          type: string
+          description: User first name
+        last_name:
+          type: string
+          description: User last name
+        picture:
+          type: string
+          nullable: true
+          description: Profile picture filename or URL
+        remaining_hours:
+          type: number
+          description: Remaining hours for the project
+    CORCustomError:
+      type: object
+      properties:
+        status:
+          type: integer
+        name:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique project identifier
+        name:
+          type: string
+          description: Project name
+        brief:
+          type: string
+          description: Project brief/description
+        client_id:
+          type: integer
+          description: Associated client ID
+        health:
+          type: integer
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          description: 'Project health indicator: 1 (on track), 2 (at risk), 3 (delayed), 4 (critical)'
+        status:
+          type: string
+          enum:
+          - active
+          - finished
+          - suspended
+          description: Project status
+        start:
+          type: string
+          format: date-time
+          description: Project start date
+        end:
+          type: string
+          format: date-time
+          description: Project end date
+        estimated_time:
+          type: number
+          description: Estimated hours for the project
+        elapsed_time:
+          type: number
+          description: Hours already logged
+        profitability_now:
+          type: number
+          description: Current profitability percentage
+        estimated_profitability:
+          type: number
+          description: Estimated profitability percentage
+        archived:
+          type: boolean
+          description: Whether the project is archived
+        billable:
+          type: boolean
+          description: Whether the project is billable
+        income_type:
+          type: string
+          enum:
+          - fee
+          - one_time
+          - hourly_rate
+          - contract
+          description: Project billing type
+        pm_id:
+          type: integer
+          description: Project Manager user ID
+        created_by:
+          type: integer
+          description: User ID who created the project
+        company_id:
+          type: integer
+          description: Company ID
+        template_id:
+          type: integer
+          description: Project template ID used
+        brand_id:
+          type: integer
+          description: Associated brand ID
+        product_id:
+          type: integer
+          description: Associated product ID
+        total_estimated:
+          type: number
+          description: Total estimated budget
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        labels:
+          type: array
+          description: IDs of labels assigned to this project. Resolve names and styling via **Get Categories and Labels** with `model=project` (`GET /categories/labels-model?model=project`), which returns label objects including the same `id` values.
+          items:
+            type: integer
+        client:
+          type: object
+          description: Associated client object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            client_status_id:
+              type: integer
+        pm:
+          type: object
+          description: Project Manager details
+          properties:
+            id:
+              type: integer
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            role_id:
+              type: integer
+        estimated_by_position:
+          type: boolean
+          description: Whether time estimation is split per position
+        estimation_by_categories:
+          type:
+          - boolean
+          - integer
+          description: Whether time estimation is split per category
+        estimated_by_hourly_rates:
+          type:
+          - boolean
+          - string
+          description: Whether income is calculated from hourly rates using a ratecard
+        user_positions_header_id:
+          type: integer
+          nullable: true
+          description: ID of the ratecard assigned to this project
+        fee_id:
+          type: integer
+          nullable: true
+          description: Associated fee ID
+        contract_id:
+          type: integer
+          nullable: true
+          description: Associated contract ID
+        usersPositionsProject:
+          type: array
+          description: Positions assigned to the project with their estimated and logged hours. Only present when fetching a single project (`GET /projects/{project_id}`).
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Row ID in user_positions_projects
+              user_positions_unified_id:
+                type: integer
+                description: Unified position ID
+              project_id:
+                type: integer
+              estimated_hours:
+                type: number
+                description: Estimated hours for this position
+              hours_charged:
+                type: number
+                description: Hours already logged against this position
+              total_cost:
+                type: number
+                description: Total cost accrued for this position
+              userPositionName:
+                type: object
+                nullable: true
+                description: Position name in the requested language
+                properties:
+                  name:
+                    type: string
+        categoriesProject:
+          type: array
+          description: Categories assigned to the project with their estimated and logged hours. Only present when fetching a single project.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              category_id:
+                type: integer
+              estimated_hours:
+                type: number
+              hours_charged:
+                type: number
+              total_cost:
+                type: number
+        ratecard:
+          type: object
+          nullable: true
+          description: Ratecard assigned to this project. Only present when fetching a single project.
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            original_name:
+              type: string
+            percent:
+              type: number
+            currency_id:
+              type: integer
+              nullable: true
+            linked_to_base_price:
+              type: boolean
+    ProjectCostInput:
+      type: object
+      required:
+      - title
+      - cost
+      - datetime
+      properties:
+        title:
+          type: string
+          description: Title of cost
+        cost:
+          type: number
+          format: float
+          description: Cost
+        datetime:
+          type: string
+          format: date
+          description: Date of the estimate
+        label_id:
+          type: integer
+          description: Related Label
+        project_estimate_id:
+          type: integer
+          description: Related project estimate
+        id_project_history:
+          type: integer
+          description: Related project history
+    ProjectInput:
+      type: object
+      required:
+      - name
+      - client_id
+      properties:
+        name:
+          type: string
+          description: Project Name
+        client_id:
+          type: integer
+          description: Client ID
+        template_id:
+          type: integer
+          description: Project Template ID
+        brief:
+          type: string
+          description: Project description or brief
+        start:
+          type: string
+          format: date
+          description: Project start date (YYYY-MM-DD)
+        end:
+          type: string
+          format: date
+          description: Project end date (YYYY-MM-DD)
+        pm_id:
+          type: integer
+          description: Project Manager User ID
+        brand_id:
+          type: integer
+          description: Brand ID
+        product_id:
+          type: integer
+          description: Product ID
+        estimated_time:
+          type: number
+          description: Estimated hours for the project
+        billable:
+          type: boolean
+          description: Whether the project is billable
+        status:
+          type: string
+          description: Project status
+        currency_id:
+          type: integer
+          description: Currency ID
+        evaluation_date:
+          type: string
+          format: date
+          description: Project evaluation date (YYYY-MM-DD)
+        estimated:
+          type: number
+          description: Estimated monetary value for the project
+        fee_id:
+          type: integer
+          description: Fee ID
+        contract_id:
+          type: integer
+          description: Contract ID
+        deliverables:
+          type: string
+          description: Project deliverables description
+        work_order:
+          type: string
+          description: Work order number or code
+        income_type:
+          type: string
+          enum:
+          - fee
+          - one_time
+          - hourly_rate
+          - contract
+          description: Income type for the project
+        archived:
+          type: boolean
+          description: Whether the project is archived
+          default: false
+        estimated_by_position:
+          type: boolean
+          description: When `true`, time estimation is split per position via the `users_positions` array. Mutually exclusive with `estimation_by_categories`. When both are `false` (or omitted), the project uses a single total `estimated_time` value.
+          default: false
+        estimation_by_categories:
+          type:
+          - boolean
+          - integer
+          description: When truthy (`true` or `1`), time estimation is split per category via the `categories` array. Mutually exclusive with `estimated_by_position`.
+          default: false
+        estimated_by_hourly_rates:
+          type: boolean
+          description: When `true`, the project income is calculated from hourly rates using the assigned ratecard (`ratecard_id` / `user_positions_header_id`). Requires `income_type` to be `"hourly_rate"`.
+          default: false
+        ratecard_id:
+          type: integer
+          description: Ratecard ID to assign to the project. This is an alias for `user_positions_header_id` — if both are sent, `ratecard_id` takes precedence. Use **Get Ratecards** (`GET /ratecards`) to list available ratecards.
+        users_positions:
+          type: array
+          description: Positions involved in the project. When `estimated_by_position` is `true`, each item should include `estimated_time` (hours). When `false`, send only the position `id` to associate positions without per-position hour estimates.
+          items:
+            $ref: '#/components/schemas/ProjectUserPositionInput'
+        categories:
+          type: array
+          description: Categories assigned to the project. When `estimation_by_categories` is truthy, each item should include `estimated_time` (hours). When falsy, send only the category `id`.
+          items:
+            $ref: '#/components/schemas/ProjectCategoryInput'
+        collaborators:
+          type: array
+          description: User IDs to add as project collaborators.
+          items:
+            type: integer
+        labels:
+          type: array
+          maxItems: 50
+          description: Label IDs to assign to the project. Maximum 50 labels.
+          items:
+            type: integer
+        teams:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Team ID
+              user_id:
+                type: array
+                items:
+                  type: integer
+                description: Team user IDs
+        exchange:
+          type: number
+          description: Exchange rate to apply when the project currency differs from the company base currency.
+        currency_change_amount:
+          type: number
+          description: Original estimated amount in the selected currency before exchange conversion.
+    ProjectCategoryInput:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: integer
+          description: Category ID.
+        estimated_time:
+          type: number
+          description: Estimated hours for this category. Required when `estimation_by_categories` is truthy.
+    ProjectEstimate:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        cost:
+          type: string
+        datetime:
+          type: string
+          format: date
+        currency_id:
+          type: integer
+        fee_id:
+          type: integer
+    ProjectCost:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        cost:
+          type: number
+          format: float
+        datetime:
+          type: string
+          format: date
+        label_id:
+          type: integer
+        project_estimate_id:
+          type: integer
+        id_project_history:
+          type: integer
+    AttachmentInput:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID Attachment
+        name:
+          type: string
+          description: Name of file
+        url:
+          type: string
+          description: public-url provided by COR
+        type:
+          type: string
+          description: File type
+        source:
+          type: string
+          description: 'Source of file: attachments S#, Drive, One Drive, Dropbox'
+    Label:
+      type: object
+      properties:
+        id:
+          type: integer
+        hex:
+          type: string
+          description: Hex color code
+        hsl:
+          type: string
+          nullable: true
+        rgb:
+          type: string
+          nullable: true
+        lang:
+          type: string
+        name:
+          type: string
+        color_id:
+          type: integer
+    ProjectLabelsResponse:
+      type: object
+      required:
+      - labels
+      properties:
+        labels:
+          type: array
+          description: Categories with their labels, scoped to the project label entity type.
+          items:
+            $ref: '#/components/schemas/Category'
+        selected:
+          type: array
+          description: Labels currently assigned to the project (present when a valid `project_id` is provided).
+          items:
+            $ref: '#/components/schemas/Label'
+    ProjectPutUpdateBody:
+      type: object
+      description: Fields to update on a project. Include only the properties you want to change.
+      properties:
+        name:
+          type: string
+          description: Project Name
+        client_id:
+          type: integer
+          description: Client ID
+        brief:
+          type: string
+          description: Project description or brief
+        start:
+          type: string
+          format: date
+          description: Project start date (YYYY-MM-DD)
+        end:
+          type: string
+          format: date
+          description: Project end date (YYYY-MM-DD)
+        pm_id:
+          type: integer
+          description: Project Manager User ID
+        estimated_time:
+          type: number
+          description: Estimated hours for the project
+        billable:
+          type: boolean
+          description: Whether the project is billable
+        status:
+          type: string
+          description: Project status
+        currency_id:
+          type: integer
+          description: Currency ID
+        evaluation_date:
+          type: string
+          format: date
+          description: Project evaluation date (YYYY-MM-DD)
+        estimated:
+          type: number
+          description: Estimated monetary value for the project
+        fee_id:
+          type: integer
+          description: Fee ID
+        contract_id:
+          type: integer
+          description: Contract ID
+        deliverables:
+          type: string
+          description: Project deliverables description
+        work_order:
+          type: string
+          description: Work order number or code
+        income_type:
+          type: string
+          enum:
+          - fee
+          - one_time
+          - hourly_rate
+          - contract
+          description: Income type for the project
+        archived:
+          type: boolean
+          description: Whether the project is archived
+          default: false
+        labels:
+          type: array
+          maxItems: 50
+          description: Label IDs to assign to the project. Omit this field entirely to leave existing labels unchanged. Send an empty array (`[]`) to remove all labels from the project. Each entry may be an integer ID or an object with an `id` property (for example `[101, 102]`). Maximum 50 labels. Use **Get Categories and Labels** with `model=project` (`GET /categories/labels-model?model=project`) to list project label objects for your company; use each label's `id` in this array.
+          items:
+            oneOf:
+            - type: integer
+            - type: object
+              required:
+              - id
+              properties:
+                id:
+                  type: integer
+        estimated_by_position:
+          type: boolean
+          description: When `true`, time estimation is split per position via the `users_positions` array. Mutually exclusive with `estimation_by_categories`.
+        estimation_by_categories:
+          type:
+          - boolean
+          - integer
+          description: When truthy (`true` or `1`), time estimation is split per category via the `categories` array. Mutually exclusive with `estimated_by_position`.
+        estimated_by_hourly_rates:
+          type: boolean
+          description: When `true`, the project income is calculated from hourly rates using the assigned ratecard.
+        ratecard_id:
+          type: integer
+          description: Ratecard ID. Alias for `user_positions_header_id` — if both are sent, `ratecard_id` takes precedence.
+        users_positions:
+          type: array
+          description: Positions involved in the project with optional per-position hour estimates. Positions present in the project but absent from this array will have their estimated hours set to 0 (or be soft-deleted if no hours have been logged).
+          items:
+            $ref: '#/components/schemas/ProjectUserPositionInput'
+        categories:
+          type: array
+          description: Categories assigned to the project with optional per-category hour estimates.
+          items:
+            $ref: '#/components/schemas/ProjectCategoryInput'
+        exchange:
+          type: number
+          description: Exchange rate when project currency differs from the company base currency.
+        currency_change_amount:
+          type: number
+          description: Original estimated amount in the selected currency before exchange conversion.
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/Label'
+    ProjectUserPositionInput:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: integer
+          description: Unified position ID (`user_positions_unified.id`). Use **Get Position Segment Labels** or the User Positions endpoints to list available positions.
+        estimated_time:
+          type: number
+          description: Estimated hours for this position. Required when `estimated_by_position` is `true`. The server persists this value as `estimated_hours` in the `user_positions_projects` table.
+    PaginatedProjectsResponse:
+      type: object
+      description: Paginated response for projects list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of projects matching the filters
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        meta_data:
+          type: object
+          description: Additional metadata
+          properties:
+            profitability_limit:
+              type: string
+              description: Company profitability limit setting
+        data:
+          type: array
+          description: Array of projects for the current page
+          items:
+            $ref: '#/components/schemas/Project'
+    Ratecard:
+      type: object
+      description: A ratecard defines pricing configurations for the company
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the ratecard
+        name:
+          type: string
+          description: Display name of the ratecard
+        original_name:
+          type: string
+          description: Original/system name of the ratecard
+        percent:
+          type: number
+          description: Percentage applied by this ratecard
+        company_id:
+          type: integer
+          description: Company ID that owns this ratecard
+        system:
+          type: boolean
+          description: Whether this is a system-generated ratecard
+        currency_id:
+          type:
+          - integer
+          - 'null'
+          description: Associated currency ID. Defaults to the system's base currency if not specified.
+        linked_to_base_price:
+          type: boolean
+          description: Whether the ratecard is calculated based on base price
+        external_key:
+          type:
+          - string
+          - 'null'
+          description: External key for integration with external systems
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        deleted_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Deletion timestamp (soft delete)
+    MessageInput:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Text Message
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentInput'
+          description: Optional attachments
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

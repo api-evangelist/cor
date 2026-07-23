@@ -1,0 +1,248 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Contract Positions API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Contract Positions
+paths:
+  /contracts/{contract_id}/positions:
+    get:
+      tags:
+      - Contract Positions
+      summary: Get contract positions
+      description: Retrieves all positions associated with a contract.
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: page
+        in: query
+        schema:
+          type:
+          - integer
+          - boolean
+          default: 1
+        description: 'Page number (default: 1). Set to `false` to disable pagination.'
+      - name: perPage
+        in: query
+        schema:
+          type: integer
+          default: 20
+        description: 'Number of items per page (default: 20).'
+      responses:
+        '200':
+          description: List of contract positions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedContractPositionRatesResponse'
+    post:
+      tags:
+      - Contract Positions
+      summary: Create contract position
+      description: Creates a new position rate for the specified contract.
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractPositionCreateInput'
+      responses:
+        '200':
+          description: Contract position created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractPositionRate'
+  /contracts/{contract_id}/positions/{contract_position_rate_id}:
+    put:
+      tags:
+      - Contract Positions
+      summary: Update contract position
+      description: Updates rate and/or hours for a contract position.
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: contract_position_rate_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractPositionUpdateInput'
+      responses:
+        '200':
+          description: Contract position updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractPositionRate'
+components:
+  schemas:
+    ContractPositionUpdateInput:
+      type: object
+      properties:
+        rate:
+          type: number
+          description: Updated hourly rate
+        hours:
+          type: number
+          description: Updated hours
+    ContractPositionCreateInput:
+      type: object
+      required:
+      - position_id
+      - team_id
+      - rate
+      - hours
+      properties:
+        position_id:
+          type: integer
+          description: Position ID
+        team_id:
+          type: integer
+          description: Team ID
+        rate:
+          type: number
+          description: Hourly rate to assign
+        hours:
+          type: number
+          description: Hours to assign
+    PaginatedContractPositionRatesResponse:
+      type: object
+      description: Paginated response for contract positions list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of contract position rates
+        perPage:
+          type:
+          - string
+          - integer
+          description: Number of items per page
+        page:
+          type:
+          - string
+          - integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of contract positions for the current page
+          items:
+            $ref: '#/components/schemas/ContractPositionRate'
+      example:
+        total: '1'
+        perPage: 20
+        page: 1
+        lastPage: 1
+        data:
+        - id: 1
+          user_positions_header_id: 1
+          contract_id: 1
+          position_id: 1
+          team_id: 1
+          rate: 1.0
+          hours: 10
+          currency_id: 1
+          currency:
+            id: 1
+            name: USD
+          team:
+            id: 1
+            name: Team 1
+            workspace_id: null
+          position:
+            id: 1
+            name: User Position 1
+    ContractPositionRate:
+      type: object
+      description: Contract position rate configuration
+      properties:
+        id:
+          type: integer
+          description: Contract position rate ID
+        user_positions_header_id:
+          type: integer
+          description: User positions header ID
+        contract_id:
+          type: integer
+          description: Contract ID
+        position_id:
+          type: integer
+          description: Position ID
+        team_id:
+          type: integer
+          description: Team ID
+        currency_id:
+          type: integer
+          description: Currency ID
+        rate:
+          type: number
+          description: Configured hourly rate
+        hours:
+          type: number
+          description: Configured contract hours
+        team:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: Team ID
+            name:
+              type: string
+              description: Team name
+        currency:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: Currency ID
+            name:
+              type: string
+              description: Currency name
+        position:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: Position Id
+            name:
+              type: string
+              description: Position name
+            seniority:
+              type: string
+              description: Seniority name
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

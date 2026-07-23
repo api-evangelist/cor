@@ -1,0 +1,266 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Contracts Users API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Contracts Users
+paths:
+  /contracts/{contract_id}/users:
+    post:
+      tags:
+      - Contracts Users
+      summary: Attach users to a contract
+      description: Attaches one or more users to a contract, each with one or more date ranges.
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractAttachUsersInput'
+            example:
+              users:
+              - id: 123
+                dates:
+                - start: '2026-01-01'
+                  end: '2026-02-01'
+                - start: '2026-01-01'
+                  end: '2026-02-02'
+      responses:
+        '200':
+          description: Users attached to contract with full or partial success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractAttachUsersResponse'
+              example:
+                status: partial_success
+                company_id: 999
+                contract_id: 777
+                records_received: 8
+                records_created: 2
+                records_rejected: 8
+                assigned:
+                - id: 501
+                  user_id: 88001
+                  start_date: '2024-01-01T00:00:00.000Z'
+                  end_date: '2024-12-31T00:00:00.000Z'
+                - id: 502
+                  user_id: 88001
+                  start_date: '2024-03-01T00:00:00.000Z'
+                  end_date: '2024-06-30T00:00:00.000Z'
+                errors:
+                - id: 88001
+                  dates:
+                  - start: '2024-06-01'
+                    end: '2024-04-01'
+                    message: Date malformatted. Start date must be before end date
+                  - start: null
+                    end: null
+                    message: Date malformatted
+                  - start: '2024-02-01'
+                    end: null
+                    message: Date malformatted. Start and end date are required
+                  - start: not-a-date
+                    end: '2024-12-31'
+                    message: Invalid date
+                  - start: '1990-01-01'
+                    end: '1990-06-30'
+                    message: Invalid contract periods. Range must be within contract start and end dates
+                  message: Partial success. Some dates were rejected
+                - id: hello
+                  dates:
+                  - start: '2024-01-01'
+                    end: '2024-12-31'
+                  message: User malformatted
+                - id: 88002
+                  start: '2024-01-01'
+                  end: '2024-12-31'
+                  message: Legacy format detected. Use "dates" array instead of "start" and "end" fields
+                - id: 88003
+                  dates: []
+                  message: Date malformatted or empty
+                - id: 88004
+                  dates:
+                  - start: '2024-07-01'
+                    end: '2024-07-01'
+                    message: Date malformatted. Start date must be before end date
+                  message: Dates are malformatted or empty
+                - id: 88005
+                  dates:
+                  - start: null
+                    end: null
+                    message: Date malformatted
+                  message: Partial success. Some dates were rejected
+                - id: 999999
+                  dates:
+                  - start: '2024-01-01'
+                    end: '2024-12-31'
+                  message: User malformatted
+                - id: 88005
+                  dates:
+                  - start: '2024-01-01'
+                    end: '2024-06-30'
+                  message: User malformatted
+components:
+  schemas:
+    ContractAttachUsersInput:
+      type: object
+      required:
+      - users
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContractAttachUsersUserInput'
+    ContractUserAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Assignment ID
+        user_id:
+          type: integer
+          description: User ID
+        contract_id:
+          type: integer
+          description: Contract ID
+        company_id:
+          type: integer
+          description: Company ID
+        start_date:
+          type: string
+          format: date-time
+          description: Assignment start date-time
+        end_date:
+          type: string
+          format: date-time
+          description: Assignment end date-time
+    ContractAttachUsersResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - partial_success
+          - failure
+          description: Result status for attach operation
+        company_id:
+          type: integer
+          description: Company ID
+        contract_id:
+          type: integer
+          description: Contract ID
+        records_received:
+          type: integer
+          description: Total number of date records received
+        records_created:
+          type: integer
+          description: Total number of date records successfully created
+        records_rejected:
+          type: integer
+          description: Total number of date records rejected
+        user_ids:
+          type: array
+          items:
+            type: integer
+          description: Array of user IDs that were successfully assigned to the contract
+        assigned:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContractUserAssignment'
+          description: Array of user assignments for the contract
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContractAttachUsersError'
+          description: Array of user assignments that failed to be assigned to the contract
+    ContractAttachUsersDateInput:
+      type: object
+      required:
+      - start
+      - end
+      properties:
+        start:
+          type: string
+          format: date
+          description: Assignment start date
+        end:
+          type: string
+          format: date
+          description: Assignment end date
+    ContractAttachUsersErrorDate:
+      type: object
+      properties:
+        start:
+          type:
+          - string
+          - 'null'
+          format: date
+        end:
+          type:
+          - string
+          - 'null'
+          format: date
+        message:
+          type: string
+    ContractAttachUsersUserInput:
+      type: object
+      required:
+      - id
+      - dates
+      properties:
+        id:
+          type: integer
+          description: User ID
+        dates:
+          type: array
+          description: Date ranges to assign for the user
+          items:
+            $ref: '#/components/schemas/ContractAttachUsersDateInput'
+    ContractAttachUsersError:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - string
+          description: User ID that contains rejected dates
+        dates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContractAttachUsersErrorDate'
+        start:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Legacy start date field used in malformed payloads
+        end:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Legacy end date field used in malformed payloads
+        message:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

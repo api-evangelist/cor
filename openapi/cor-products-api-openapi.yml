@@ -1,0 +1,185 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Products API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Products
+paths:
+  /products:
+    get:
+      tags:
+      - Products
+      summary: Get Products
+      description: Retrieves a paginated list of products. By default, responses are paginated with 20 items per page.
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type:
+          - integer
+          - boolean
+          default: 1
+        description: 'Page number (default: 1). Set to `false` to disable pagination.'
+      - name: perPage
+        in: query
+        schema:
+          type: integer
+          default: 20
+        description: 'Number of items per page (default: 20).'
+      responses:
+        '200':
+          description: Paginated list of products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductsResponse'
+    post:
+      tags:
+      - Products
+      summary: Create a product
+      description: Create a new product entity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInput'
+      responses:
+        '200':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  /products/{product_id}:
+    get:
+      tags:
+      - Products
+      summary: Get product by ID
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+    put:
+      tags:
+      - Products
+      summary: Update a product
+      description: Update a product entity.
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Product Name
+                client_id:
+                  type: integer
+                  description: Client ID
+                brand_id:
+                  type: integer
+                  description: Brand ID
+      responses:
+        '200':
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+    delete:
+      tags:
+      - Products
+      summary: Delete a product
+      description: Destroy a product entity.
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Product deleted successfully
+components:
+  schemas:
+    PaginatedProductsResponse:
+      type: object
+      description: Paginated response for products list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of products
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of products for the current page
+          items:
+            $ref: '#/components/schemas/Product'
+    ProductInput:
+      type: object
+      required:
+      - name
+      - client_id
+      - brand_id
+      properties:
+        name:
+          type: string
+          description: Product Name
+        client_id:
+          type: integer
+          description: Client ID
+        brand_id:
+          type: integer
+          description: Brand ID
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        client_id:
+          type: integer
+        brand_id:
+          type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

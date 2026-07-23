@@ -1,0 +1,245 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Fees API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Fees
+paths:
+  /clients/{client_id}/fees:
+    get:
+      tags:
+      - Fees
+      summary: Get Fees from a client
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of fees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fee'
+    post:
+      tags:
+      - Fees
+      summary: Create a fee
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeeInput'
+      responses:
+        '200':
+          description: Fee created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fee'
+  /clients/{client_id}/fees/{fee_id}:
+    put:
+      tags:
+      - Fees
+      summary: Update fee
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: fee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeeInput'
+      responses:
+        '200':
+          description: Fee updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fee'
+  /clients/{client_id}/fees/{fee_id}/historicals:
+    get:
+      tags:
+      - Fees
+      summary: Get Historical fees
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: fee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Historical fees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fee'
+  /fees:
+    get:
+      tags:
+      - Fees
+      summary: Get Fees
+      description: Retrieves a paginated list of fees. By default, responses are paginated with 20 items per page.
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type:
+          - integer
+          - boolean
+          default: 1
+        description: 'Page number (default: 1). Set to `false` to disable pagination.'
+      - name: perPage
+        in: query
+        schema:
+          type: integer
+          default: 20
+        description: 'Number of items per page (default: 20).'
+      responses:
+        '200':
+          description: Paginated list of fees
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedFeesResponse'
+components:
+  schemas:
+    PaginatedFeesResponse:
+      type: object
+      description: Paginated response for fees list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of fees
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of fees for the current page
+          items:
+            $ref: '#/components/schemas/Fee'
+    Fee:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        estimate:
+          type: number
+          format: float
+        work_order:
+          type: string
+        description:
+          type: string
+        frequency:
+          type: integer
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+        estimated_time:
+          type: integer
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+        currency_id:
+          type: integer
+    FeeInput:
+      type: object
+      required:
+      - name
+      - estimate
+      - work_order
+      properties:
+        name:
+          type: string
+          description: Name of fee
+        estimate:
+          type: number
+          format: float
+          description: Estimate
+        work_order:
+          type: string
+          description: Work order
+        description:
+          type: string
+          description: Description
+        frequency:
+          type: integer
+          description: Frequency
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          description: Status
+        estimated_time:
+          type: integer
+          description: Estimated time in hours
+        start:
+          type: string
+          format: date
+          description: Start date
+        end:
+          type: string
+          format: date
+          description: End date
+        currency_id:
+          type: integer
+          description: Currency of fee
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

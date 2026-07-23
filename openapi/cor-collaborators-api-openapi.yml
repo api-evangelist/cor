@@ -1,0 +1,163 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Collaborators API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Collaborators
+paths:
+  /projects/{project_id}/collaborators:
+    get:
+      tags:
+      - Collaborators
+      summary: Get project collaborators
+      description: Get users and teams collaborators from project.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of project collaborators
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectCollaborator'
+        '400':
+          description: Validation error (e.g. project not found or not in company)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: CORCustomError
+                  code:
+                    type: string
+                    example: PC001
+                  message:
+                    type: string
+    post:
+      tags:
+      - Collaborators
+      summary: Add project collaborators
+      description: Add individual collaborators to project.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                usersIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: Array of user IDs to add as collaborators
+      responses:
+        '201':
+          description: Collaborators added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Collaborators added successfully
+        '400':
+          description: Validation error (e.g. project or users invalid)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: CORCustomError
+                  code:
+                    type: string
+                    example: PC001
+                  message:
+                    type: string
+  /projects/{project_id}/collaborators/{user_id}:
+    delete:
+      tags:
+      - Collaborators
+      summary: Delete project collaborator
+      description: Delete individual collaborator from project.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Collaborator deleted successfully
+        '400':
+          description: Validation error (e.g. project or user not found)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: CORCustomError
+                  code:
+                    type: string
+                    example: PC001
+                  message:
+                    type: string
+components:
+  schemas:
+    ProjectCollaborator:
+      type: object
+      description: Collaborator item returned by GET /projects/{project_id}/collaborators
+      properties:
+        id:
+          type: integer
+          description: User ID
+        first_name:
+          type: string
+          description: User first name
+        last_name:
+          type: string
+          description: User last name
+        picture:
+          type: string
+          nullable: true
+          description: Profile picture filename or URL
+        remaining_hours:
+          type: number
+          description: Remaining hours for the project
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

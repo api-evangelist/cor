@@ -1,0 +1,505 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments User Leaves API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: User Leaves
+paths:
+  /user/leaves:
+    get:
+      tags:
+      - User Leaves
+      summary: Get User Leaves
+      description: Gets user leaves for specified users with pagination support.
+      parameters:
+      - name: usersId
+        in: query
+        required: true
+        schema:
+          type: integer
+        description: User ID to get leaves for
+        example: 8555
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          default: 1
+        description: Pagination offset
+        example: 1
+      - name: size
+        in: query
+        schema:
+          type: integer
+          default: 10
+        description: Number of results per page
+        example: 10
+      responses:
+        '200':
+          description: List of leaves with their associated leave types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Leave'
+              example:
+              - id: 14050
+                user_id: 8555
+                company_id: 2336
+                leave_type_id: 1498
+                start: '2024-10-18T03:00:00.000Z'
+                end: '2024-10-18T03:30:00.000Z'
+                created_at: '2024-10-21 14:19:01'
+                updated_at: '2024-10-21 14:19:23'
+                deleted_at: null
+                all_day: false
+                leaveType:
+                  id: 1498
+                  name: Custom Leave
+                  type_code: UL1498
+                  company_id: 2336
+                  created_at: '2024-10-21 14:18:36'
+                  updated_at: '2024-10-21 14:18:36'
+                  deleted_at: null
+                  icon_name: Futbol
+              - id: 10030
+                user_id: 8555
+                company_id: 2336
+                leave_type_id: 12
+                start: '2024-08-29T13:00:00.000Z'
+                end: '2024-08-29T15:00:00.000Z'
+                created_at: '2024-08-29 13:44:13'
+                updated_at: '2024-08-29 13:44:13'
+                deleted_at: null
+                all_day: false
+                leaveType:
+                  id: 12
+                  name: flexday
+                  type_code: UL12
+                  company_id: null
+                  created_at: '2022-09-14 12:09:10'
+                  updated_at: '2024-07-15 17:16:56'
+                  deleted_at: null
+                  icon_name: Loveseat
+    post:
+      tags:
+      - User Leaves
+      summary: Create User Leave
+      description: 'Creates a new user leave.
+
+
+        ⚠️ **Important:**
+
+        - Dates must be sent in UTC format (e.g., `2024-11-18T03:00:00Z`)
+
+        - Dates cannot overlap with existing leaves for the same user
+
+        - If there is an existing date between the submitted dates, the request will not be saved'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveInput'
+            example:
+              userId: 8555
+              leaveTypeId: 11
+              start: '2024-11-18T03:00:00Z'
+              end: '2024-11-19T02:59:00Z'
+              allDay: true
+      responses:
+        '200':
+          description: Leave created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Leave'
+              example:
+                user_id: 8555
+                company_id: 2336
+                leave_type_id: 11
+                start: '2024-11-18T03:00:00Z'
+                end: '2024-11-19T02:59:00Z'
+                created_at: '2024-11-07 22:11:30'
+                updated_at: '2024-11-07 22:11:30'
+                all_day: false
+                id: 16332
+    delete:
+      tags:
+      - User Leaves
+      summary: Delete User Leave
+      description: Deletes a user leave by providing the leave ID and user ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveDeleteInput'
+            example:
+              id: 15489
+              userId: 8555
+      responses:
+        '200':
+          description: Leave deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+              example:
+                id: 15489
+  /user/leaves/{licenseId}:
+    put:
+      tags:
+      - User Leaves
+      summary: Update User Leave
+      description: Updates an existing user leave. Dates must be in UTC format.
+      parameters:
+      - name: licenseId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: User Leave ID to update
+        example: 16332
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveUpdateInput'
+            example:
+              userId: 8555
+              leaveTypeId: 12
+              start: '2024-11-18T03:00:00Z'
+              end: '2024-11-19T05:00:00Z'
+      responses:
+        '200':
+          description: Leave updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Leave'
+              example:
+                id: 16332
+                user_id: 8555
+                company_id: 2336
+                leave_type_id: 12
+                start: '2024-11-18T03:00:00Z'
+                end: '2024-11-19T05:00:00Z'
+                created_at: '2024-11-07 22:11:30'
+                updated_at: '2024-11-07 22:20:48'
+                deleted_at: null
+                all_day: false
+  /company/leaves-types:
+    get:
+      tags:
+      - User Leaves
+      summary: Get Leave Types
+      description: Retrieves a paginated list of default and custom leave types for your company. By default, responses are paginated with 20 items per page.
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type:
+          - integer
+          - boolean
+          default: 1
+        description: 'Page number (default: 1). Set to `false` to disable pagination.'
+      - name: perPage
+        in: query
+        schema:
+          type: integer
+          default: 20
+        description: 'Number of items per page (default: 20).'
+      responses:
+        '200':
+          description: Paginated list of leave types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedLeaveTypesResponse'
+              example:
+                total: 2
+                perPage: 20
+                page: 1
+                lastPage: 1
+                data:
+                - id: 111
+                  name: Custom leave
+                  type_code: CODE
+                  company_id: 111
+                  created_at: '2024-12-06T13:02:53.000Z'
+                  updated_at: '2024-12-06T13:02:53.000Z'
+                  deleted_at: null
+                  icon_name: icon name
+                - id: 12
+                  name: flexday
+                  type_code: UL12
+                  company_id: null
+                  created_at: '2022-09-14T12:09:10.000Z'
+                  updated_at: '2024-07-15T17:16:56.000Z'
+                  deleted_at: null
+                  icon_name: Loveseat
+    post:
+      tags:
+      - User Leaves
+      summary: Create Leave Type
+      description: Creates a new custom leave type for your company.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveTypeInput'
+            example:
+              name: Custom leave type
+      responses:
+        '200':
+          description: Leave type created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveType'
+              example:
+                name: Custom leave type
+                company_id: 111
+                icon_name: ICON
+                created_at: '2024-12-10 17:57:12'
+                updated_at: '2024-12-10 17:57:12'
+                id: 111
+    delete:
+      tags:
+      - User Leaves
+      summary: Delete Leave Type
+      description: Deletes a custom leave type. Only custom leave types (with a company_id) can be deleted.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveTypeDeleteInput'
+            example:
+              id: 111
+      responses:
+        '200':
+          description: Leave type deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+              example:
+                id: 111
+  /company/leaves-types/{leaveTypeId}:
+    put:
+      tags:
+      - User Leaves
+      summary: Update Leave Type
+      description: Updates a custom leave type. Only the name can be modified.
+      parameters:
+      - name: leaveTypeId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Leave type ID to update
+        example: 111
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveTypeInput'
+            example:
+              name: Custom type - edited
+      responses:
+        '200':
+          description: Leave type updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveType'
+              example:
+                id: 111
+                name: Custom type - edited
+                type_code: CODE
+                company_id: 1111
+                created_at: '2024-12-10T17:57:12.000Z'
+                updated_at: '2024-12-10T18:19:13.000Z'
+                deleted_at: null
+                icon_name: ICON
+components:
+  schemas:
+    LeaveUpdateInput:
+      type: object
+      required:
+      - userId
+      - leaveTypeId
+      - start
+      - end
+      properties:
+        userId:
+          type: integer
+          description: User ID
+        leaveTypeId:
+          type: integer
+          description: Leave type ID
+        start:
+          type: string
+          format: date-time
+          description: Start date in UTC format
+        end:
+          type: string
+          format: date-time
+          description: End date in UTC format
+    LeaveInput:
+      type: object
+      required:
+      - userId
+      - leaveTypeId
+      - start
+      - end
+      properties:
+        userId:
+          type: integer
+          description: User ID
+        leaveTypeId:
+          type: integer
+          description: Leave type ID
+        start:
+          type: string
+          format: date-time
+          description: Start date in UTC format (e.g., 2024-11-18T03:00:00Z)
+        end:
+          type: string
+          format: date-time
+          description: End date in UTC format
+        allDay:
+          type: boolean
+          description: Whether the leave is for the entire day
+          default: false
+    LeaveDeleteInput:
+      type: object
+      required:
+      - id
+      - userId
+      properties:
+        id:
+          type: integer
+          description: Leave ID to delete
+        userId:
+          type: integer
+          description: User ID
+    Leave:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        company_id:
+          type: integer
+        leave_type_id:
+          type: integer
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        all_day:
+          type: boolean
+        leaveType:
+          $ref: '#/components/schemas/LeaveType'
+    PaginatedLeaveTypesResponse:
+      type: object
+      description: Paginated response for leave types list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of leave types
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of leave types for the current page
+          items:
+            $ref: '#/components/schemas/LeaveType'
+    LeaveType:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type_code:
+          type: string
+        company_id:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        icon_name:
+          type: string
+    LeaveTypeInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the leave type
+    LeaveTypeDeleteInput:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: integer
+          description: Leave type ID to delete
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

@@ -1,0 +1,393 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments User Positions API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: User Positions
+paths:
+  /userPosition:
+    post:
+      tags:
+      - User Positions
+      summary: Create a user position
+      description: 'Creates a new user position.
+
+
+        If company has the feature flag to manage positions by labels enabled, Field `segmentLabel` is required. For companies without this feature enabled, `segmentLabel` is ignored.
+
+
+        Fied `company_id` is automatically set from the authenticated user''s company.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPositionInput'
+      responses:
+        '200':
+          description: User position created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPosition'
+        '400':
+          description: Validation error or missing segmentLabel when feature flag is enabled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                validationError:
+                  value:
+                    status: 400
+                    name: CORCustomError
+                    code: F010
+                    message: Validation error message
+                missingSegmentLabel:
+                  value:
+                    status: 400
+                    name: CORCustomError
+                    code: UP001
+                    message: Segment label is required
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /userPosition/{id}:
+    put:
+      tags:
+      - User Positions
+      summary: Update a user position
+      description: 'Updates an existing user position.
+
+
+        If company has the feature flag to manage positions by labels enabled, field `segmentLabel` is required and will be used to group the position by label.
+
+
+        All fields in the request body are optional. Only provided fields will be updated.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: User position ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPositionUpdateInput'
+      responses:
+        '200':
+          description: User position updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPosition'
+        '400':
+          description: Validation error or missing segmentLabel when feature flag is enabled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                validationError:
+                  value:
+                    status: 400
+                    name: CORCustomError
+                    code: UC010
+                    message: Validation error message
+                missingSegmentLabel:
+                  value:
+                    status: 400
+                    name: CORCustomError
+                    code: UP001
+                    message: Segment label is required
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /userPosition/getPositionsOnly:
+    get:
+      tags:
+      - User Positions
+      summary: Get active user positions
+      description: 'Returns all active user positions for the authenticated user''s company. Only active positions and active categories are returned. The company scope always comes from the authenticated user and cannot be set manually.
+
+
+        Results are ordered by category name, then by position name. This endpoint does not paginate.
+
+
+        **Query parameters**
+
+
+        - **`lang`** (optional): Language for localized names. If omitted, uses the authenticated user''s configured language; if none is set, defaults to **EN**. Examples: `EN`, `ES`, `BR`, `FR`.
+
+        - **`groupedByCategory`** (optional): When present with a **truthy** value, returns positions grouped by category. When omitted or falsy, returns a flat array. For predictable behavior, use `groupedByCategory=true` to group, and omit the parameter for a flat list.'
+      parameters:
+      - name: lang
+        in: query
+        required: false
+        description: Language code for position and category names. Defaults to the authenticated user's language, or EN if not set.
+        schema:
+          type: string
+          example: ES
+      - name: groupedByCategory
+        in: query
+        required: false
+        description: If truthy, returns positions grouped by category. Omit or use a falsy value for a flat list.
+        schema:
+          type: boolean
+          example: true
+      responses:
+        '200':
+          description: Active positions as a flat list, or grouped by category when `groupedByCategory` is truthy
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - title: Flat list
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/UserPositionActiveFlatItem'
+                - title: Grouped by category
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/UserPositionsGroupedByCategoryItem'
+              examples:
+                Flat list:
+                  summary: Flat list
+                  description: GET /userPosition/getPositionsOnly?lang=ES
+                  value:
+                  - id: 101
+                    name: Diseñador Senior
+                    category_id: 10
+                    category_name: Diseño
+                  - id: 102
+                    name: Desarrollador Semi Senior
+                    category_id: 11
+                    category_name: Desarrollo
+                Grouped by category:
+                  summary: Grouped by category
+                  description: GET /userPosition/getPositionsOnly?lang=ES&groupedByCategory=true
+                  value:
+                  - categoryName: Desarrollo
+                    categoryId: 11
+                    positions:
+                    - id: 102
+                      name: Desarrollador Semi Senior
+                  - categoryName: Diseño
+                    categoryId: 10
+                    positions:
+                    - id: 101
+                      name: Diseñador Senior
+        '401':
+          description: Unauthorized — missing or invalid access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: 401
+                message: Unauthorized
+  /userPosition/labels/groupers:
+    get:
+      tags:
+      - User Positions
+      summary: Get position segment labels
+      description: 'Returns list of segment labels used to group user positions.
+
+
+        This endpoint is only available for companies with feature flag to manage positions by labels enabled. The endpoint requires authentication and will return a 403 error if the feature is not enabled for company.'
+      x-mint:
+        content: '<Warning>
+
+
+          These labels are not user positions (e.g., "Backend Developer", "Analista de datos"). They are the classification criteria used to group positions (e.g., by seniority, area, or department). To retrieve actual user positions grouped by category, use [GET /userPosition/getPositionsOnly](/api-reference/user-positions/get-active-user-positions).
+
+
+          </Warning>'
+      parameters:
+      - name: type
+        in: query
+        required: true
+        description: Defines whether labels are retrieved for positions or categories. Must be 'c' for categories or 'p' for positions
+        schema:
+          type: string
+          enum:
+          - c
+          - p
+          example: p
+      responses:
+        '200':
+          description: List of segment labels
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SegmentLabel'
+        '400':
+          description: Invalid type parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: 400
+                name: CORCustomError
+                code: CTR002
+                message: Invalid type data
+        '403':
+          description: Feature flag to manage positions by labels not enabled for company
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    SegmentLabel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Label ID
+        name:
+          type: string
+          description: Label name
+    UserPositionInput:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        name:
+          type: string
+          description: Position name. Must be unique within the company and pass validation rules.
+        type:
+          type: string
+          enum:
+          - C
+          - P
+          description: 'Type of position: ''C'' for category, ''P'' for position'
+        rate:
+          type: number
+          description: Base rate for the position
+        seniority:
+          type: string
+          nullable: true
+          description: Seniority level of the position
+        user_position_category_id:
+          type: integer
+          nullable: true
+          description: ID of the parent category (only for positions, not categories). This field is required if you need to see positions in capacity planning and positions list
+        segmentLabel:
+          type: string
+          nullable: true
+          description: Segment label used to group positions. Required only if company has feature flag to manage positions by labels enabled. Ignored if feature flag is not enabled.
+    UserPositionsGroupedByCategoryItem:
+      type: object
+      description: Category bucket when `groupedByCategory` is truthy
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: integer
+        positions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserPositionActiveInCategory'
+    UserPositionActiveInCategory:
+      type: object
+      description: Position object inside a category group
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    UserPosition:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        user_position_category_id:
+          type: number
+        type:
+          type: string
+          enum:
+          - C
+          - P
+          description: 'Type of position: ''C'' for category, ''P'' for position'
+        rate:
+          type: integer
+        seniority:
+          type: string
+        company_id:
+          type: integer
+    UserPositionUpdateInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Position name. Must be unique within the company and pass validation rules if provided.
+        rate:
+          type: number
+          description: Base rate for the position
+        seniority:
+          type: string
+          nullable: true
+          description: Seniority level of the position
+        segmentLabel:
+          type: string
+          nullable: true
+          description: Segment label used to group positions. Required only if company has feature flag to manage positions by labels enabled. Ignored if feature flag is not enabled.
+    UserPositionActiveFlatItem:
+      type: object
+      description: Active position row in flat list responses
+      properties:
+        id:
+          type: integer
+          description: Position ID
+        name:
+          type: string
+          description: Position name (localized when `lang` is used)
+        category_id:
+          type: integer
+          description: Parent category ID
+        category_name:
+          type: string
+          description: Category name (localized when `lang` is used)
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: integer
+          format: int32
+        message:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic

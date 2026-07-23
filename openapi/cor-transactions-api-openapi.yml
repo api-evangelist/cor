@@ -1,0 +1,369 @@
+openapi: 3.1.0
+info:
+  title: COR Attachments Transactions API
+  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  version: 1.0.0
+servers:
+- url: https://api.projectcor.com/v1
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Transactions
+paths:
+  /transactions:
+    get:
+      tags:
+      - Transactions
+      summary: Get transactions
+      description: Retrieves a paginated list of transactions. By default, responses are paginated with 20 items per page.
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type:
+          - integer
+          - boolean
+          default: 1
+        description: 'Page number (default: 1). Set to `false` to disable pagination.'
+      - name: perPage
+        in: query
+        schema:
+          type: integer
+          default: 20
+        description: 'Number of items per page (default: 20).'
+      - name: filters
+        in: query
+        schema:
+          type: string
+        description: URL-encoded JSON object with filter criteria.
+      responses:
+        '200':
+          description: Paginated list of transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTransactionsResponse'
+    post:
+      tags:
+      - Transactions
+      summary: Create transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInput'
+      responses:
+        '200':
+          description: Transaction created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+  /transactions/{transaction_id}:
+    put:
+      tags:
+      - Transactions
+      summary: Update transaction
+      parameters:
+      - name: transaction_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInput'
+      responses:
+        '200':
+          description: Transaction updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+    delete:
+      tags:
+      - Transactions
+      summary: Delete transaction
+      parameters:
+      - name: transaction_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Transaction deleted successfully
+  /transactions/total:
+    get:
+      tags:
+      - Transactions
+      summary: Get Total
+      responses:
+        '200':
+          description: Transaction totals
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: number
+  /transaction/{transaction_id}/transactionItems:
+    delete:
+      tags:
+      - Transactions
+      summary: Delete transaction items
+      parameters:
+      - name: transaction_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Transaction items deleted successfully
+    post:
+      tags:
+      - Transactions
+      summary: Create transaction items
+      parameters:
+      - name: transaction_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionItemInput'
+      responses:
+        '200':
+          description: Transaction item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionItem'
+  /transaction/{transaction_id}/transactionItems/{transaction_item_id}:
+    put:
+      tags:
+      - Transactions
+      summary: Update transaction item
+      parameters:
+      - name: transaction_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: transaction_item_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionItemInput'
+      responses:
+        '200':
+          description: Transaction item updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionItem'
+  /transactions/{transaction_item_id}/suggest-allocation:
+    get:
+      tags:
+      - Transactions
+      summary: Get Suggest Allocation
+      parameters:
+      - name: transaction_item_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Suggested allocation
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    TransactionItemInput:
+      type: object
+      required:
+      - description
+      - amount
+      - status
+      - transaction_id
+      - company_id
+      properties:
+        description:
+          type: string
+          description: Description
+        client_id:
+          type: integer
+          description: Client ID
+        project_id:
+          type: integer
+          description: Project ID
+        amount:
+          type: number
+          description: Amount
+        status:
+          type: string
+          description: Status
+        transaction_id:
+          type: integer
+          description: Transaction ID
+        company_id:
+          type: integer
+          description: Company ID
+        can_update:
+          type: boolean
+          description: Can update
+        can_delete:
+          type: boolean
+          description: Can delete
+        integrated:
+          type: boolean
+          description: Integrated
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+        date:
+          type: string
+          format: date
+        receipt_number:
+          type: string
+        type:
+          type: string
+        total:
+          type: number
+        currency_change_amount:
+          type: number
+        exchange:
+          type: number
+        source_id:
+          type: integer
+        currency_id:
+          type: integer
+        is_income:
+          type: boolean
+        client_id:
+          type: integer
+        company_id:
+          type: integer
+    TransactionItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        description:
+          type: string
+        client_id:
+          type: integer
+        project_id:
+          type: integer
+        amount:
+          type: number
+        status:
+          type: string
+        transaction_id:
+          type: integer
+        company_id:
+          type: integer
+    TransactionInput:
+      type: object
+      required:
+      - date
+      - type
+      - total
+      - currency_change_amount
+      - exchange
+      - source_id
+      - currency_id
+      properties:
+        date:
+          type: string
+          format: date
+          description: Date
+        receipt_number:
+          type: string
+          description: Receipt number
+        type:
+          type: string
+          description: Type
+        total:
+          type: number
+          description: Total
+        currency_change_amount:
+          type: number
+          description: Currency change amount
+        exchange:
+          type: number
+          description: Exchange
+        source_id:
+          type: integer
+          description: Source ID
+        currency_id:
+          type: integer
+          description: Currency ID
+        is_income:
+          type: boolean
+          description: Is income
+        client_id:
+          type: integer
+          description: Client ID
+        company_id:
+          type: integer
+          description: Company ID
+        can_update:
+          type: boolean
+          description: Can update
+        can_delete:
+          type: boolean
+          description: Can delete
+    PaginatedTransactionsResponse:
+      type: object
+      description: Paginated response for transactions list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of transactions
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of transactions for the current page
+          items:
+            $ref: '#/components/schemas/Transaction'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic
