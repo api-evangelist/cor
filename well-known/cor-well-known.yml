@@ -1,0 +1,29 @@
+generated: '2026-07-18'
+method: probed
+source: probed https://projectcor.com and https://developers.projectcor.com
+note: The projectcor.com apex is behind a SiteGround anti-bot captcha (sgcaptcha),
+  which returns HTTP 202 with a JavaScript challenge page instead of the real resource
+  for automated fetches. No .well-known files were retrievable.
+probes:
+- host: projectcor.com
+  path: /.well-known/security.txt
+  status: 202
+  result: captcha-challenge (not a real security.txt)
+  file: null
+- host: projectcor.com
+  path: /.well-known/openid-configuration
+  status: 202
+  result: captcha-challenge
+  file: null
+- host: developers.projectcor.com
+  path: /.well-known/security.txt
+  status: 404
+  file: null
+- host: developers.projectcor.com
+  path: /.well-known/ai-plugin.json
+  status: 404
+  file: null
+- host: developers.projectcor.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  file: null

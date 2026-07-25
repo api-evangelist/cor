@@ -1,0 +1,22 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/cor-openapi.json, https://developers.projectcor.com/api-reference/introduction, https://developers.projectcor.com/quickstart
+summary: Versioning and lifecycle posture for the COR API.
+versioning:
+  style: URI path
+  current_version: v1
+  spec_version: 1.0.0
+  base_url: https://api.projectcor.com/v1
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecated_operations: []
+  note: No deprecation policy or RFC 8594 Sunset/Deprecation header usage is documented.
+sla:
+  published: false
+status_page:
+  published: false
+  note: No public status page (statuspage.io / status.projectcor.com) was found.
+changelog:
+  published: false
+  note: The developer docs do not publish a dated API changelog.

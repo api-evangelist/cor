@@ -1,0 +1,37 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cor-openapi.json, openapi/cor-resource-allocation-openapi.json, https://developers.projectcor.com/api-reference/auth
+summary: Cross-cutting standards conformance asserted from the COR OpenAPI specs and docs.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: COR issues JWT access tokens via OAuth 2.0 flows (client_credentials,
+    authorization_code, password, refresh_token) at /oauth/token.
+- id: jwt
+  conforms: true
+  evidence: bearerAuth securityScheme declares bearerFormat JWT; token responses
+    return a JWT access_token.
+- id: oidc
+  conforms: false
+  evidence: No OpenID Connect discovery document or id_token flow is published.
+- id: rfc9457
+  conforms: false
+  evidence: Errors use a custom CORCustomError envelope (status/name/code/message),
+    not application/problem+json.
+- id: pagination
+  conforms: true
+  evidence: List endpoints use page/perPage query parameters with a default page
+    size of 20.
+- id: idempotency
+  conforms: false
+  evidence: No Idempotency-Key header is documented.
+- id: json:api
+  conforms: false
+  evidence: Responses are plain JSON/XML, not JSON:API media type.
+- id: openapi
+  conforms: true
+  evidence: Two OpenAPI 3.1.0 specifications are published (core API and Resource
+    Allocation API).
+- id: webhooks
+  conforms: false
+  evidence: No webhook or event-subscription surface is documented.

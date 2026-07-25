@@ -1,0 +1,30 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay for COR API
+  version: 1.0.0
+x-generated: '2026-07-18'
+x-method: generated
+x-source: openapi/cor-openapi.json
+extends: ../openapi/cor-openapi.json
+actions:
+- target: $.info
+  update:
+    x-api-evangelist:
+      slug: cor
+      provider: COR
+      category: agency-management
+      enriched: '2026-07-18'
+    x-authentication: OAuth 2.0 bearer JWT via /oauth/token
+    x-error-envelope: CORCustomError (status/name/code/message), non-RFC9457
+    x-pagination: page/perPage query params, default 20 per page
+    x-mcp-server: https://mcp.projectcor.com/mcp
+- target: $.info.contact
+  update:
+    name: COR Developer Support
+    url: https://developers.projectcor.com
+- target: $
+  update:
+    x-conventions: ../conventions/cor-conventions.yml
+    x-errors: ../errors/cor-problem-types.yml
+    x-lifecycle: ../lifecycle/cor-lifecycle.yml
+    x-authentication-profile: ../authentication/cor-authentication.yml

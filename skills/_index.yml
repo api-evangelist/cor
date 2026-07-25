@@ -1,0 +1,11 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/cor-openapi.json
+api: COR API v1
+skills:
+- name: cor-log-time
+  file: cor-log-time.md
+  description: Log and review time entries (hours) against projects and tasks.
+- name: cor-manage-project
+  file: cor-manage-project.md
+  description: Create a project, add tasks and collaborators, and post an update message.

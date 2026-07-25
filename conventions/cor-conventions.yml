@@ -1,0 +1,55 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/cor-openapi.json, https://developers.projectcor.com/api-reference/introduction, https://developers.projectcor.com/api-reference/projects/get-projects
+summary: Cross-cutting request/response semantics for the COR API v1.
+authentication:
+  style: 'OAuth 2.0 bearer JWT (Authorization: Bearer <token>)'
+  token_url: https://api.projectcor.com/v1/oauth/token
+  see: authentication/cor-authentication.yml
+content_negotiation:
+  formats:
+  - application/json
+  - application/xml
+  note: COR accepts and returns either JSON or XML.
+pagination:
+  style: page-number
+  params:
+  - name: page
+    in: query
+    description: 1-based page number.
+  - name: perPage
+    in: query
+    description: Items per page (default 20).
+  default_page_size: 20
+  note: List endpoints (projects, tasks, hours, attachments, user leaves, etc.) return
+    paginated collections.
+filtering:
+  param: filters
+  style: JSON-encoded filter object passed as a query string parameter (e.g. filter
+    projects by client, dates, status, health).
+  ordering_param: order
+idempotency:
+  supported: false
+  note: The COR API does not document an Idempotency-Key header; write operations are
+    not declared idempotent beyond standard PUT semantics.
+error_envelope:
+  format: custom
+  schema: CORCustomError
+  fields:
+  - status
+  - name
+  - code
+  - message
+  rfc9457: false
+  see: errors/cor-problem-types.yml
+rate_limiting:
+  documented: true
+  detail: The docs state the API enforces rate limits and clients should handle rate-limit
+    responses, but no specific quota, window, or response-header names are published.
+versioning:
+  style: URI path
+  current: v1
+  base_url: https://api.projectcor.com/v1
+  see: lifecycle/cor-lifecycle.yml
+request_id:
+  documented: false

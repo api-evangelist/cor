@@ -1,25 +1,475 @@
 aid: cor
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/cor.png
 name: COR
-description: COR is a company surfaced as a portfolio company of 500-global and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: COR (COR Global Ltd., projectcor.com) is an AI-powered management platform
+  for advertising and creative agencies that calculates and forecasts project
+  profitability while managing finances, resources, projects, tasks, and time
+  tracking in one real-time workspace. COR publishes a REST API (JSON or XML) for
+  projects, tasks, hours, clients, contracts, transactions, teams, users, and more,
+  a separate Resource Allocation API, and an official hosted MCP server so AI clients
+  can operate a workspace with natural language. Backed by 500 Global.
 url: https://raw.githubusercontent.com/api-evangelist/cor/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - 500-global
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: portfolio-lead-enriched
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
-apis: []
+- Agency Management
+- Project Management
+- Time Tracking
+- Profitability
+- Resource Allocation
+- Professional Services
+- MCP
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: cor:cor-attachments-api
+  name: COR Attachments API
+  description: The Attachments API from COR — 1 operation(s) for attachments.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Attachments
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-attachments-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-auth-api
+  name: COR Auth API
+  description: The Auth API from COR — 5 operation(s) for auth.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-auth-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-brands-api
+  name: COR Brands API
+  description: The Brands API from COR — 2 operation(s) for brands.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Brands
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-brands-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-clients-api
+  name: COR Clients API
+  description: The Clients API from COR — 4 operation(s) for clients.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Clients
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-clients-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-collaborators-api
+  name: COR Collaborators API
+  description: The Collaborators API from COR — 2 operation(s) for collaborators.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Collaborators
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-collaborators-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-contacts-api
+  name: COR Contacts API
+  description: The Contacts API from COR — 3 operation(s) for contacts.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-contacts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-contract-positions-api
+  name: COR Contract Positions API
+  description: The Contract Positions API from COR — 2 operation(s) for contract positions.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Contract Positions
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-contract-positions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-contracts-api
+  name: COR Contracts API
+  description: The Contracts API from COR — 2 operation(s) for contracts.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Contracts
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-contracts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-contracts-users-api
+  name: COR Contracts Users API
+  description: The Contracts Users API from COR — 1 operation(s) for contracts users.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Contracts Users
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-contracts-users-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-costs-api
+  name: COR Costs API
+  description: The Costs API from COR — 2 operation(s) for costs.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Costs
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-costs-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-estimates-api
+  name: COR Estimates API
+  description: The Estimates API from COR — 2 operation(s) for estimates.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Estimates
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-estimates-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-fees-api
+  name: COR Fees API
+  description: The Fees API from COR — 4 operation(s) for fees.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Fees
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-fees-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-hours-api
+  name: COR Hours API
+  description: The Hours API from COR — 6 operation(s) for hours.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Hours
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-hours-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-labels-api
+  name: COR Labels API
+  description: The Labels API from COR — 2 operation(s) for labels.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Labels
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-labels-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-messages-api
+  name: COR Messages API
+  description: The Messages API from COR — 2 operation(s) for messages.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-messages-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-products-api
+  name: COR Products API
+  description: The Products API from COR — 2 operation(s) for products.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-products-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-project-templates-api
+  name: COR Project Templates API
+  description: The Project Templates API from COR — 1 operation(s) for project templates.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Project Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-project-templates-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-projects-api
+  name: COR Projects API
+  description: The Projects API from COR — 14 operation(s) for projects.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-projects-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-ratecards-api
+  name: COR Ratecards API
+  description: The Ratecards API from COR — 3 operation(s) for ratecards.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Ratecards
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-ratecards-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-resource-allocation-api
+  name: COR Resource Allocation API
+  description: The Resource Allocation API from COR — 4 operation(s) for resource allocation.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Resource Allocation
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-resource-allocation-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-tasks-api
+  name: COR Tasks API
+  description: The Tasks API from COR — 8 operation(s) for tasks.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-tasks-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-teams-api
+  name: COR Teams API
+  description: The Teams API from COR — 3 operation(s) for teams.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-teams-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-transactions-api
+  name: COR Transactions API
+  description: The Transactions API from COR — 6 operation(s) for transactions.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-user-leaves-api
+  name: COR User Leaves API
+  description: The User Leaves API from COR — 4 operation(s) for user leaves.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - User Leaves
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-user-leaves-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-user-positions-api
+  name: COR User Positions API
+  description: The User Positions API from COR — 4 operation(s) for user positions.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - User Positions
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-user-positions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-users-api
+  name: COR Users API
+  description: The Users API from COR — 4 operation(s) for users.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-users-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-working-time-api
+  name: COR Working Time API
+  description: The Working Time API from COR — 2 operation(s) for working time.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Working Time
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-working-time-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
 common:
+- type: MCPServer
+  url: mcp/cor-mcp.yml
+- type: LLMsTxt
+  url: llms/cor-llms.txt
+- type: WellKnown
+  url: well-known/cor-well-known.yml
+- type: Authentication
+  url: authentication/cor-authentication.yml
+- type: Conventions
+  url: conventions/cor-conventions.yml
+- type: ErrorCatalog
+  url: errors/cor-problem-types.yml
+- type: Conformance
+  url: conformance/cor-conformance.yml
+- type: Lifecycle
+  url: lifecycle/cor-lifecycle.yml
+- type: DataModel
+  url: data-model/cor-data-model.yml
+- type: DomainSecurity
+  url: security/cor-domain-security.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DeveloperPortal
+  url: https://developers.projectcor.com
+- type: Documentation
+  url: https://developers.projectcor.com/api-reference/introduction
+- type: APIReference
+  url: https://developers.projectcor.com/api-reference/introduction
+- type: GettingStarted
+  url: https://developers.projectcor.com/quickstart
+- type: Pricing
+  url: https://projectcor.com/pricing/
+- type: Blog
+  url: https://projectcor.com/blog/
+- type: Support
+  url: https://cor.zendesk.com/hc/en-us
+- type: TermsOfService
+  url: https://projectcor.com/cor-terms-of-service/
+- type: PrivacyPolicy
+  url: https://projectcor.com/cor-privacy-and-personal-data/
+- type: SignUp
+  url: https://www.projectcor.com
 - type: Website
   url: https://projectcor.com
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

@@ -1,0 +1,46 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cor-openapi.json (4xx/5xx responses), CORCustomError schema
+format: custom
+rfc9457: false
+envelope:
+  schema: CORCustomError
+  media_type: application/json
+  fields:
+  - name: status
+    type: integer
+    description: HTTP status code echoed in the body.
+  - name: name
+    type: string
+    description: Short machine name of the error.
+  - name: code
+    type: string
+    description: Application-specific error code.
+  - name: message
+    type: string
+    description: Human-readable error message.
+status_codes:
+- status: 400
+  title: Bad Request / Validation error
+  meaning: Invalid JSON in a parameter (e.g. order or filters), missing/invalid fields,
+    or a referenced resource not found or not in the company.
+- status: 401
+  title: Unauthorized
+  meaning: Missing, expired, or invalid JWT bearer token.
+- status: 403
+  title: Forbidden
+  meaning: Authenticated user lacks permission for the requested resource or action.
+- status: 404
+  title: Not Found
+  meaning: The requested resource does not exist.
+- status: 417
+  title: Expectation Failed
+  meaning: Request could not be fulfilled as expressed (COR uses 417 for certain
+    business-rule failures).
+- status: 500
+  title: Internal Server Error
+  meaning: Unexpected server-side error.
+notes:
+- Errors are returned in the CORCustomError envelope, not RFC 9457 problem+json.
+- Titles are derived from OpenAPI response descriptions; COR does not publish a
+  dedicated error-code reference page.

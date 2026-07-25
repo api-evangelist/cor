@@ -1,0 +1,195 @@
+# COR API Documentation
+
+## Docs
+
+- [Claude Code setup](https://developers.projectcor.com/ai-tools/claude-code.md): Configure Claude Code for COR API development
+- [Cursor setup](https://developers.projectcor.com/ai-tools/cursor.md): Configure Cursor for COR API development
+- [MCP Server](https://developers.projectcor.com/ai-tools/mcp-server.md): Connect any MCP-compatible AI client to your COR workspace using natural language
+- [Windsurf setup](https://developers.projectcor.com/ai-tools/windsurf.md): Configure Windsurf for COR API development
+- [Get Authenticated User](https://developers.projectcor.com/api-reference/auth/get-authenticated-user.md): Returns information about the currently authenticated user
+- [JWT Authorization by Authorization code](https://developers.projectcor.com/api-reference/auth/jwt-authorization-by-authorization-code.md): The authorization code is obtained by using an authorization server (COR) as an intermediary between the client and resource owner.
+- [JWT Authorization by Client credentials](https://developers.projectcor.com/api-reference/auth/jwt-authorization-by-client-credentials.md): We'll be using the OAuth2 Client Credentials workflow as an authentication strategy and JWTs for the format of the tokens.
+- [JWT Authorization by User Credentials](https://developers.projectcor.com/api-reference/auth/jwt-authorization-by-user-credentials.md)
+- [JWT Refresh Token](https://developers.projectcor.com/api-reference/auth/jwt-refresh-token.md): Refresh the user token
+- [Create a brand](https://developers.projectcor.com/api-reference/brands/create-a-brand.md): Create a new brand entity.
+- [Delete a brand](https://developers.projectcor.com/api-reference/brands/delete-a-brand.md): Destroy a brand entity.
+- [Get brand by ID](https://developers.projectcor.com/api-reference/brands/get-brand-by-id.md)
+- [Get Brands](https://developers.projectcor.com/api-reference/brands/get-brands.md): Retrieves a paginated list of brands. By default, responses are paginated with 20 items per page.
+- [Update a brand](https://developers.projectcor.com/api-reference/brands/update-a-brand.md): Update a brand entity.
+- [Create a new client](https://developers.projectcor.com/api-reference/clients/create-a-new-client.md)
+- [Get client by ID](https://developers.projectcor.com/api-reference/clients/get-client-by-id.md)
+- [Get clients](https://developers.projectcor.com/api-reference/clients/get-clients.md): Retrieves a paginated list of clients. By default, responses are paginated with 20 items per page.
+- [Get clients by name](https://developers.projectcor.com/api-reference/clients/get-clients-by-name.md)
+- [Update client](https://developers.projectcor.com/api-reference/clients/update-client.md)
+- [Create contract position](https://developers.projectcor.com/api-reference/contract-positions/create-contract-position.md): Creates a new position rate for the specified contract.
+- [Get contract positions](https://developers.projectcor.com/api-reference/contract-positions/get-contract-positions.md): Retrieves all positions associated with a contract.
+- [Update contract position](https://developers.projectcor.com/api-reference/contract-positions/update-contract-position.md): Updates rate and/or hours for a contract position.
+- [Attach users to a contract](https://developers.projectcor.com/api-reference/contracts-users/attach-users-to-a-contract.md): Attaches one or more users to a contract, each with one or more date ranges.
+- [Create contract](https://developers.projectcor.com/api-reference/contracts/create-contract.md): Creates a contract using the provided contract identifier.
+- [Delete contract](https://developers.projectcor.com/api-reference/contracts/delete-contract.md): Deletes the specified contract.
+- [Get contracts](https://developers.projectcor.com/api-reference/contracts/get-contracts.md): Retrieves a paginated list of contracts.
+- [Update contract](https://developers.projectcor.com/api-reference/contracts/update-contract.md): Updates the specified contract.
+- [Create a fee](https://developers.projectcor.com/api-reference/fees/create-a-fee.md)
+- [Get Fees](https://developers.projectcor.com/api-reference/fees/get-fees.md): Retrieves a paginated list of fees. By default, responses are paginated with 20 items per page.
+- [Get Fees from a client](https://developers.projectcor.com/api-reference/fees/get-fees-from-a-client.md)
+- [Get Historical fees](https://developers.projectcor.com/api-reference/fees/get-historical-fees.md)
+- [Update fee](https://developers.projectcor.com/api-reference/fees/update-fee.md)
+- [Accept suggested hours](https://developers.projectcor.com/api-reference/hours/accept-suggested-hours.md): datetime: datetime in unix format
+- [Change status](https://developers.projectcor.com/api-reference/hours/change-status.md)
+- [Get Hours](https://developers.projectcor.com/api-reference/hours/get-hours.md): Retrieves a paginated list of time entries. By default, responses are paginated with 20 items per page.
+- [Get Hours By Date](https://developers.projectcor.com/api-reference/hours/get-hours-by-date.md): datetime: datetime in unix format
+- [Post hours](https://developers.projectcor.com/api-reference/hours/post-hours.md)
+- [Status bill change](https://developers.projectcor.com/api-reference/hours/status-bill-change.md)
+- [Update status of weigh hours](https://developers.projectcor.com/api-reference/hours/update-status-of-weigh-hours.md)
+- [Integrations API](https://developers.projectcor.com/api-reference/integrations-introduction.md): Connect external systems with COR through the Integrations API for seamless data synchronization
+- [Create Brand](https://developers.projectcor.com/api-reference/integrations/brands/create.md): Creates a new brand in your COR instance with external ID mapping
+- [Delete Brand](https://developers.projectcor.com/api-reference/integrations/brands/delete.md): Deletes a brand from your COR instance using its external ID
+- [Update Brand](https://developers.projectcor.com/api-reference/integrations/brands/update.md): Updates an existing brand in your COR instance using its external ID
+- [Create Category](https://developers.projectcor.com/api-reference/integrations/categories/create.md): Creates a new position category in your COR instance with external ID mapping
+- [Delete Category](https://developers.projectcor.com/api-reference/integrations/categories/delete.md): Deletes a position category from your COR instance using its external ID
+- [Update Category](https://developers.projectcor.com/api-reference/integrations/categories/update.md): Updates an existing position category in your COR instance using its external ID
+- [Create Client](https://developers.projectcor.com/api-reference/integrations/clients/create.md): Creates a new client in your COR instance with external ID mapping
+- [Delete Client](https://developers.projectcor.com/api-reference/integrations/clients/delete.md): Deletes a client from your COR instance using its external ID
+- [Update Client](https://developers.projectcor.com/api-reference/integrations/clients/update.md): Updates an existing client in your COR instance using its external ID
+- [Attach Users to Contract](https://developers.projectcor.com/api-reference/integrations/contracts/attach-users.md): Associates one or more users with an existing contract
+- [Create Contract](https://developers.projectcor.com/api-reference/integrations/contracts/create.md): Creates a new contract in your COR instance with external ID mapping
+- [Delete Contract](https://developers.projectcor.com/api-reference/integrations/contracts/delete.md): Deletes a contract from your COR instance using its external ID
+- [Detach Users from Contract](https://developers.projectcor.com/api-reference/integrations/contracts/detach-users.md): Removes one or more users from an existing contract
+- [Update Contract](https://developers.projectcor.com/api-reference/integrations/contracts/update.md): Updates an existing contract in your COR instance using its external ID
+- [Create Currency Exchanges](https://developers.projectcor.com/api-reference/integrations/currency-exchanges/create.md): Creates currency exchange rates in batch (up to 20 records per request)
+- [Assign Seniority to Position](https://developers.projectcor.com/api-reference/integrations/positions/assign-seniority.md): Assigns a seniority level to a user position in your COR instance
+- [Create Position](https://developers.projectcor.com/api-reference/integrations/positions/create.md): Creates a new user position in your COR instance with external ID mapping
+- [Delete Position](https://developers.projectcor.com/api-reference/integrations/positions/delete.md): Deletes a user position from your COR instance using its external ID
+- [Update Position](https://developers.projectcor.com/api-reference/integrations/positions/update.md): Updates an existing user position in your COR instance using its external ID
+- [Create Product](https://developers.projectcor.com/api-reference/integrations/products/create.md): Creates a new product in your COR instance with external ID mapping
+- [Delete Product](https://developers.projectcor.com/api-reference/integrations/products/delete.md): Deletes a product from your COR instance using its external ID
+- [Update Product](https://developers.projectcor.com/api-reference/integrations/products/update.md): Updates an existing product in your COR instance using its external ID
+- [Create Project](https://developers.projectcor.com/api-reference/integrations/projects/create.md): Creates a new project in your COR instance with external ID mapping
+- [Delete Project](https://developers.projectcor.com/api-reference/integrations/projects/delete.md): Deletes a project from your COR instance using its external ID
+- [Update Project](https://developers.projectcor.com/api-reference/integrations/projects/update.md): Updates an existing project in your COR instance using its external ID
+- [Create Seniority](https://developers.projectcor.com/api-reference/integrations/seniority/create.md): Creates a new seniority level in your COR instance with external ID mapping
+- [Delete Seniority](https://developers.projectcor.com/api-reference/integrations/seniority/delete.md): Deletes a seniority level from your COR instance using its external ID
+- [Update Seniority](https://developers.projectcor.com/api-reference/integrations/seniority/update.md): Updates an existing seniority level in your COR instance using its external ID
+- [Attach Users to Team](https://developers.projectcor.com/api-reference/integrations/teams/attach-users.md): Associates one or more users with an existing team
+- [Create Team](https://developers.projectcor.com/api-reference/integrations/teams/create.md): Creates a new team in your COR instance with external ID mapping
+- [Delete Team](https://developers.projectcor.com/api-reference/integrations/teams/delete.md): Deletes a team from your COR instance using its external ID
+- [Detach Users from Team](https://developers.projectcor.com/api-reference/integrations/teams/detach-users.md): Removes one or more users from an existing team
+- [Update Team](https://developers.projectcor.com/api-reference/integrations/teams/update.md): Updates an existing team in your COR instance using its external ID
+- [Create Leave Type](https://developers.projectcor.com/api-reference/integrations/user-leaves/create.md): Creates a new leave type in your COR instance with external ID mapping
+- [Create Leave](https://developers.projectcor.com/api-reference/integrations/user-leaves/create-leave.md): Creates a new leave request in your COR instance with external ID mapping
+- [Delete Leave Type](https://developers.projectcor.com/api-reference/integrations/user-leaves/delete.md): Deletes a leave type from your COR instance using its external ID
+- [Delete Leave](https://developers.projectcor.com/api-reference/integrations/user-leaves/delete-leave.md): Deletes a leave request from your COR instance using its external ID
+- [Update Leave Type](https://developers.projectcor.com/api-reference/integrations/user-leaves/update.md): Updates an existing leave type in your COR instance using its external ID
+- [Update Leave](https://developers.projectcor.com/api-reference/integrations/user-leaves/update-leave.md): Updates an existing leave request in your COR instance using its external ID
+- [Assign Users to Position](https://developers.projectcor.com/api-reference/integrations/users/assign-position.md): Assigns multiple users to their respective positions in COR
+- [Attach Workspaces to User](https://developers.projectcor.com/api-reference/integrations/users/attach-workspaces.md): Attaches one or more workspaces to a user in COR
+- [Create User](https://developers.projectcor.com/api-reference/integrations/users/create.md): Creates a new user in your COR instance with external ID mapping
+- [Delete User](https://developers.projectcor.com/api-reference/integrations/users/delete.md): Deletes a user from your COR instance using their external ID
+- [Detach Workspaces from User](https://developers.projectcor.com/api-reference/integrations/users/detach-workspaces.md): Removes workspace access from a user in COR
+- [Update User](https://developers.projectcor.com/api-reference/integrations/users/update.md): Updates an existing user in your COR instance using their external ID
+- [Create Working Time](https://developers.projectcor.com/api-reference/integrations/working-time/create.md): Creates a new working time record in your COR instance
+- [Delete Working Time](https://developers.projectcor.com/api-reference/integrations/working-time/delete.md): Deletes a working time record from your COR instance
+- [Create Workspace](https://developers.projectcor.com/api-reference/integrations/workspaces/create.md): Creates a new workspace in your COR instance with external ID mapping
+- [Update Workspace](https://developers.projectcor.com/api-reference/integrations/workspaces/update.md): Updates an existing workspace in your COR instance using its external ID
+- [Introduction](https://developers.projectcor.com/api-reference/introduction.md): COR API Documentation - Integrate with projectcor.com applications
+- [Get Categories and Labels](https://developers.projectcor.com/api-reference/labels/get-categories-and-labels.md): Returns categories for the company, each with its labels, filtered by which entity type those categories apply to (users, projects, or tasks). Names are returned in the authenticated user's language.
+- [Create a product](https://developers.projectcor.com/api-reference/products/create-a-product.md): Create a new product entity.
+- [Delete a product](https://developers.projectcor.com/api-reference/products/delete-a-product.md): Destroy a product entity.
+- [Get product by ID](https://developers.projectcor.com/api-reference/products/get-product-by-id.md)
+- [Get Products](https://developers.projectcor.com/api-reference/products/get-products.md): Retrieves a paginated list of products. By default, responses are paginated with 20 items per page.
+- [Update a product](https://developers.projectcor.com/api-reference/products/update-a-product.md): Update a product entity.
+- [Get Project Templates](https://developers.projectcor.com/api-reference/project-templates/get-project-templates.md): Retrieves a paginated list of project templates. By default, responses are paginated with 20 items per page.
+- [Project Profitability & Time Estimation](https://developers.projectcor.com/api-reference/projects-profitability.md): Configure how a project estimates time — total hours, by positions, or by categories — and understand income types and ratecards.
+- [Add project collaborators](https://developers.projectcor.com/api-reference/projects/add-project-collaborators.md): Add individual collaborators to project.
+- [Add Project Cost](https://developers.projectcor.com/api-reference/projects/add-project-cost.md): Create an associated project cost
+- [Add Project Estimate](https://developers.projectcor.com/api-reference/projects/add-project-estimate.md): Create an associated project estimates
+- [Create a project](https://developers.projectcor.com/api-reference/projects/create-a-project.md): Create a new project entity.
+- [Delete a project](https://developers.projectcor.com/api-reference/projects/delete-a-project.md): Destroy a project entity.
+- [Delete a Project Estimate](https://developers.projectcor.com/api-reference/projects/delete-a-project-estimate.md): Delete an associated project estimates
+- [Delete project collaborator](https://developers.projectcor.com/api-reference/projects/delete-project-collaborator.md): Delete individual collaborator from project.
+- [Delete Project Cost](https://developers.projectcor.com/api-reference/projects/delete-project-cost.md): Delete an associated project cost
+- [Get attachment by Project](https://developers.projectcor.com/api-reference/projects/get-attachment-by-project.md)
+- [Get messages by project](https://developers.projectcor.com/api-reference/projects/get-messages-by-project.md)
+- [Get project by ID](https://developers.projectcor.com/api-reference/projects/get-project-by-id.md)
+- [Get project collaborators](https://developers.projectcor.com/api-reference/projects/get-project-collaborators.md): Get users and teams collaborators from project.
+- [Get Project Costs](https://developers.projectcor.com/api-reference/projects/get-project-costs.md): Get a list of associated project costs
+- [Get Project Estimates](https://developers.projectcor.com/api-reference/projects/get-project-estimates.md): Get a list of associated project estimates
+- [Get project labels](https://developers.projectcor.com/api-reference/projects/get-project-labels.md): Returns project label categories and available labels for the company (same shape as grouped categories for the project entity type), plus the labels currently assigned to the given project in **`selected`**.
+- [Get project ratecard](https://developers.projectcor.com/api-reference/projects/get-project-ratecard.md): Returns the ratecard currently assigned to the project, or `null` if none is assigned. The ratecard defines pricing configurations (positions, rates, custom percentages) used when `estimated_by_hourly_rates` is enabled.
+- [Get Projects](https://developers.projectcor.com/api-reference/projects/get-projects.md): Retrieves a paginated list of projects for the company. Supports filtering by client, dates, status, health, and more. By default, responses are paginated with 20 items per page.
+- [Get projects by name](https://developers.projectcor.com/api-reference/projects/get-projects-by-name.md)
+- [Post project message](https://developers.projectcor.com/api-reference/projects/post-project-message.md)
+- [Update a project](https://developers.projectcor.com/api-reference/projects/update-a-project.md): Update a project entity. Include only the fields you want to change.
+- [Update a Project Estimate](https://developers.projectcor.com/api-reference/projects/update-a-project-estimate.md): Modify an associated project estimates
+- [Update Project Cost](https://developers.projectcor.com/api-reference/projects/update-project-cost.md): Update an associated project cost
+- [Create a Ratecard](https://developers.projectcor.com/api-reference/ratecards/create-a-ratecard.md): Creates a new ratecard for the current company.
+- [Delete a Ratecard](https://developers.projectcor.com/api-reference/ratecards/delete-a-ratecard.md): Deletes (soft-delete) a ratecard by ID. Returns the deleted ratecard object with `deleted_at` timestamp set.
+- [Get Ratecards](https://developers.projectcor.com/api-reference/ratecards/get-ratecards.md): Retrieves a paginated list of ratecards for the current company. Each ratecard defines pricing configurations such as positions, rates, and custom pricing percentages.
+- [Update a Ratecard](https://developers.projectcor.com/api-reference/ratecards/update-a-ratecard.md): Updates an existing ratecard by ID.
+- [Resource Allocation](https://developers.projectcor.com/api-reference/resource-allocation-introduction.md): Manage user capacity and project allocations with the Resource Allocation API
+- [Delete Allocation](https://developers.projectcor.com/api-reference/resource-allocation/delete-allocation.md): Removes an existing resource allocation.
+- [Get Allocations By Project](https://developers.projectcor.com/api-reference/resource-allocation/get-allocations-by-project.md): Gets information about user allocations for a given project. Returns all users allocated to the project along with their allocation details and allocations in other projects.
+- [Save Allocation](https://developers.projectcor.com/api-reference/resource-allocation/save-allocation.md): Creates a new resource allocation for a user on a project.
+- [Update Allocation](https://developers.projectcor.com/api-reference/resource-allocation/update-allocation.md): Updates an existing resource allocation. Requires both the old allocation data and the new allocation data.
+- [Assign collaborators to a task](https://developers.projectcor.com/api-reference/tasks/assign-collaborators-to-a-task.md): Sets the list of collaborators assigned to a task. The operation is a **sync** — the array provided represents the desired final state. Users present in the array but not yet assigned will be added; users currently assigned but absent from the array will be removed.
+- [Create a task](https://developers.projectcor.com/api-reference/tasks/create-a-task.md)
+- [Create task attachment from external source](https://developers.projectcor.com/api-reference/tasks/create-task-attachment-from-external-source.md): Creates an attachment from an external source (Google Drive, Dropbox, OneDrive).
+- [Delete a Task](https://developers.projectcor.com/api-reference/tasks/delete-a-task.md): Delete a Task
+- [Delete task attachments](https://developers.projectcor.com/api-reference/tasks/delete-task-attachments.md): Deletes one or more attachments from a task.
+- [Get messages by Task](https://developers.projectcor.com/api-reference/tasks/get-messages-by-task.md)
+- [Get task attachments](https://developers.projectcor.com/api-reference/tasks/get-task-attachments.md): Lists attachments for a task (paginated), excluding child versions.
+- [Get task by ID](https://developers.projectcor.com/api-reference/tasks/get-task-by-id.md)
+- [Get task collaborators](https://developers.projectcor.com/api-reference/tasks/get-task-collaborators.md): Returns only the collaborators assigned to a task — users directly assigned to work on it.
+- [GET task members](https://developers.projectcor.com/api-reference/tasks/get-task-members.md)
+- [Get Tasks](https://developers.projectcor.com/api-reference/tasks/get-tasks.md): Retrieves a paginated list of tasks. By default, responses are paginated with 20 items per page.
+- [Post task message](https://developers.projectcor.com/api-reference/tasks/post-task-message.md)
+- [Update a Task](https://developers.projectcor.com/api-reference/tasks/update-a-task.md): Update Task attributes
+- [Upload task attachments](https://developers.projectcor.com/api-reference/tasks/upload-task-attachments.md): Uploads one or more files to a task via multipart/form-data.
+- [Add users to a team](https://developers.projectcor.com/api-reference/teams/add-users-to-a-team.md): Adds users to a team by providing an array of user IDs.
+- [Create a team](https://developers.projectcor.com/api-reference/teams/create-a-team.md): Creates a new team entity.
+- [Delete a team](https://developers.projectcor.com/api-reference/teams/delete-a-team.md): Deletes a team from the system.
+- [Get team by ID](https://developers.projectcor.com/api-reference/teams/get-team-by-id.md)
+- [Get Teams](https://developers.projectcor.com/api-reference/teams/get-teams.md): Retrieves a paginated list of teams. By default, responses are paginated with 20 items per page.
+- [Remove users from a team](https://developers.projectcor.com/api-reference/teams/remove-users-from-a-team.md): Removes users from a team by providing an array of user IDs.
+- [Update a team](https://developers.projectcor.com/api-reference/teams/update-a-team.md): Updates a team entity.
+- [Create transaction](https://developers.projectcor.com/api-reference/transactions/create-transaction.md)
+- [Create transaction items](https://developers.projectcor.com/api-reference/transactions/create-transaction-items.md)
+- [Delete transaction](https://developers.projectcor.com/api-reference/transactions/delete-transaction.md)
+- [Delete transaction items](https://developers.projectcor.com/api-reference/transactions/delete-transaction-items.md)
+- [Get Suggest Allocation](https://developers.projectcor.com/api-reference/transactions/get-suggest-allocation.md)
+- [Get Total](https://developers.projectcor.com/api-reference/transactions/get-total.md)
+- [Get transactions](https://developers.projectcor.com/api-reference/transactions/get-transactions.md): Retrieves a paginated list of transactions. By default, responses are paginated with 20 items per page.
+- [Update transaction](https://developers.projectcor.com/api-reference/transactions/update-transaction.md)
+- [Update transaction item](https://developers.projectcor.com/api-reference/transactions/update-transaction-item.md)
+- [Create Leave Type](https://developers.projectcor.com/api-reference/user-leaves/create-leave-type.md): Creates a new custom leave type for your company.
+- [Create User Leave](https://developers.projectcor.com/api-reference/user-leaves/create-user-leave.md): Creates a new user leave.
+- [Delete Leave Type](https://developers.projectcor.com/api-reference/user-leaves/delete-leave-type.md): Deletes a custom leave type. Only custom leave types (with a company_id) can be deleted.
+- [Delete User Leave](https://developers.projectcor.com/api-reference/user-leaves/delete-user-leave.md): Deletes a user leave by providing the leave ID and user ID.
+- [Get Leave Types](https://developers.projectcor.com/api-reference/user-leaves/get-leave-types.md): Retrieves a paginated list of default and custom leave types for your company. By default, responses are paginated with 20 items per page.
+- [Get User Leaves](https://developers.projectcor.com/api-reference/user-leaves/get-user-leaves.md): Gets user leaves for specified users with pagination support.
+- [Update Leave Type](https://developers.projectcor.com/api-reference/user-leaves/update-leave-type.md): Updates a custom leave type. Only the name can be modified.
+- [Update User Leave](https://developers.projectcor.com/api-reference/user-leaves/update-user-leave.md): Updates an existing user leave. Dates must be in UTC format.
+- [Create a user position](https://developers.projectcor.com/api-reference/user-positions/create-a-user-position.md): Creates a new user position.
+- [Get active user positions](https://developers.projectcor.com/api-reference/user-positions/get-active-user-positions.md): Returns all active user positions for the authenticated user's company. Only active positions and active categories are returned. The company scope always comes from the authenticated user and cannot be set manually.
+- [Get position segment labels](https://developers.projectcor.com/api-reference/user-positions/get-position-segment-labels.md): Returns list of segment labels used to group user positions.
+- [Update a user position](https://developers.projectcor.com/api-reference/user-positions/update-a-user-position.md): Updates an existing user position.
+- [Assign or unassign user label](https://developers.projectcor.com/api-reference/users/assign-or-unassign-user-label.md): Updates a label for a specified user by their user ID. It assigns a new label to the user or unassigns the existing label with the specified `labelId`.
+- [Create a user](https://developers.projectcor.com/api-reference/users/create-a-user.md): Creates a user using a POST http method. The user will receive an invitation email.
+- [Delete a user](https://developers.projectcor.com/api-reference/users/delete-a-user.md): Deletes a user from the system.
+- [Get Users](https://developers.projectcor.com/api-reference/users/get-users.md): Retrieves a paginated list of users with optional filtering. By default, responses are paginated with 20 items per page.
+- [Get users by Name](https://developers.projectcor.com/api-reference/users/get-users-by-name.md)
+- [Update a user](https://developers.projectcor.com/api-reference/users/update-a-user.md): Updates a user using a PUT http method.
+- [Create or update working time](https://developers.projectcor.com/api-reference/working-time/create-or-update-working-time.md): Creates or updates the user's working time schedule.
+- [Get working time users](https://developers.projectcor.com/api-reference/working-time/get-working-time-users.md): Gets information about working time for all users in the company. The response is an object where keys are user IDs and values are arrays of working time entries.
+- [Development](https://developers.projectcor.com/development.md): Set up your development environment and build integrations with the COR API
+- [Introduction](https://developers.projectcor.com/index.md): Welcome to the COR API Documentation
+- [Quickstart](https://developers.projectcor.com/quickstart.md): Make your first COR API call in under 5 minutes
+
+## OpenAPI Specs
+
+- [openapi](https://developers.projectcor.com/api-reference/openapi.json)
+- [resource-allocation-openapi](https://developers.projectcor.com/api-reference/resource-allocation-openapi.json)
+
+## Optional
+
+- [Documentation](https://cor.zendesk.com/hc/es)

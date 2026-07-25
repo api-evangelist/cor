@@ -1,0 +1,92 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cor-openapi.json (path nesting + tags)
+summary: Entity-relationship graph derived from COR API resource paths.
+entities:
+- Client
+- Contract
+- ContractPosition
+- Project
+- ProjectCost
+- ProjectEstimate
+- Task
+- Hour
+- User
+- Team
+- Brand
+- Product
+- Transaction
+- Fee
+- Ratecard
+- Contact
+- Message
+- Attachment
+- Collaborator
+- Label
+- UserPosition
+- UserLeave
+- WorkingTime
+relationships:
+- from: Fee
+  type: belongs_to
+  to: Client
+  via: client_id
+- from: Contract
+  type: has_many
+  to: User
+  via: contract_id
+- from: ContractPosition
+  type: belongs_to
+  to: Contract
+  via: contract_id
+- from: Message
+  type: belongs_to
+  to: Project
+  via: project_id
+- from: ProjectCost
+  type: belongs_to
+  to: Project
+  via: project_id
+- from: ProjectEstimate
+  type: belongs_to
+  to: Project
+  via: project_id
+- from: Ratecard
+  type: belongs_to
+  to: Project
+  via: project_id
+- from: Collaborator
+  type: belongs_to
+  to: Project
+  via: project_id
+- from: Attachment
+  type: belongs_to
+  to: Project
+  via: project_id
+- from: Message
+  type: belongs_to
+  to: Task
+  via: task_id
+- from: Attachment
+  type: belongs_to
+  to: Task
+  via: task_id
+- from: Collaborator
+  type: belongs_to
+  to: Task
+  via: task_id
+- from: Task
+  type: belongs_to
+  to: Project
+  via: project_id
+- from: User
+  type: has_many
+  to: Team
+  via: team_id
+- from: TransactionItem
+  type: belongs_to
+  to: Transaction
+  via: transaction_id
+notes:
+- Relationships are inferred from REST path nesting; COR does not publish id-prefix
+  conventions.
