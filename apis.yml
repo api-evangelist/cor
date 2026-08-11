@@ -424,6 +424,8 @@ apis:
   - type: Authentication
     url: authentication/cor-authentication.yml
 common:
+- type: Overlay
+  url: overlays/cor-openapi-overlay.yaml
 - type: MCPServer
   url: mcp/cor-mcp.yml
 - type: LLMsTxt
