@@ -1,0 +1,691 @@
+{
+  "item": [
+    {
+      "id": "618c5bbb-c15c-4913-8ff2-6164d51df0b8",
+      "name": "Users",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0460d817-52fe-4f70-8a1e-fe9ca8902ea9",
+          "name": "Get Users",
+          "request": {
+            "name": "Get Users",
+            "description": {
+              "content": "Retrieves a paginated list of users with optional filtering. By default, responses are paginated with 20 items per page.\n\n**Filter options:**\n- `withHiddenUsers` (boolean): Include hidden users in the response\n- `withPosition` (boolean): Include user positions in the response\n- `createdAt` (string): Filter users created on or after this date (YYYY-MM-DD)\n- `updatedAt` (string): Filter users updated on or after this date (YYYY-MM-DD)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1). Set to `false` to disable pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "20",
+                  "description": "Number of items per page (default: 20)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>",
+                  "description": "URL-encoded JSON filters object. Available fields: `withHiddenUsers`, `withPosition`, `createdAt`, `updatedAt`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "46862ccc-371b-470e-b0e6-d2031c9db7b8",
+              "name": "Paginated list of users",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "20"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "{\"withHiddenUsers\":true, \"withPosition\":true, \"createdAt\": \"2024-01-01\", \"updatedAt\": \"2024-01-31\"}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": \"100\",\n  \"perPage\": 20,\n  \"page\": 1,\n  \"lastPage\": 20,\n  \"data\": [\n    {\n      \"id\": 123,\n      \"first_name\": \"Jane\",\n      \"picture\": \"https://user-images.staging.projectcor.com/local/Upload/ProfilePictures/50x50/user.png\",\n      \"last_name\": \"Doe\",\n      \"email\": \"jane.doe@example.com\",\n      \"cuil\": \"\",\n      \"remaining_hours\": 100,\n      \"user_position_id\": 3,\n      \"role_id\": 2,\n      \"daily_hours\": 0,\n      \"labels\": [],\n      \"plan_id\": 5,\n      \"plan_name\": \"Capacity Planning\",\n      \"hidden\": false,\n      \"position_name\": null,\n      \"category_id\": null,\n      \"category_name\": null,\n      \"gmt\": \"-03:00\",\n      \"leaves\": []\n    },\n    {\n      \"id\": 456,\n      \"first_name\": \"John\",\n      \"picture\": \"https://user-images.staging.projectcor.com/local/Upload/ProfilePictures/50x50/user.png\",\n      \"last_name\": \"Smith\",\n      \"email\": \"john.smith@example.com\",\n      \"cuil\": \"\",\n      \"remaining_hours\": 80,\n      \"user_position_id\": 2,\n      \"role_id\": 4,\n      \"daily_hours\": 8,\n      \"labels\": [\n        {\n          \"id\": 210595,\n          \"lang\": \"es\",\n          \"name\": \"Desarrollo web\"\n        }\n      ],\n      \"plan_id\": 5,\n      \"plan_name\": \"Capacity Planning\",\n      \"hidden\": false,\n      \"position_name\": null,\n      \"category_id\": null,\n      \"category_name\": null,\n      \"gmt\": \"-03:00\",\n      \"leaves\": []\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7d792da-e131-4cfa-adc8-1fb3573be350",
+          "name": "Create a user",
+          "request": {
+            "name": "Create a user",
+            "description": {
+              "content": "Creates a user using a POST http method. The user will receive an invitation email.\n\n**Required properties:**\n- `first_name` — User given name\n- `last_name` — User family name\n- `email` — User email\n- `role_id` — ID of the user's role:\n  - **1**: C-Level\n  - **2**: Director\n  - **3**: Project Manager\n  - **4**: Collaborator\n  - **5**: Freelancer\n  - **6**: Client",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role_id\": \"<integer>\",\n  \"user_position_id\": \"<integer>\",\n  \"phone\": \"<string>\",\n  \"description\": \"<string>\",\n  \"birthday\": \"<date>\",\n  \"work_in\": \"<string>\",\n  \"hourly_rate\": \"<number>\",\n  \"monthly_hours\": \"<integer>\",\n  \"daily_hours\": \"<integer>\",\n  \"plan_id\": \"<integer>\",\n  \"hidden\": \"<boolean>\",\n  \"charge_hours\": \"<boolean>\",\n  \"salary\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d21a4520-8039-4dee-a43e-f5b568e1f6c9",
+              "name": "User created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"role_id\": 1,\n  \"user_position_id\": 2,\n  \"phone\": \"123-456-7890\",\n  \"description\": \"Senior Developer\",\n  \"birthday\": \"1990-01-01\",\n  \"work_in\": \"Engineering\",\n  \"hourly_rate\": 50,\n  \"monthly_hours\": 160,\n  \"daily_hours\": 8,\n  \"salary\": 4500\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 2787,\n  \"first_name\": \"string\",\n  \"last_name\": \"string\",\n  \"picture\": \"string\",\n  \"email\": \"crJQjnvftC@RvphMquYJTx.qw\",\n  \"cuil\": \"string\",\n  \"remaining_hours\": 537.5642321080942,\n  \"user_position_id\": 506,\n  \"role_id\": 2941,\n  \"daily_hours\": 3759.8130486043337,\n  \"plan_id\": 4533,\n  \"plan_name\": \"string\",\n  \"hidden\": false,\n  \"position_name\": \"string\",\n  \"category_id\": 2146,\n  \"category_name\": \"string\",\n  \"gmt\": \"-03:00\",\n  \"leaves\": [\n    {\n      \"id\": 6322,\n      \"user_id\": 4775,\n      \"company_id\": 5584,\n      \"leave_type_id\": 5938,\n      \"start\": \"2017-01-02T12:50:03.538Z\",\n      \"end\": \"1969-08-06T06:39:44.912Z\",\n      \"created_at\": \"1951-04-11T23:41:26.001Z\",\n      \"updated_at\": \"2003-07-16T12:52:21.859Z\",\n      \"deleted_at\": \"1947-12-22T19:23:30.549Z\",\n      \"all_day\": false,\n      \"leaveType\": {\n        \"id\": 1503,\n        \"name\": \"string\",\n        \"type_code\": \"string\",\n        \"company_id\": 4465,\n        \"created_at\": \"1977-07-10T07:42:12.917Z\",\n        \"updated_at\": \"1984-12-30T23:54:47.095Z\",\n        \"deleted_at\": \"2023-12-20T02:43:12.869Z\",\n        \"icon_name\": \"string\"\n      }\n    },\n    {\n      \"id\": 3157,\n      \"user_id\": 9708,\n      \"company_id\": 3045,\n      \"leave_type_id\": 9875,\n      \"start\": \"1951-06-03T21:47:25.442Z\",\n      \"end\": \"1960-08-24T23:09:57.355Z\",\n      \"created_at\": \"2003-05-09T16:23:03.300Z\",\n      \"updated_at\": \"1986-04-02T19:44:40.460Z\",\n      \"deleted_at\": \"1963-03-25T07:55:41.790Z\",\n      \"all_day\": false,\n      \"leaveType\": {\n        \"id\": 6492,\n        \"name\": \"string\",\n        \"type_code\": \"string\",\n        \"company_id\": 9271,\n        \"created_at\": \"1987-04-16T06:11:00.134Z\",\n        \"updated_at\": \"1977-04-13T01:15:14.472Z\",\n        \"deleted_at\": \"1987-11-23T06:08:19.436Z\",\n        \"icon_name\": \"string\"\n      }\n    }\n  ],\n  \"labels\": [\n    {\n      \"id\": 9734,\n      \"hex\": \"string\",\n      \"hsl\": \"string\",\n      \"rgb\": \"string\",\n      \"lang\": \"string\",\n      \"name\": \"string\",\n      \"color_id\": 9768\n    },\n    {\n      \"id\": 4956,\n      \"hex\": \"string\",\n      \"hsl\": \"string\",\n      \"rgb\": \"string\",\n      \"lang\": \"string\",\n      \"name\": \"string\",\n      \"color_id\": 3461\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b389730-7013-4efc-97a4-5459d5239679",
+          "name": "Update a user",
+          "request": {
+            "name": "Update a user",
+            "description": {
+              "content": "Updates a user using a PUT http method.\n\n⚠️ **Important:** Use caution when using this endpoint. The system will replace the existing user with the values passed in the request body.\n\n**Available properties:**\n- `first_name` — User given name\n- `last_name` — User family name\n- `email` — User email\n- `role_id` — ID of the user's role (1-6)\n- `user_position_id` — ID of the user's position\n- `phone`, `description`, `birthday`, `work_in`\n- `hourly_rate`, `monthly_hours`, `daily_hours`\n- `plan_id` — 4: Project Management, 5: Capacity Planning\n- `hidden`, `charge_hours` — Boolean values\n- `salary` — New monthly salary amount\n- `salary_from` — Month from which salary should apply (MM-YYYY). Defaults to the current month if `salary` is provided.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":user_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "user_id",
+                  "description": "(Required) User ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role_id\": \"<integer>\",\n  \"user_position_id\": \"<integer>\",\n  \"phone\": \"<string>\",\n  \"description\": \"<string>\",\n  \"birthday\": \"<date>\",\n  \"work_in\": \"<string>\",\n  \"hourly_rate\": \"<number>\",\n  \"monthly_hours\": \"<integer>\",\n  \"daily_hours\": \"<integer>\",\n  \"plan_id\": \"<integer>\",\n  \"hidden\": \"<boolean>\",\n  \"charge_hours\": \"<boolean>\",\n  \"salary\": \"<integer>\",\n  \"salary_from\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4e54e84e-38ec-4c2a-a337-36ccb1a581b1",
+              "name": "User updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_id",
+                      "description": "(Required) User ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"role_id\": 3,\n  \"salary\": 5200,\n  \"salary_from\": \"01-2026\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 2787,\n  \"first_name\": \"string\",\n  \"last_name\": \"string\",\n  \"picture\": \"string\",\n  \"email\": \"crJQjnvftC@RvphMquYJTx.qw\",\n  \"cuil\": \"string\",\n  \"remaining_hours\": 537.5642321080942,\n  \"user_position_id\": 506,\n  \"role_id\": 2941,\n  \"daily_hours\": 3759.8130486043337,\n  \"plan_id\": 4533,\n  \"plan_name\": \"string\",\n  \"hidden\": false,\n  \"position_name\": \"string\",\n  \"category_id\": 2146,\n  \"category_name\": \"string\",\n  \"gmt\": \"-03:00\",\n  \"leaves\": [\n    {\n      \"id\": 6322,\n      \"user_id\": 4775,\n      \"company_id\": 5584,\n      \"leave_type_id\": 5938,\n      \"start\": \"2017-01-02T12:50:03.538Z\",\n      \"end\": \"1969-08-06T06:39:44.912Z\",\n      \"created_at\": \"1951-04-11T23:41:26.001Z\",\n      \"updated_at\": \"2003-07-16T12:52:21.859Z\",\n      \"deleted_at\": \"1947-12-22T19:23:30.549Z\",\n      \"all_day\": false,\n      \"leaveType\": {\n        \"id\": 1503,\n        \"name\": \"string\",\n        \"type_code\": \"string\",\n        \"company_id\": 4465,\n        \"created_at\": \"1977-07-10T07:42:12.917Z\",\n        \"updated_at\": \"1984-12-30T23:54:47.095Z\",\n        \"deleted_at\": \"2023-12-20T02:43:12.869Z\",\n        \"icon_name\": \"string\"\n      }\n    },\n    {\n      \"id\": 3157,\n      \"user_id\": 9708,\n      \"company_id\": 3045,\n      \"leave_type_id\": 9875,\n      \"start\": \"1951-06-03T21:47:25.442Z\",\n      \"end\": \"1960-08-24T23:09:57.355Z\",\n      \"created_at\": \"2003-05-09T16:23:03.300Z\",\n      \"updated_at\": \"1986-04-02T19:44:40.460Z\",\n      \"deleted_at\": \"1963-03-25T07:55:41.790Z\",\n      \"all_day\": false,\n      \"leaveType\": {\n        \"id\": 6492,\n        \"name\": \"string\",\n        \"type_code\": \"string\",\n        \"company_id\": 9271,\n        \"created_at\": \"1987-04-16T06:11:00.134Z\",\n        \"updated_at\": \"1977-04-13T01:15:14.472Z\",\n        \"deleted_at\": \"1987-11-23T06:08:19.436Z\",\n        \"icon_name\": \"string\"\n      }\n    }\n  ],\n  \"labels\": [\n    {\n      \"id\": 9734,\n      \"hex\": \"string\",\n      \"hsl\": \"string\",\n      \"rgb\": \"string\",\n      \"lang\": \"string\",\n      \"name\": \"string\",\n      \"color_id\": 9768\n    },\n    {\n      \"id\": 4956,\n      \"hex\": \"string\",\n      \"hsl\": \"string\",\n      \"rgb\": \"string\",\n      \"lang\": \"string\",\n      \"name\": \"string\",\n      \"color_id\": 3461\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33e95313-d003-4c12-b5bd-08d6ae8d4784",
+          "name": "Delete a user",
+          "request": {
+            "name": "Delete a user",
+            "description": {
+              "content": "Deletes a user from the system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":user_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "user_id",
+                  "description": "(Required) User ID to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86222552-9c72-4cbc-b8e9-8513ffe51fd9",
+              "name": "User deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_id",
+                      "description": "(Required) User ID to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "true",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d13d593b-e07d-45e0-858b-6f3d88aeed35",
+          "name": "Assign or unassign user label",
+          "request": {
+            "name": "Assign or unassign user label",
+            "description": {
+              "content": "Updates a label for a specified user by their user ID. It assigns a new label to the user or unassigns the existing label with the specified `labelId`.\n\n**To assign a label:** Omit the `unassign` property or set it to `false`.\n\n**To remove a label:** Set `unassign` to `true`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":user_id",
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "user_id",
+                  "description": "(Required) User ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"labelId\": \"<integer>\",\n  \"unassign\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f082fb3b-2238-4d2f-b18f-3a1adfc92caa",
+              "name": "Label updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user_id",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_id",
+                      "description": "(Required) User ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"labelId\": 3003\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66aa9fc1-2ef5-4b77-959d-60787c36e1f4",
+          "name": "Get users by Name",
+          "request": {
+            "name": "Get users by Name",
+            "description": {},
+            "url": {
+              "path": [
+                "users",
+                "search-by-name",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1). Set to `false` to disable pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "20",
+                  "description": "Number of items per page (default: 20)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc6d979d-6524-4af9-92c4-1804cc09fedf",
+              "name": "Paginated list of users",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "search-by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": \"1\",\n  \"perPage\": 20,\n  \"page\": 1,\n  \"lastPage\": 1,\n  \"data\": [\n    {\n      \"id\": 123,\n      \"first_name\": \"Jane\",\n      \"picture\": \"https://user-images.staging.projectcor.com/local/Upload/ProfilePictures/50x50/user.png\",\n      \"last_name\": \"Doe\",\n      \"email\": \"jane.doe@example.com\",\n      \"cuil\": \"\",\n      \"remaining_hours\": 100,\n      \"user_position_id\": 3,\n      \"role_id\": 2,\n      \"daily_hours\": 0,\n      \"labels\": [\n        {\n          \"id\": 210595,\n          \"lang\": \"es\",\n          \"name\": \"Desarrollo web\"\n        }\n      ],\n      \"plan_id\": 5,\n      \"plan_name\": \"Capacity Planning\",\n      \"hidden\": false,\n      \"position_name\": null,\n      \"category_id\": null,\n      \"category_name\": null,\n      \"gmt\": \"-03:00\",\n      \"leaves\": []\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "799d40ec-a4fb-4eef-b32e-6f3f30c4b3b6",
+    "name": "COR Attachments Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

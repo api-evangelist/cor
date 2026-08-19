@@ -1,0 +1,415 @@
+{
+  "item": [
+    {
+      "id": "66e42f61-ff22-4df7-9861-609bc8a07a80",
+      "name": "Contract Positions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6c8fc48d-f9d1-439f-a639-b74ef8ffd539",
+          "name": "Get contract positions",
+          "request": {
+            "name": "Get contract positions",
+            "description": {
+              "content": "Retrieves all positions associated with a contract.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":contract_id",
+                "positions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1). Set to `false` to disable pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "20",
+                  "description": "Number of items per page (default: 20)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "contract_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a21bbab7-e0c6-432a-8fe4-3a00a3da34c1",
+              "name": "List of contract positions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": \"string\",\n  \"perPage\": \"string\",\n  \"page\": \"string\",\n  \"lastPage\": 4788,\n  \"data\": [\n    {\n      \"id\": 5034,\n      \"user_positions_header_id\": 2964,\n      \"contract_id\": 3640,\n      \"position_id\": 5274,\n      \"team_id\": 9891,\n      \"currency_id\": 3161,\n      \"rate\": 7401.302441106804,\n      \"hours\": 5884.559907395137,\n      \"team\": {\n        \"id\": 582,\n        \"name\": \"string\"\n      },\n      \"currency\": {\n        \"id\": 8542,\n        \"name\": \"string\"\n      },\n      \"position\": {\n        \"id\": 3207,\n        \"name\": \"string\",\n        \"seniority\": \"string\"\n      }\n    },\n    {\n      \"id\": 4368,\n      \"user_positions_header_id\": 5771,\n      \"contract_id\": 9471,\n      \"position_id\": 5304,\n      \"team_id\": 1517,\n      \"currency_id\": 5443,\n      \"rate\": 8934.044485913177,\n      \"hours\": 103.09999775674261,\n      \"team\": {\n        \"id\": 8019,\n        \"name\": \"string\"\n      },\n      \"currency\": {\n        \"id\": 9288,\n        \"name\": \"string\"\n      },\n      \"position\": {\n        \"id\": 8899,\n        \"name\": \"string\",\n        \"seniority\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c86190c-ca1d-466b-950a-1e90edac6a48",
+          "name": "Create contract position",
+          "request": {
+            "name": "Create contract position",
+            "description": {
+              "content": "Creates a new position rate for the specified contract.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":contract_id",
+                "positions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "contract_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"position_id\": \"<integer>\",\n  \"team_id\": \"<integer>\",\n  \"rate\": \"<number>\",\n  \"hours\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3919389b-ab2c-42a1-a520-786e48ecdd5b",
+              "name": "Contract position created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"position_id\": \"<integer>\",\n  \"team_id\": \"<integer>\",\n  \"rate\": \"<number>\",\n  \"hours\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5944,\n  \"user_positions_header_id\": 2133,\n  \"contract_id\": 3240,\n  \"position_id\": 6259,\n  \"team_id\": 4186,\n  \"currency_id\": 9063,\n  \"rate\": 8024.089228294179,\n  \"hours\": 6746.941110096583,\n  \"team\": {\n    \"id\": 9054,\n    \"name\": \"string\"\n  },\n  \"currency\": {\n    \"id\": 2399,\n    \"name\": \"string\"\n  },\n  \"position\": {\n    \"id\": 7568,\n    \"name\": \"string\",\n    \"seniority\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff3b0372-7ffa-4fa9-92f9-bd8baf516143",
+          "name": "Update contract position",
+          "request": {
+            "name": "Update contract position",
+            "description": {
+              "content": "Updates rate and/or hours for a contract position.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":contract_id",
+                "positions",
+                ":contract_position_rate_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "contract_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "contract_position_rate_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rate\": \"<number>\",\n  \"hours\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0735cbaf-5af4-4da4-a3b3-9e564e3451a0",
+              "name": "Contract position updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "positions",
+                    ":contract_position_rate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_position_rate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rate\": \"<number>\",\n  \"hours\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5944,\n  \"user_positions_header_id\": 2133,\n  \"contract_id\": 3240,\n  \"position_id\": 6259,\n  \"team_id\": 4186,\n  \"currency_id\": 9063,\n  \"rate\": 8024.089228294179,\n  \"hours\": 6746.941110096583,\n  \"team\": {\n    \"id\": 9054,\n    \"name\": \"string\"\n  },\n  \"currency\": {\n    \"id\": 2399,\n    \"name\": \"string\"\n  },\n  \"position\": {\n    \"id\": 7568,\n    \"name\": \"string\",\n    \"seniority\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f4cae010-b56b-4af1-b0bf-c1116f252181",
+    "name": "COR Attachments Contract Positions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "item": [
+    {
+      "id": "86db2fbd-ffab-43f6-b94a-6bc15dd4834e",
+      "name": "Contracts Users",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3de17a5e-f27d-45b0-a49a-ee13297fbe94",
+          "name": "Attach users to a contract",
+          "request": {
+            "name": "Attach users to a contract",
+            "description": {
+              "content": "Attaches one or more users to a contract, each with one or more date ranges.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":contract_id",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "contract_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"users\": [\n    {\n      \"id\": \"<integer>\",\n      \"dates\": [\n        {\n          \"start\": \"<date>\",\n          \"end\": \"<date>\"\n        },\n        {\n          \"start\": \"<date>\",\n          \"end\": \"<date>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"dates\": [\n        {\n          \"start\": \"<date>\",\n          \"end\": \"<date>\"\n        },\n        {\n          \"start\": \"<date>\",\n          \"end\": \"<date>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c45c68b2-df8a-474c-b85d-1cd0ca9b624c",
+              "name": "Users attached to contract with full or partial success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": [\n    {\n      \"id\": 123,\n      \"dates\": [\n        {\n          \"start\": \"2026-01-01\",\n          \"end\": \"2026-02-01\"\n        },\n        {\n          \"start\": \"2026-01-01\",\n          \"end\": \"2026-02-02\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"partial_success\",\n  \"company_id\": 999,\n  \"contract_id\": 777,\n  \"records_received\": 8,\n  \"records_created\": 2,\n  \"records_rejected\": 8,\n  \"assigned\": [\n    {\n      \"id\": 501,\n      \"user_id\": 88001,\n      \"start_date\": \"2024-01-01T00:00:00.000Z\",\n      \"end_date\": \"2024-12-31T00:00:00.000Z\"\n    },\n    {\n      \"id\": 502,\n      \"user_id\": 88001,\n      \"start_date\": \"2024-03-01T00:00:00.000Z\",\n      \"end_date\": \"2024-06-30T00:00:00.000Z\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"id\": 88001,\n      \"dates\": [\n        {\n          \"start\": \"2024-06-01\",\n          \"end\": \"2024-04-01\",\n          \"message\": \"Date malformatted. Start date must be before end date\"\n        },\n        {\n          \"start\": null,\n          \"end\": null,\n          \"message\": \"Date malformatted\"\n        },\n        {\n          \"start\": \"2024-02-01\",\n          \"end\": null,\n          \"message\": \"Date malformatted. Start and end date are required\"\n        },\n        {\n          \"start\": \"not-a-date\",\n          \"end\": \"2024-12-31\",\n          \"message\": \"Invalid date\"\n        },\n        {\n          \"start\": \"1990-01-01\",\n          \"end\": \"1990-06-30\",\n          \"message\": \"Invalid contract periods. Range must be within contract start and end dates\"\n        }\n      ],\n      \"message\": \"Partial success. Some dates were rejected\"\n    },\n    {\n      \"id\": \"hello\",\n      \"dates\": [\n        {\n          \"start\": \"2024-01-01\",\n          \"end\": \"2024-12-31\"\n        }\n      ],\n      \"message\": \"User malformatted\"\n    },\n    {\n      \"id\": 88002,\n      \"start\": \"2024-01-01\",\n      \"end\": \"2024-12-31\",\n      \"message\": \"Legacy format detected. Use \\\"dates\\\" array instead of \\\"start\\\" and \\\"end\\\" fields\"\n    },\n    {\n      \"id\": 88003,\n      \"dates\": [],\n      \"message\": \"Date malformatted or empty\"\n    },\n    {\n      \"id\": 88004,\n      \"dates\": [\n        {\n          \"start\": \"2024-07-01\",\n          \"end\": \"2024-07-01\",\n          \"message\": \"Date malformatted. Start date must be before end date\"\n        }\n      ],\n      \"message\": \"Dates are malformatted or empty\"\n    },\n    {\n      \"id\": 88005,\n      \"dates\": [\n        {\n          \"start\": null,\n          \"end\": null,\n          \"message\": \"Date malformatted\"\n        }\n      ],\n      \"message\": \"Partial success. Some dates were rejected\"\n    },\n    {\n      \"id\": 999999,\n      \"dates\": [\n        {\n          \"start\": \"2024-01-01\",\n          \"end\": \"2024-12-31\"\n        }\n      ],\n      \"message\": \"User malformatted\"\n    },\n    {\n      \"id\": 88005,\n      \"dates\": [\n        {\n          \"start\": \"2024-01-01\",\n          \"end\": \"2024-06-30\"\n        }\n      ],\n      \"message\": \"User malformatted\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1b5087b4-b144-4eef-8476-53ce190dff3f",
+    "name": "COR Attachments Contracts Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

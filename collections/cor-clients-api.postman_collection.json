@@ -1,0 +1,918 @@
+{
+  "item": [
+    {
+      "id": "a35e215b-4076-428a-bad9-8eaa993cd1fd",
+      "name": "Clients",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f0b4077c-71f9-4769-90c7-0f766c21812d",
+          "name": "Get clients",
+          "request": {
+            "name": "Get clients",
+            "description": {
+              "content": "Retrieves a paginated list of clients. By default, responses are paginated with 20 items per page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clients"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1). Set to `false` to disable pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "20",
+                  "description": "Number of items per page (default: 20)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>",
+                  "description": "URL-encoded JSON object with filter criteria."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c30dcbb6-bb91-4ba2-8e2b-c2f4b86ecf4d",
+              "name": "Paginated list of clients",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "20"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": \"string\",\n  \"perPage\": 4967,\n  \"page\": 3923,\n  \"lastPage\": 7913,\n  \"data\": [\n    {\n      \"id\": 4876,\n      \"name\": \"string\",\n      \"business_name\": \"string\",\n      \"name_contact\": \"string\",\n      \"last_name_contact\": \"string\",\n      \"email_contact\": \"uSW176fp@UWTqWikmDgxhhKhhy.ci\",\n      \"website\": \"string\",\n      \"description\": \"string\",\n      \"condition\": \"string\",\n      \"phone\": \"string\"\n    },\n    {\n      \"id\": 2786,\n      \"name\": \"string\",\n      \"business_name\": \"string\",\n      \"name_contact\": \"string\",\n      \"last_name_contact\": \"string\",\n      \"email_contact\": \"Gs5@ncOltZGwMkqJynrtABUJfMeg.sb\",\n      \"website\": \"string\",\n      \"description\": \"string\",\n      \"condition\": \"string\",\n      \"phone\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "749fea58-0487-4252-b939-a5f3a78679c5",
+          "name": "Create a new client",
+          "request": {
+            "name": "Create a new client",
+            "description": {},
+            "url": {
+              "path": [
+                "clients"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) Name of client"
+                },
+                {
+                  "disabled": false,
+                  "key": "business_name",
+                  "value": "<string>",
+                  "description": "Business Name"
+                },
+                {
+                  "disabled": false,
+                  "key": "name_contact",
+                  "value": "<string>",
+                  "description": "Contact First name"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_name_contact",
+                  "value": "<string>",
+                  "description": "Contact Last name"
+                },
+                {
+                  "disabled": false,
+                  "key": "email_contact",
+                  "value": "<email>",
+                  "description": "Contact email"
+                },
+                {
+                  "disabled": false,
+                  "key": "website",
+                  "value": "<string>",
+                  "description": "Website"
+                },
+                {
+                  "disabled": false,
+                  "key": "description",
+                  "value": "<string>",
+                  "description": "Description or comments"
+                },
+                {
+                  "disabled": false,
+                  "key": "condition",
+                  "value": "<string>",
+                  "description": "Client condition"
+                },
+                {
+                  "disabled": false,
+                  "key": "phone",
+                  "value": "<string>",
+                  "description": "Phone"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c291b90f-e38c-4888-8366-5807fe99bb95",
+              "name": "Client created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Name of client",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Business Name",
+                        "type": "text/plain"
+                      },
+                      "key": "business_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Contact First name",
+                        "type": "text/plain"
+                      },
+                      "key": "name_contact",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Contact Last name",
+                        "type": "text/plain"
+                      },
+                      "key": "last_name_contact",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Contact email",
+                        "type": "text/plain"
+                      },
+                      "key": "email_contact",
+                      "value": "<email>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Website",
+                        "type": "text/plain"
+                      },
+                      "key": "website",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Description or comments",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Client condition",
+                        "type": "text/plain"
+                      },
+                      "key": "condition",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Phone",
+                        "type": "text/plain"
+                      },
+                      "key": "phone",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6771,\n  \"name\": \"string\",\n  \"business_name\": \"string\",\n  \"name_contact\": \"string\",\n  \"last_name_contact\": \"string\",\n  \"email_contact\": \"7acaF@Q.bl\",\n  \"website\": \"string\",\n  \"description\": \"string\",\n  \"condition\": \"string\",\n  \"phone\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d83d0331-cd60-4f4e-b39f-032ac57967ca",
+          "name": "Get client by ID",
+          "request": {
+            "name": "Get client by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "clients",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0f654f72-cb7c-46f8-8829-1330492e8cd8",
+              "name": "Client details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clients",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6771,\n  \"name\": \"string\",\n  \"business_name\": \"string\",\n  \"name_contact\": \"string\",\n  \"last_name_contact\": \"string\",\n  \"email_contact\": \"7acaF@Q.bl\",\n  \"website\": \"string\",\n  \"description\": \"string\",\n  \"condition\": \"string\",\n  \"phone\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "746db5ee-76f2-4169-965c-034bf1277c39",
+          "name": "Update client",
+          "request": {
+            "name": "Update client",
+            "description": {},
+            "url": {
+              "path": [
+                "clients",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) Name of client"
+                },
+                {
+                  "disabled": false,
+                  "key": "business_name",
+                  "value": "<string>",
+                  "description": "Business Name"
+                },
+                {
+                  "disabled": false,
+                  "key": "name_contact",
+                  "value": "<string>",
+                  "description": "Contact First name"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_name_contact",
+                  "value": "<string>",
+                  "description": "Contact Last name"
+                },
+                {
+                  "disabled": false,
+                  "key": "email_contact",
+                  "value": "<email>",
+                  "description": "Contact email"
+                },
+                {
+                  "disabled": false,
+                  "key": "website",
+                  "value": "<string>",
+                  "description": "Website"
+                },
+                {
+                  "disabled": false,
+                  "key": "description",
+                  "value": "<string>",
+                  "description": "Description or comments"
+                },
+                {
+                  "disabled": false,
+                  "key": "condition",
+                  "value": "<string>",
+                  "description": "Client condition"
+                },
+                {
+                  "disabled": false,
+                  "key": "phone",
+                  "value": "<string>",
+                  "description": "Phone"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e8a8beb8-56aa-4293-a6eb-d1ae4eba78c3",
+              "name": "Client updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clients",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Name of client",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Business Name",
+                        "type": "text/plain"
+                      },
+                      "key": "business_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Contact First name",
+                        "type": "text/plain"
+                      },
+                      "key": "name_contact",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Contact Last name",
+                        "type": "text/plain"
+                      },
+                      "key": "last_name_contact",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Contact email",
+                        "type": "text/plain"
+                      },
+                      "key": "email_contact",
+                      "value": "<email>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Website",
+                        "type": "text/plain"
+                      },
+                      "key": "website",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Description or comments",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Client condition",
+                        "type": "text/plain"
+                      },
+                      "key": "condition",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Phone",
+                        "type": "text/plain"
+                      },
+                      "key": "phone",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6771,\n  \"name\": \"string\",\n  \"business_name\": \"string\",\n  \"name_contact\": \"string\",\n  \"last_name_contact\": \"string\",\n  \"email_contact\": \"7acaF@Q.bl\",\n  \"website\": \"string\",\n  \"description\": \"string\",\n  \"condition\": \"string\",\n  \"phone\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60f2f9b5-aa48-460c-8f3c-2a328dcc9b30",
+          "name": "Get clients by name",
+          "request": {
+            "name": "Get clients by name",
+            "description": {},
+            "url": {
+              "path": [
+                "clients",
+                "search-by-name",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "310650ca-aab5-4da8-a356-8c15af0efd82",
+              "name": "List of clients",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clients",
+                    "search-by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 4918,\n    \"name\": \"string\",\n    \"business_name\": \"string\",\n    \"name_contact\": \"string\",\n    \"last_name_contact\": \"string\",\n    \"email_contact\": \"8TpIGB4x@vAFhTLAzn.qitq\",\n    \"website\": \"string\",\n    \"description\": \"string\",\n    \"condition\": \"string\",\n    \"phone\": \"string\"\n  },\n  {\n    \"id\": 9200,\n    \"name\": \"string\",\n    \"business_name\": \"string\",\n    \"name_contact\": \"string\",\n    \"last_name_contact\": \"string\",\n    \"email_contact\": \"DUreRK79iRN@uSXtMHjuZwcMmsOLBkydypkLgt.tshd\",\n    \"website\": \"string\",\n    \"description\": \"string\",\n    \"condition\": \"string\",\n    \"phone\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc43e9e2-225a-44a9-8f97-55cdfccb6ea6",
+          "name": "Set/Unset client as favorite",
+          "request": {
+            "name": "Set/Unset client as favorite",
+            "description": {},
+            "url": {
+              "path": [
+                "clients",
+                ":id",
+                "favorite"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "favorited",
+                  "value": "<boolean>",
+                  "description": "(Required) Whether to set as favorite"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a555d784-8ecf-40c0-95ae-479f1f70b838",
+              "name": "Favorite status updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clients",
+                    ":id",
+                    "favorite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Whether to set as favorite",
+                        "type": "text/plain"
+                      },
+                      "key": "favorited",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9cfe2e80-b3f1-4295-86d7-6797a2b95224",
+    "name": "COR Attachments Clients API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

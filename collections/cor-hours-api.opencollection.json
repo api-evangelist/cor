@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments Hours API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Hours",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/hours",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (default: 1). Set to `false` to disable pagination."
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (default: 20)."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "URL-encoded JSON object with filter criteria. Available fields: `dateStart` (YYYY-MM-DD), `dateDeadline` (YYYY-MM-DD), `clients` (array), `projects` (array), `users` (array), `labels` (array), `teams` (array)."
+              },
+              {
+                "name": "orderBy",
+                "value": "",
+                "type": "query",
+                "description": "URL-encoded JSON object for sorting. Example: {\"by\":\"start\",\"order\":\"ASC\"}."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of time entries. By default, responses are paginated with 20 items per page."
+        },
+        {
+          "info": {
+            "name": "Post hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/hours",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Post hours"
+        },
+        {
+          "info": {
+            "name": "Change status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/hours/status-change",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Change status"
+        },
+        {
+          "info": {
+            "name": "Status bill change",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/hours/status-bills-change",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Status bill change"
+        },
+        {
+          "info": {
+            "name": "Get Hours By Date",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/hours/by-day/:datetime",
+            "params": [
+              {
+                "name": "datetime",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "datetime: datetime in unix format"
+        },
+        {
+          "info": {
+            "name": "Update status of weigh hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/hours/by-day/weigh",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update status of weigh hours"
+        },
+        {
+          "info": {
+            "name": "Accept suggested hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/hours/accept-suggested/:datetime",
+            "params": [
+              {
+                "name": "datetime",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "datetime: datetime in unix format"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

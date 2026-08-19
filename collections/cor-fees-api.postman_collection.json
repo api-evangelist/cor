@@ -1,0 +1,597 @@
+{
+  "item": [
+    {
+      "id": "15fe763a-fe8b-4506-85c4-7290aea4f8a6",
+      "name": "Fees",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6baee979-1132-490e-88d9-ae3be795a4f7",
+          "name": "Get Fees from a client",
+          "request": {
+            "name": "Get Fees from a client",
+            "description": {},
+            "url": {
+              "path": [
+                "clients",
+                ":client_id",
+                "fees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "client_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8f576c4c-cbd3-48c6-9464-1a00815254c0",
+              "name": "List of fees",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clients",
+                    ":client_id",
+                    "fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "client_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 3786,\n    \"name\": \"string\",\n    \"estimate\": 4784.663655926825,\n    \"work_order\": \"string\",\n    \"description\": \"string\",\n    \"frequency\": 4428,\n    \"status\": \"inactive\",\n    \"estimated_time\": 7656,\n    \"start\": \"1984-06-28\",\n    \"end\": \"1975-11-18\",\n    \"currency_id\": 1002\n  },\n  {\n    \"id\": 5012,\n    \"name\": \"string\",\n    \"estimate\": 907.6788737673014,\n    \"work_order\": \"string\",\n    \"description\": \"string\",\n    \"frequency\": 4187,\n    \"status\": \"active\",\n    \"estimated_time\": 2583,\n    \"start\": \"1987-01-29\",\n    \"end\": \"2010-03-21\",\n    \"currency_id\": 2926\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4720b518-2434-487c-be43-59432b9dbbca",
+          "name": "Create a fee",
+          "request": {
+            "name": "Create a fee",
+            "description": {},
+            "url": {
+              "path": [
+                "clients",
+                ":client_id",
+                "fees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "client_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"estimate\": \"<float>\",\n  \"work_order\": \"<string>\",\n  \"description\": \"<string>\",\n  \"frequency\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"estimated_time\": \"<integer>\",\n  \"start\": \"<date>\",\n  \"end\": \"<date>\",\n  \"currency_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b3942734-1c44-416d-9bfe-3e1d5bd398b1",
+              "name": "Fee created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clients",
+                    ":client_id",
+                    "fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "client_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"estimate\": \"<float>\",\n  \"work_order\": \"<string>\",\n  \"description\": \"<string>\",\n  \"frequency\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"estimated_time\": \"<integer>\",\n  \"start\": \"<date>\",\n  \"end\": \"<date>\",\n  \"currency_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 7930,\n  \"name\": \"string\",\n  \"estimate\": 2278.7596993000493,\n  \"work_order\": \"string\",\n  \"description\": \"string\",\n  \"frequency\": 5350,\n  \"status\": \"active\",\n  \"estimated_time\": 3013,\n  \"start\": \"1979-10-12\",\n  \"end\": \"1958-03-12\",\n  \"currency_id\": 2149\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97759d90-fe02-4ccb-a9e7-902ef6281b0c",
+          "name": "Update fee",
+          "request": {
+            "name": "Update fee",
+            "description": {},
+            "url": {
+              "path": [
+                "clients",
+                ":client_id",
+                "fees",
+                ":fee_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "client_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "fee_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"estimate\": \"<float>\",\n  \"work_order\": \"<string>\",\n  \"description\": \"<string>\",\n  \"frequency\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"estimated_time\": \"<integer>\",\n  \"start\": \"<date>\",\n  \"end\": \"<date>\",\n  \"currency_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "95939cef-4be3-40e2-b492-d415571b123c",
+              "name": "Fee updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clients",
+                    ":client_id",
+                    "fees",
+                    ":fee_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "client_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fee_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"estimate\": \"<float>\",\n  \"work_order\": \"<string>\",\n  \"description\": \"<string>\",\n  \"frequency\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"estimated_time\": \"<integer>\",\n  \"start\": \"<date>\",\n  \"end\": \"<date>\",\n  \"currency_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 7930,\n  \"name\": \"string\",\n  \"estimate\": 2278.7596993000493,\n  \"work_order\": \"string\",\n  \"description\": \"string\",\n  \"frequency\": 5350,\n  \"status\": \"active\",\n  \"estimated_time\": 3013,\n  \"start\": \"1979-10-12\",\n  \"end\": \"1958-03-12\",\n  \"currency_id\": 2149\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a78f34e-c57f-44a5-a9a2-3b8178df42bb",
+          "name": "Get Historical fees",
+          "request": {
+            "name": "Get Historical fees",
+            "description": {},
+            "url": {
+              "path": [
+                "clients",
+                ":client_id",
+                "fees",
+                ":fee_id",
+                "historicals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "client_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "fee_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e743a4f4-99c1-4fda-b51e-a5804aad93a4",
+              "name": "Historical fees",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clients",
+                    ":client_id",
+                    "fees",
+                    ":fee_id",
+                    "historicals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "client_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fee_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 3786,\n    \"name\": \"string\",\n    \"estimate\": 4784.663655926825,\n    \"work_order\": \"string\",\n    \"description\": \"string\",\n    \"frequency\": 4428,\n    \"status\": \"inactive\",\n    \"estimated_time\": 7656,\n    \"start\": \"1984-06-28\",\n    \"end\": \"1975-11-18\",\n    \"currency_id\": 1002\n  },\n  {\n    \"id\": 5012,\n    \"name\": \"string\",\n    \"estimate\": 907.6788737673014,\n    \"work_order\": \"string\",\n    \"description\": \"string\",\n    \"frequency\": 4187,\n    \"status\": \"active\",\n    \"estimated_time\": 2583,\n    \"start\": \"1987-01-29\",\n    \"end\": \"2010-03-21\",\n    \"currency_id\": 2926\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "268bb00d-44b8-4e69-8f93-91566b982c75",
+          "name": "Get Fees",
+          "request": {
+            "name": "Get Fees",
+            "description": {
+              "content": "Retrieves a paginated list of fees. By default, responses are paginated with 20 items per page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1). Set to `false` to disable pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "20",
+                  "description": "Number of items per page (default: 20)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5256847f-a893-4fb3-887c-6caea1a4216f",
+              "name": "Paginated list of fees",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": \"string\",\n  \"perPage\": 6319,\n  \"page\": 8110,\n  \"lastPage\": 6224,\n  \"data\": [\n    {\n      \"id\": 6831,\n      \"name\": \"string\",\n      \"estimate\": 8381.936715871436,\n      \"work_order\": \"string\",\n      \"description\": \"string\",\n      \"frequency\": 9487,\n      \"status\": \"active\",\n      \"estimated_time\": 6836,\n      \"start\": \"1985-11-24\",\n      \"end\": \"1950-07-31\",\n      \"currency_id\": 9656\n    },\n    {\n      \"id\": 2750,\n      \"name\": \"string\",\n      \"estimate\": 3645.127936758674,\n      \"work_order\": \"string\",\n      \"description\": \"string\",\n      \"frequency\": 634,\n      \"status\": \"inactive\",\n      \"estimated_time\": 27,\n      \"start\": \"1990-02-05\",\n      \"end\": \"2009-05-23\",\n      \"currency_id\": 7636\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bf6ca39d-2373-47fd-a069-34fa80673f17",
+    "name": "COR Attachments Fees API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

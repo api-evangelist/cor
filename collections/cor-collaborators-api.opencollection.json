@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments Collaborators API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Collaborators",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project collaborators",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/collaborators",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get users and teams collaborators from project."
+        },
+        {
+          "info": {
+            "name": "Add project collaborators",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/collaborators",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "usersIds",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Add individual collaborators to project."
+        },
+        {
+          "info": {
+            "name": "Delete project collaborator",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/collaborators/:user_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete individual collaborator from project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

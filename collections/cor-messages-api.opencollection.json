@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments Messages API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Post project message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/projects/:id/messages",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Post project message"
+        },
+        {
+          "info": {
+            "name": "Get messages by project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/messages",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get messages by project"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

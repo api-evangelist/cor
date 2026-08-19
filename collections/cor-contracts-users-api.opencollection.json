@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments Contracts Users API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contracts Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Attach users to a contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/contracts/:contract_id/users",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attaches one or more users to a contract, each with one or more date ranges."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

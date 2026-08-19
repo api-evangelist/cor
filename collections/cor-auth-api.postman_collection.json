@@ -1,0 +1,541 @@
+{
+  "item": [
+    {
+      "id": "b55dabf2-a2a1-44d9-9f94-0a58e0ac033c",
+      "name": "Auth",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4916a952-b744-45e9-892a-738e6b29ea95",
+          "name": "JWT Authorization by Client credentials",
+          "request": {
+            "name": "JWT Authorization by Client credentials",
+            "description": {
+              "content": "We'll be using the OAuth2 Client Credentials workflow as an authentication strategy and JWTs for the format of the tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oauth",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "grant_type",
+                  "value": "client_credentials",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "65e50292-cff4-4295-b576-81896f56e9f5",
+              "name": "Successfully authenticated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "grant_type",
+                      "value": "client_credentials"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"token_type\": \"string\",\n  \"expires_in\": 8089,\n  \"refresh_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ef86cbd-27e4-4728-84bd-480292308052",
+          "name": "JWT Authorization by Authorization code",
+          "request": {
+            "name": "JWT Authorization by Authorization code",
+            "description": {
+              "content": "The authorization code is obtained by using an authorization server (COR) as an intermediary between the client and resource owner.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oauth2",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "(Required) Authorization code obtained from consent screen"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e726a88c-6e63-472c-bfe6-7cc9db6e1666",
+              "name": "Successfully authenticated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth2",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code"
+                    },
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"token_type\": \"string\",\n  \"expires_in\": 8089,\n  \"refresh_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a090506-af36-49c7-8d9a-c037a9429dad",
+          "name": "JWT Authorization by User Credentials",
+          "request": {
+            "name": "JWT Authorization by User Credentials",
+            "description": {},
+            "url": {
+              "path": [
+                "auth",
+                "login"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<email>",
+                  "description": "(Required) User E-Mail"
+                },
+                {
+                  "disabled": false,
+                  "key": "password",
+                  "value": "<password>",
+                  "description": "(Required) User Password"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b8f63b0c-7072-4ff0-bbb7-20ba93c366e5",
+              "name": "Successfully authenticated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) User E-Mail",
+                        "type": "text/plain"
+                      },
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) User Password",
+                        "type": "text/plain"
+                      },
+                      "key": "password",
+                      "value": "<password>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"token_type\": \"string\",\n  \"expires_in\": 8089,\n  \"refresh_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9894202-0941-4915-a2e0-c356459f3e69",
+          "name": "Get Authenticated User",
+          "request": {
+            "name": "Get Authenticated User",
+            "description": {
+              "content": "Returns information about the currently authenticated user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "me"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5748d1ea-7cb5-4a6f-b36d-89244b07b2c4",
+              "name": "User information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4525,\n  \"first_name\": \"string\",\n  \"last_name\": \"string\",\n  \"picture\": \"string\",\n  \"email\": \"JQqU9xMVdlVMs@IEmIrb.qr\",\n  \"cuil\": \"string\",\n  \"remaining_hours\": 3033.712763440574,\n  \"user_position_id\": 8131,\n  \"role_id\": 9046,\n  \"daily_hours\": 1520.0793221742426,\n  \"plan_id\": 8100,\n  \"plan_name\": \"string\",\n  \"hidden\": true,\n  \"position_name\": \"string\",\n  \"category_id\": 9997,\n  \"category_name\": \"string\",\n  \"gmt\": \"-03:00\",\n  \"leaves\": [\n    {\n      \"id\": 525,\n      \"user_id\": 2189,\n      \"company_id\": 5331,\n      \"leave_type_id\": 8947,\n      \"start\": \"1969-10-31T23:39:12.064Z\",\n      \"end\": \"1955-08-27T23:53:20.088Z\",\n      \"created_at\": \"1962-11-14T18:41:15.299Z\",\n      \"updated_at\": \"1959-07-27T05:04:22.766Z\",\n      \"deleted_at\": \"1953-05-18T11:25:29.579Z\",\n      \"all_day\": false,\n      \"leaveType\": {\n        \"id\": 1040,\n        \"name\": \"string\",\n        \"type_code\": \"string\",\n        \"company_id\": 5710,\n        \"created_at\": \"2022-05-24T11:58:11.937Z\",\n        \"updated_at\": \"2021-12-29T05:06:44.763Z\",\n        \"deleted_at\": \"1999-10-12T13:09:34.577Z\",\n        \"icon_name\": \"string\"\n      }\n    },\n    {\n      \"id\": 1697,\n      \"user_id\": 358,\n      \"company_id\": 7163,\n      \"leave_type_id\": 2290,\n      \"start\": \"2025-10-13T18:49:19.588Z\",\n      \"end\": \"2000-05-02T09:33:54.593Z\",\n      \"created_at\": \"1947-12-25T09:46:22.923Z\",\n      \"updated_at\": \"2004-09-21T06:00:48.525Z\",\n      \"deleted_at\": \"2025-02-20T02:33:47.309Z\",\n      \"all_day\": false,\n      \"leaveType\": {\n        \"id\": 551,\n        \"name\": \"string\",\n        \"type_code\": \"string\",\n        \"company_id\": 360,\n        \"created_at\": \"2003-08-25T17:10:05.631Z\",\n        \"updated_at\": \"2010-02-05T15:48:27.351Z\",\n        \"deleted_at\": \"1991-09-05T22:31:30.028Z\",\n        \"icon_name\": \"string\"\n      }\n    }\n  ],\n  \"labels\": [\n    {\n      \"id\": 2865,\n      \"hex\": \"string\",\n      \"hsl\": \"string\",\n      \"rgb\": \"string\",\n      \"lang\": \"string\",\n      \"name\": \"string\",\n      \"color_id\": 4023\n    },\n    {\n      \"id\": 5935,\n      \"hex\": \"string\",\n      \"hsl\": \"string\",\n      \"rgb\": \"string\",\n      \"lang\": \"string\",\n      \"name\": \"string\",\n      \"color_id\": 1974\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff2aba95-59b8-4568-b76b-e7faa89d9062",
+          "name": "JWT Refresh Token",
+          "request": {
+            "name": "JWT Refresh Token",
+            "description": {
+              "content": "Refresh the user token",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oauth",
+                "refreshtoken"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "refresh_token",
+                  "value": "<string>",
+                  "description": "(Required) Refresh token"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "37495a69-05bc-4a25-ba3e-9a4e48af8b9f",
+              "name": "Token refreshed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth",
+                    "refreshtoken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Refresh token",
+                        "type": "text/plain"
+                      },
+                      "key": "refresh_token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"token_type\": \"string\",\n  \"expires_in\": 8089,\n  \"refresh_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "456bd052-1bb5-4fb0-a10b-fe141fcd537f",
+    "name": "COR Attachments Auth API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

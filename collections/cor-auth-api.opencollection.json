@@ -1,0 +1,121 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments Auth API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "JWT Authorization by Client credentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/oauth/token",
+            "params": [
+              {
+                "name": "grant_type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "We'll be using the OAuth2 Client Credentials workflow as an authentication strategy and JWTs for the format of the tokens."
+        },
+        {
+          "info": {
+            "name": "JWT Authorization by Authorization code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/oauth2/token",
+            "params": [
+              {
+                "name": "grant_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "Authorization code obtained from consent screen"
+              }
+            ]
+          },
+          "docs": "The authorization code is obtained by using an authorization server (COR) as an intermediary between the client and resource owner."
+        },
+        {
+          "info": {
+            "name": "JWT Authorization by User Credentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/auth/login",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "email",
+                  "value": ""
+                },
+                {
+                  "name": "password",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "JWT Authorization by User Credentials"
+        },
+        {
+          "info": {
+            "name": "Get Authenticated User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/me"
+          },
+          "docs": "Returns information about the currently authenticated user"
+        },
+        {
+          "info": {
+            "name": "JWT Refresh Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/oauth/refreshtoken",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "refresh_token",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Refresh the user token"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

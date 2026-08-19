@@ -1,0 +1,828 @@
+{
+  "item": [
+    {
+      "id": "b5f31cb7-f6b4-4e73-b7fe-b32c567ecb1d",
+      "name": "User Positions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "df38563d-0f6e-4e66-856a-3019eef380f3",
+          "name": "Create a user position",
+          "request": {
+            "name": "Create a user position",
+            "description": {
+              "content": "Creates a new user position.\n\nIf company has the feature flag to manage positions by labels enabled, Field `segmentLabel` is required. For companies without this feature enabled, `segmentLabel` is ignored.\n\nFied `company_id` is automatically set from the authenticated user's company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "userPosition"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"seniority\": \"<string>\",\n  \"user_position_category_id\": \"<integer>\",\n  \"segmentLabel\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "83a56a69-747e-4baa-b509-3b823fd126b5",
+              "name": "User position created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userPosition"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"seniority\": \"<string>\",\n  \"user_position_category_id\": \"<integer>\",\n  \"segmentLabel\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 692,\n  \"name\": \"string\",\n  \"user_position_category_id\": 6976.423593631976,\n  \"type\": \"P\",\n  \"rate\": 8971,\n  \"seniority\": \"string\",\n  \"company_id\": 2395\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7396140c-4c1a-4e12-8a04-8b063c1bce86",
+              "name": "Validation error or missing segmentLabel when feature flag is enabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userPosition"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"seniority\": \"<string>\",\n  \"user_position_category_id\": \"<integer>\",\n  \"segmentLabel\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"name\": \"CORCustomError\",\n  \"code\": \"F010\",\n  \"message\": \"Validation error message\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b5158e1-b438-46ac-ba5a-1b582b06d35c",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userPosition"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"seniority\": \"<string>\",\n  \"user_position_category_id\": \"<integer>\",\n  \"segmentLabel\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": 6913,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e77d8a1-780c-47ce-b01f-3df43dcb76af",
+          "name": "Update a user position",
+          "request": {
+            "name": "Update a user position",
+            "description": {
+              "content": "Updates an existing user position.\n\nIf company has the feature flag to manage positions by labels enabled, field `segmentLabel` is required and will be used to group the position by label.\n\nAll fields in the request body are optional. Only provided fields will be updated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "userPosition",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) User position ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"seniority\": \"<string>\",\n  \"segmentLabel\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dda90644-a6d9-4767-9dd5-f421f7c65cb9",
+              "name": "User position updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userPosition",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) User position ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"seniority\": \"<string>\",\n  \"segmentLabel\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 692,\n  \"name\": \"string\",\n  \"user_position_category_id\": 6976.423593631976,\n  \"type\": \"P\",\n  \"rate\": 8971,\n  \"seniority\": \"string\",\n  \"company_id\": 2395\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8529c920-376f-4c8b-8c64-09ab9b45611e",
+              "name": "Validation error or missing segmentLabel when feature flag is enabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userPosition",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) User position ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"seniority\": \"<string>\",\n  \"segmentLabel\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"name\": \"CORCustomError\",\n  \"code\": \"UC010\",\n  \"message\": \"Validation error message\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "313ec5b7-88a1-464a-bb3b-f75966ba0ac7",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userPosition",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) User position ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"seniority\": \"<string>\",\n  \"segmentLabel\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": 6913,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4e4b141-956a-4d6f-b4ca-524912d972f4",
+          "name": "Get active user positions",
+          "request": {
+            "name": "Get active user positions",
+            "description": {
+              "content": "Returns all active user positions for the authenticated user's company. Only active positions and active categories are returned. The company scope always comes from the authenticated user and cannot be set manually.\n\nResults are ordered by category name, then by position name. This endpoint does not paginate.\n\n**Query parameters**\n\n- **`lang`** (optional): Language for localized names. If omitted, uses the authenticated user's configured language; if none is set, defaults to **EN**. Examples: `EN`, `ES`, `BR`, `FR`.\n- **`groupedByCategory`** (optional): When present with a **truthy** value, returns positions grouped by category. When omitted or falsy, returns a flat array. For predictable behavior, use `groupedByCategory=true` to group, and omit the parameter for a flat list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "userPosition",
+                "getPositionsOnly"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "Language code for position and category names. Defaults to the authenticated user's language, or EN if not set."
+                },
+                {
+                  "disabled": false,
+                  "key": "groupedByCategory",
+                  "value": "<boolean>",
+                  "description": "If truthy, returns positions grouped by category. Omit or use a falsy value for a flat list."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9eb6cb5f-9fa1-43a1-ae87-0d0fb72fb616",
+              "name": "Active positions as a flat list, or grouped by category when `groupedByCategory` is truthy",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userPosition",
+                    "getPositionsOnly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "ES"
+                    },
+                    {
+                      "key": "groupedByCategory",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 101,\n    \"name\": \"Diseñador Senior\",\n    \"category_id\": 10,\n    \"category_name\": \"Diseño\"\n  },\n  {\n    \"id\": 102,\n    \"name\": \"Desarrollador Semi Senior\",\n    \"category_id\": 11,\n    \"category_name\": \"Desarrollo\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2fc1f2c-8c77-4606-9859-5db2b2cbb61b",
+              "name": "Unauthorized — missing or invalid access token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userPosition",
+                    "getPositionsOnly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "ES"
+                    },
+                    {
+                      "key": "groupedByCategory",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": 401,\n  \"message\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c159869-3e53-4c2e-81cc-1bfa0cf550bb",
+          "name": "Get position segment labels",
+          "request": {
+            "name": "Get position segment labels",
+            "description": {
+              "content": "Returns list of segment labels used to group user positions.\n\nThis endpoint is only available for companies with feature flag to manage positions by labels enabled. The endpoint requires authentication and will return a 403 error if the feature is not enabled for company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "userPosition",
+                "labels",
+                "groupers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) Defines whether labels are retrieved for positions or categories. Must be 'c' for categories or 'p' for positions"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "161e46c9-15c6-4872-aa76-2d48f89ef678",
+              "name": "List of segment labels",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userPosition",
+                    "labels",
+                    "groupers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "p"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 2277,\n      \"name\": \"string\"\n    },\n    {\n      \"id\": 9362,\n      \"name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e9ac2d4-32c4-43f6-a115-2f71e31a7859",
+              "name": "Invalid type parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userPosition",
+                    "labels",
+                    "groupers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "p"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"name\": \"CORCustomError\",\n  \"code\": \"CTR002\",\n  \"message\": \"Invalid type data\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e76d1c1-d554-4846-8b92-cb4c376a8313",
+              "name": "Feature flag to manage positions by labels not enabled for company",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userPosition",
+                    "labels",
+                    "groupers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "p"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": 6913,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e46f0243-c6ea-430d-a609-11f560eac527",
+    "name": "COR Attachments User Positions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

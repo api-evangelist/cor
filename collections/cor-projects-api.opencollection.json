@@ -1,0 +1,513 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments Projects API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (default: 1). Set to `false` to disable pagination and return all results."
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page when pagination is active (default: 20)."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "URL-encoded JSON object with filter criteria. Available fields: `dateStart` (YYYY-MM-DD), `dateEnd` (YYYY-MM-DD), `client_id` (number), `team_id` (number), `user_id` (number), `brand_id` (number), `product_id` (number), `status` (\"finished\"|\"in_process\"|\"suspended\"), `health` (1-4), `archived` (1=archived, 2=active)."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of projects for the company. Supports filtering by client, dates, status, health, and more. By default, responses are paginated with 20 items per page."
+        },
+        {
+          "info": {
+            "name": "Create a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/projects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new project entity.\n\n**Time estimation modes** — Projects support three mutually exclusive ways to estimate time (set via the Profitability tab in the UI):\n\n1. **Total hours** (default): send only `estimated_time`.\n2. **By positions**: set `estimated_by_position: true` and provide `users_positions` with `estimated_time` per position.\n3. **By categories**: set `estimation_by_categories: 1` (or `true`) and provide `categories` with `estimated_time` per category.\n\nWhen using `income_type: "
+        },
+        {
+          "info": {
+            "name": "Get project by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get project by ID"
+        },
+        {
+          "info": {
+            "name": "Update a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectcor.com/v1/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a project entity. Include only the fields you want to change.\n\n**Time estimation** — You can switch estimation mode by updating `estimated_by_position` / `estimation_by_categories` together with `users_positions` / `categories`. Positions present in the project but absent from the `users_positions` array will have their estimated hours reset to 0 (or be soft-deleted if no hours have been logged against them).\n\n> These fields are unrelated to **Project Estimates** (`/projects/{project_id}/"
+        },
+        {
+          "info": {
+            "name": "Delete a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectcor.com/v1/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Destroy a project entity."
+        },
+        {
+          "info": {
+            "name": "Get projects by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects/search-by-name/:project_name",
+            "params": [
+              {
+                "name": "project_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get projects by name"
+        },
+        {
+          "info": {
+            "name": "Post project message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/projects/:id/messages",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Post project message"
+        },
+        {
+          "info": {
+            "name": "Get messages by project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/messages",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get messages by project"
+        },
+        {
+          "info": {
+            "name": "Get Project Costs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/project_cost",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a list of associated project costs"
+        },
+        {
+          "info": {
+            "name": "Add Project Cost",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/project_cost",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an associated project cost"
+        },
+        {
+          "info": {
+            "name": "Update Project Cost",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/project_cost/:project_cost_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_cost_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an associated project cost"
+        },
+        {
+          "info": {
+            "name": "Delete Project Cost",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/project_cost/:project_cost_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_cost_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an associated project cost"
+        },
+        {
+          "info": {
+            "name": "Get attachment by Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/attachments",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get attachment by Project"
+        },
+        {
+          "info": {
+            "name": "Get project labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/labels",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID. Must belong to the authenticated user's company."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination page number. Set to false (the default) to disable pagination."
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Page size when pagination is enabled."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "JSON object as a string (must be valid JSON) for sort criteria passed to the label query."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "JSON object as a string (must be valid JSON) with filter criteria for the grouped labels query (e.g. `ids`, `name`, `limit`)."
+              }
+            ]
+          },
+          "docs": "Returns project label categories and available labels for the company (same shape as grouped categories for the project entity type), plus the labels currently assigned to the given project in **`selected`**.\n\nUse **`GET /categories/labels-model?model=project`** for a simpler category tree without per-project selection. To **assign or remove** labels on a project, use **`PUT /projects/{project_id}`** with a `labels` array."
+        },
+        {
+          "info": {
+            "name": "Get project collaborators",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/collaborators",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get users and teams collaborators from project."
+        },
+        {
+          "info": {
+            "name": "Add project collaborators",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/collaborators",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "usersIds",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Add individual collaborators to project."
+        },
+        {
+          "info": {
+            "name": "Delete project collaborator",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/collaborators/:user_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete individual collaborator from project."
+        },
+        {
+          "info": {
+            "name": "Get Project Estimates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/project_estimate",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a list of associated project estimates"
+        },
+        {
+          "info": {
+            "name": "Add Project Estimate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/project_estimate",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an associated project estimates"
+        },
+        {
+          "info": {
+            "name": "Update a Project Estimate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/project_estimate/:project_estimate_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_estimate_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify an associated project estimates"
+        },
+        {
+          "info": {
+            "name": "Delete a Project Estimate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/project_estimate/:project_estimate_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_estimate_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an associated project estimates"
+        },
+        {
+          "info": {
+            "name": "Get project ratecard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/ratecard",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the ratecard currently assigned to the project, or `null` if none is assigned. The ratecard defines pricing configurations (positions, rates, custom percentages) used when `estimated_by_hourly_rates` is enabled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,586 @@
+{
+  "item": [
+    {
+      "id": "a2f0d7cf-18e3-4cdb-9336-d72a139985f4",
+      "name": "Resource Allocation",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3b6517df-0e8c-45de-baa2-aa2eb1e86598",
+          "name": "Save Allocation",
+          "request": {
+            "name": "Save Allocation",
+            "description": {
+              "content": "Creates a new resource allocation for a user on a project.\n\n**Request Body Requirements:**\nAll values in the object are required.\n\n**Known Errors:**\n- `InvalidAllocationError` — The allocation is invalid:\n  - Empty `allocatedHours` field\n  - The `from` date is greater than or equal to the `to` date\n  - The date range exceeds 12 months\n- `AllocationAlreadyExistInDatesRangeError` — An allocation already exists within the specified date range\n- `UserNotFoundError` — The specified user cannot be found\n- `UserNotHaveWorkDaysError` — The user does not have any work days configured\n- `ProjectNotFoundError` — The specified project cannot be found",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "allocation",
+                "saveAllocation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<integer>\",\n  \"companyId\": \"<integer>\",\n  \"resource\": {\n    \"typeId\": \"<string>\",\n    \"entityId\": \"<integer>\"\n  },\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"assignedByUserId\": \"<integer>\",\n  \"allocatedHours\": \"<number>\",\n  \"email\": \"<email>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "86774b24-6a20-41cc-bffc-7bc38e7de62d",
+              "name": "Allocation saved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "allocation",
+                    "saveAllocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": 1111,\n  \"companyId\": 1111,\n  \"email\": \"email@email.com\",\n  \"resource\": {\n    \"typeId\": \"Project\",\n    \"entityId\": 1111\n  },\n  \"from\": \"2024-06-01\",\n  \"to\": \"2024-10-31\",\n  \"assignedByUserId\": 11111,\n  \"allocatedHours\": 20\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "595935e6-d4d4-4c0f-9456-fa8937200804",
+              "name": "Invalid allocation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "allocation",
+                    "saveAllocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": 1111,\n  \"companyId\": 1111,\n  \"email\": \"email@email.com\",\n  \"resource\": {\n    \"typeId\": \"Project\",\n    \"entityId\": 1111\n  },\n  \"from\": \"2024-06-01\",\n  \"to\": \"2024-10-31\",\n  \"assignedByUserId\": 11111,\n  \"allocatedHours\": 20\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"InvalidAllocationError\",\n  \"message\": \"Empty allocated hours field\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2844ce14-aef5-42ab-b52a-bb1b3c60d2b5",
+          "name": "Update Allocation",
+          "request": {
+            "name": "Update Allocation",
+            "description": {
+              "content": "Updates an existing resource allocation. Requires both the old allocation data and the new allocation data.\n\n**Known Errors:**\n- `InvalidAllocationError` — The new allocation is invalid:\n  - Empty `allocatedHours` field\n  - The `from` date is greater than or equal to the `to` date\n  - The date range exceeds 12 months\n- `AllocationNotFoundError` — The specified old allocation cannot be found\n- `AllocationAlreadyExistInDatesRangeError` — The new allocation already exists within the specified date range\n- `UserNotFoundError` — The specified user in new allocation cannot be found\n- `UserNotHaveWorkDaysError` — The user does not have any work days in the new allocation dates range\n- `ProjectNotFoundError` — The specified project in new allocation cannot be found\n\n**Note:** You can use this endpoint to change a project allocation, as long as there isn't an existing allocation for the same user in the target project for any date within the range of the new allocation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "allocation",
+                "updateAllocation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oldAllocation\": {\n    \"userId\": \"<integer>\",\n    \"companyId\": \"<integer>\",\n    \"resource\": {\n      \"typeId\": \"<string>\",\n      \"entityId\": \"<integer>\"\n    },\n    \"from\": \"<date>\",\n    \"to\": \"<date>\",\n    \"assignedByUserId\": \"<integer>\",\n    \"allocatedHours\": \"<number>\",\n    \"email\": \"<email>\"\n  },\n  \"newAllocation\": {\n    \"userId\": \"<integer>\",\n    \"companyId\": \"<integer>\",\n    \"resource\": {\n      \"typeId\": \"<string>\",\n      \"entityId\": \"<integer>\"\n    },\n    \"from\": \"<date>\",\n    \"to\": \"<date>\",\n    \"assignedByUserId\": \"<integer>\",\n    \"allocatedHours\": \"<number>\",\n    \"email\": \"<email>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "829feef3-34a2-4652-8187-84da13c2fd29",
+              "name": "Allocation updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "allocation",
+                    "updateAllocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"oldAllocation\": {\n    \"userId\": 1111,\n    \"companyId\": 11,\n    \"resource\": {\n      \"entityId\": 11111,\n      \"typeId\": \"Project\"\n    },\n    \"from\": \"2024-01-01\",\n    \"to\": \"2024-03-31\",\n    \"assignedByUserId\": 1111,\n    \"allocatedHours\": 0\n  },\n  \"newAllocation\": {\n    \"userId\": 1111,\n    \"companyId\": 11,\n    \"resource\": {\n      \"entityId\": 11111,\n      \"typeId\": \"Project\"\n    },\n    \"from\": \"2024-01-01\",\n    \"to\": \"2024-03-31\",\n    \"assignedByUserId\": 1111,\n    \"allocatedHours\": 10\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0f866cab-91a7-4243-ac81-225f86a44a5e",
+              "name": "Invalid allocation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "allocation",
+                    "updateAllocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"oldAllocation\": {\n    \"userId\": 1111,\n    \"companyId\": 11,\n    \"resource\": {\n      \"entityId\": 11111,\n      \"typeId\": \"Project\"\n    },\n    \"from\": \"2024-01-01\",\n    \"to\": \"2024-03-31\",\n    \"assignedByUserId\": 1111,\n    \"allocatedHours\": 0\n  },\n  \"newAllocation\": {\n    \"userId\": 1111,\n    \"companyId\": 11,\n    \"resource\": {\n      \"entityId\": 11111,\n      \"typeId\": \"Project\"\n    },\n    \"from\": \"2024-01-01\",\n    \"to\": \"2024-03-31\",\n    \"assignedByUserId\": 1111,\n    \"allocatedHours\": 10\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"AllocationNotFoundError\",\n  \"message\": \"The specified allocation cannot be found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae04d667-7aae-4837-abbe-a5100a7aa34e",
+          "name": "Delete Allocation",
+          "request": {
+            "name": "Delete Allocation",
+            "description": {
+              "content": "Removes an existing resource allocation.\n\n**Request Body Requirements:**\nAll values in the object are required.\n\n**Known Errors:**\n- `AllocationNotFoundError` — The specified allocation cannot be found\n- `ProjectNotFoundError` — The specified project cannot be found\n\nPlease ensure that your request is valid and all specified resources exist to avoid these errors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "allocation",
+                "removeAllocation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<integer>\",\n  \"companyId\": \"<integer>\",\n  \"resource\": {\n    \"typeId\": \"<string>\",\n    \"entityId\": \"<integer>\"\n  },\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"assignedByUserId\": \"<integer>\",\n  \"allocatedHours\": \"<number>\",\n  \"email\": \"<email>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6feac862-7df1-4734-879f-93c12457aa46",
+              "name": "Allocation deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "allocation",
+                    "removeAllocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": 1111,\n  \"companyId\": 111,\n  \"resource\": {\n    \"typeId\": \"Project\",\n    \"entityId\": 1111\n  },\n  \"from\": \"2024-01-01\",\n  \"to\": \"2024-03-31\",\n  \"assignedByUserId\": 11111,\n  \"allocatedHours\": 20\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "37a543f7-673a-43cd-ab55-85dad6c87fa2",
+              "name": "Allocation not found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "allocation",
+                    "removeAllocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": 1111,\n  \"companyId\": 111,\n  \"resource\": {\n    \"typeId\": \"Project\",\n    \"entityId\": 1111\n  },\n  \"from\": \"2024-01-01\",\n  \"to\": \"2024-03-31\",\n  \"assignedByUserId\": 11111,\n  \"allocatedHours\": 20\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"AllocationNotFoundError\",\n  \"message\": \"The specified allocation cannot be found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0dee74bb-7b00-493a-8006-a5dafeb80a86",
+          "name": "Get Allocations By Project",
+          "request": {
+            "name": "Get Allocations By Project",
+            "description": {
+              "content": "Gets information about user allocations for a given project. Returns all users allocated to the project along with their allocation details and allocations in other projects.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "allocation",
+                "getAllocations",
+                ":projectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "projectId",
+                  "description": "(Required) Project ID to get allocations for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9f351309-929b-405b-bb06-a40141fbf8cc",
+              "name": "List of user allocations for the project",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "allocation",
+                    "getAllocations",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "projectId",
+                      "description": "(Required) Project ID to get allocations for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"users\": [\n    {\n      \"userId\": 1234,\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"positionName\": \"Developer\",\n      \"categoryName\": \"Engineering\",\n      \"categoryId\": \"10\",\n      \"picture\": \"\",\n      \"userPositionId\": \"5\",\n      \"companyId\": 41195,\n      \"hidden\": false,\n      \"isDeleted\": false,\n      \"labelsByCategory\": [],\n      \"createdAt\": \"2024-01-15T10:00:00\",\n      \"allocations\": [\n        {\n          \"primaryKey\": \"00000001\",\n          \"from\": \"2024-06-01T00:00:00\",\n          \"to\": \"2024-08-31T00:00:00\",\n          \"allocatedHours\": 20,\n          \"capacity\": 160,\n          \"availabilityLeft\": 140,\n          \"createdAt\": \"2024-05-20T14:30:00\",\n          \"allocationUserAnotherProjects\": [\n            {\n              \"projectId\": 5678,\n              \"projectName\": \"Project Alpha\",\n              \"clientName\": \"Client ABC\",\n              \"allocatedHours\": 15\n            },\n            {\n              \"projectId\": 5679,\n              \"projectName\": \"Project Beta\",\n              \"clientName\": \"Client XYZ\",\n              \"allocatedHours\": 5\n            }\n          ]\n        }\n      ],\n      \"totalAllocatedHours\": 20\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "15360ddd-2efb-485e-be3c-0780badd01af",
+    "name": "COR Attachments Resource Allocation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

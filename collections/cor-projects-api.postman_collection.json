@@ -1,0 +1,3176 @@
+{
+  "item": [
+    {
+      "id": "1931c3a9-8080-405f-866b-c8d066e4d698",
+      "name": "Projects",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bf74ee32-c456-46b7-b6b1-60962e4aec24",
+          "name": "Get Projects",
+          "request": {
+            "name": "Get Projects",
+            "description": {
+              "content": "Retrieves a paginated list of projects for the company. Supports filtering by client, dates, status, health, and more. By default, responses are paginated with 20 items per page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1). Set to `false` to disable pagination and return all results."
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "20",
+                  "description": "Number of items per page when pagination is active (default: 20)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>",
+                  "description": "URL-encoded JSON object with filter criteria. Available fields: `dateStart` (YYYY-MM-DD), `dateEnd` (YYYY-MM-DD), `client_id` (number), `team_id` (number), `user_id` (number), `brand_id` (number), `product_id` (number), `status` (\"finished\"|\"in_process\"|\"suspended\"), `health` (1-4), `archived` (1=archived, 2=active)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "917ed8e8-0a51-499e-a3d8-8cbae7b0dd67",
+              "name": "Paginated list of projects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "20"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": \"string\",\n  \"perPage\": 5397,\n  \"page\": 7882,\n  \"lastPage\": 3853,\n  \"meta_data\": {\n    \"profitability_limit\": \"string\"\n  },\n  \"data\": [\n    {\n      \"id\": 7280,\n      \"name\": \"string\",\n      \"brief\": \"string\",\n      \"client_id\": 1539,\n      \"health\": 4,\n      \"status\": \"suspended\",\n      \"start\": \"1947-09-11T00:43:40.283Z\",\n      \"end\": \"1978-07-16T18:58:58.576Z\",\n      \"estimated_time\": 2436.0082548057817,\n      \"elapsed_time\": 3447.8566713844507,\n      \"profitability_now\": 3394.3658857194723,\n      \"estimated_profitability\": 3049.0661209856507,\n      \"archived\": true,\n      \"billable\": true,\n      \"income_type\": \"one_time\",\n      \"pm_id\": 6451,\n      \"created_by\": 3067,\n      \"company_id\": 3783,\n      \"template_id\": 72,\n      \"brand_id\": 4375,\n      \"product_id\": 4324,\n      \"total_estimated\": 1169.4539628167865,\n      \"created_at\": \"2017-04-03T04:19:41.434Z\",\n      \"updated_at\": \"1982-11-18T06:07:31.008Z\",\n      \"labels\": [\n        5675,\n        7395\n      ],\n      \"client\": {\n        \"id\": 3765,\n        \"name\": \"string\",\n        \"client_status_id\": 2316\n      },\n      \"pm\": {\n        \"id\": 3166,\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"role_id\": 6358\n      },\n      \"estimated_by_position\": true,\n      \"estimation_by_categories\": false,\n      \"estimated_by_hourly_rates\": false,\n      \"user_positions_header_id\": 7660,\n      \"fee_id\": 258,\n      \"contract_id\": 2560,\n      \"usersPositionsProject\": [\n        {\n          \"id\": 5068,\n          \"user_positions_unified_id\": 9067,\n          \"project_id\": 5647,\n          \"estimated_hours\": 401.114820097358,\n          \"hours_charged\": 6852.462248527941,\n          \"total_cost\": 8267.526577494069,\n          \"userPositionName\": {\n            \"name\": \"string\"\n          }\n        },\n        {\n          \"id\": 7301,\n          \"user_positions_unified_id\": 2999,\n          \"project_id\": 1491,\n          \"estimated_hours\": 2201.7192752310943,\n          \"hours_charged\": 5566.74734362665,\n          \"total_cost\": 3851.532439246935,\n          \"userPositionName\": {\n            \"name\": \"string\"\n          }\n        }\n      ],\n      \"categoriesProject\": [\n        {\n          \"id\": 5075,\n          \"category_id\": 1827,\n          \"estimated_hours\": 4990.030615578651,\n          \"hours_charged\": 2171.609917782177,\n          \"total_cost\": 4786.227525499973\n        },\n        {\n          \"id\": 2770,\n          \"category_id\": 4691,\n          \"estimated_hours\": 5035.110584103366,\n          \"hours_charged\": 8003.138211226153,\n          \"total_cost\": 9133.357423916555\n        }\n      ],\n      \"ratecard\": {\n        \"id\": 4694,\n        \"name\": \"string\",\n        \"original_name\": \"string\",\n        \"percent\": 6570.446407263029,\n        \"currency_id\": 3593,\n        \"linked_to_base_price\": true\n      }\n    },\n    {\n      \"id\": 8076,\n      \"name\": \"string\",\n      \"brief\": \"string\",\n      \"client_id\": 6945,\n      \"health\": 4,\n      \"status\": \"suspended\",\n      \"start\": \"2024-08-12T09:21:15.966Z\",\n      \"end\": \"2004-08-09T21:56:48.516Z\",\n      \"estimated_time\": 463.7129991999278,\n      \"elapsed_time\": 9066.85334489023,\n      \"profitability_now\": 7021.820677276728,\n      \"estimated_profitability\": 6670.04873390395,\n      \"archived\": false,\n      \"billable\": false,\n      \"income_type\": \"one_time\",\n      \"pm_id\": 2914,\n      \"created_by\": 7266,\n      \"company_id\": 416,\n      \"template_id\": 9124,\n      \"brand_id\": 3360,\n      \"product_id\": 6915,\n      \"total_estimated\": 8432.184659410512,\n      \"created_at\": \"1975-01-23T05:15:51.090Z\",\n      \"updated_at\": \"2021-05-01T18:32:41.281Z\",\n      \"labels\": [\n        9222,\n        6627\n      ],\n      \"client\": {\n        \"id\": 8426,\n        \"name\": \"string\",\n        \"client_status_id\": 6549\n      },\n      \"pm\": {\n        \"id\": 6403,\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"role_id\": 8444\n      },\n      \"estimated_by_position\": true,\n      \"estimation_by_categories\": false,\n      \"estimated_by_hourly_rates\": false,\n      \"user_positions_header_id\": 6717,\n      \"fee_id\": 3584,\n      \"contract_id\": 4053,\n      \"usersPositionsProject\": [\n        {\n          \"id\": 6304,\n          \"user_positions_unified_id\": 8023,\n          \"project_id\": 8565,\n          \"estimated_hours\": 7325.137567053696,\n          \"hours_charged\": 20.08910545127862,\n          \"total_cost\": 9395.257589548703,\n          \"userPositionName\": {\n            \"name\": \"string\"\n          }\n        },\n        {\n          \"id\": 9822,\n          \"user_positions_unified_id\": 2534,\n          \"project_id\": 7202,\n          \"estimated_hours\": 1666.6498356094662,\n          \"hours_charged\": 4325.906769602602,\n          \"total_cost\": 5065.986755645941,\n          \"userPositionName\": {\n            \"name\": \"string\"\n          }\n        }\n      ],\n      \"categoriesProject\": [\n        {\n          \"id\": 2862,\n          \"category_id\": 3242,\n          \"estimated_hours\": 3422.48623281026,\n          \"hours_charged\": 7406.241890242465,\n          \"total_cost\": 6004.891325819027\n        },\n        {\n          \"id\": 5742,\n          \"category_id\": 7306,\n          \"estimated_hours\": 2655.562811442459,\n          \"hours_charged\": 2788.146371079554,\n          \"total_cost\": 7492.048190547996\n        }\n      ],\n      \"ratecard\": {\n        \"id\": 5603,\n        \"name\": \"string\",\n        \"original_name\": \"string\",\n        \"percent\": 7013.809391255852,\n        \"currency_id\": 7438,\n        \"linked_to_base_price\": true\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea395276-f99c-40f3-86b8-2dffedcdc98d",
+          "name": "Create a project",
+          "request": {
+            "name": "Create a project",
+            "description": {
+              "content": "Create a new project entity.\n\n**Time estimation modes** — Projects support three mutually exclusive ways to estimate time (set via the Profitability tab in the UI):\n\n1. **Total hours** (default): send only `estimated_time`.\n2. **By positions**: set `estimated_by_position: true` and provide `users_positions` with `estimated_time` per position.\n3. **By categories**: set `estimation_by_categories: 1` (or `true`) and provide `categories` with `estimated_time` per category.\n\nWhen using `income_type: \"hourly_rate\"`, also set `estimated_by_hourly_rates: true` and assign a ratecard via `ratecard_id`.\n\n> **Note:** These fields are unrelated to the **Project Estimates** endpoints (`/projects/{project_id}/project_estimate`), which manage budget line items (title, cost, fee).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"client_id\": \"<integer>\",\n  \"template_id\": \"<integer>\",\n  \"brief\": \"<string>\",\n  \"start\": \"<date>\",\n  \"end\": \"<date>\",\n  \"pm_id\": \"<integer>\",\n  \"brand_id\": \"<integer>\",\n  \"product_id\": \"<integer>\",\n  \"estimated_time\": \"<number>\",\n  \"billable\": \"<boolean>\",\n  \"status\": \"<string>\",\n  \"currency_id\": \"<integer>\",\n  \"evaluation_date\": \"<date>\",\n  \"estimated\": \"<number>\",\n  \"fee_id\": \"<integer>\",\n  \"contract_id\": \"<integer>\",\n  \"deliverables\": \"<string>\",\n  \"work_order\": \"<string>\",\n  \"income_type\": \"<string>\",\n  \"archived\": false,\n  \"estimated_by_position\": false,\n  \"estimation_by_categories\": false,\n  \"estimated_by_hourly_rates\": false,\n  \"ratecard_id\": \"<integer>\",\n  \"users_positions\": [\n    {\n      \"id\": \"<integer>\",\n      \"estimated_time\": \"<number>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"estimated_time\": \"<number>\"\n    }\n  ],\n  \"categories\": [\n    {\n      \"id\": \"<integer>\",\n      \"estimated_time\": \"<number>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"estimated_time\": \"<number>\"\n    }\n  ],\n  \"collaborators\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"labels\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"teams\": [\n    {\n      \"id\": \"<integer>\",\n      \"user_id\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"user_id\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"exchange\": \"<number>\",\n  \"currency_change_amount\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "53547378-2f78-4e34-80d5-f2efeaee4df1",
+              "name": "Project created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Website Redesign\",\n  \"client_id\": 10,\n  \"start\": \"2026-05-01\",\n  \"estimated_time\": 120,\n  \"income_type\": \"fee\",\n  \"fee_id\": 5,\n  \"currency_id\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5653,\n  \"name\": \"string\",\n  \"brief\": \"string\",\n  \"client_id\": 4598,\n  \"health\": 4,\n  \"status\": \"suspended\",\n  \"start\": \"1965-01-17T18:20:57.630Z\",\n  \"end\": \"2016-04-27T15:54:17.762Z\",\n  \"estimated_time\": 6479.688892315872,\n  \"elapsed_time\": 662.7170161276774,\n  \"profitability_now\": 1512.9500973622978,\n  \"estimated_profitability\": 9121.966616463627,\n  \"archived\": false,\n  \"billable\": true,\n  \"income_type\": \"one_time\",\n  \"pm_id\": 3600,\n  \"created_by\": 1529,\n  \"company_id\": 9853,\n  \"template_id\": 7586,\n  \"brand_id\": 9067,\n  \"product_id\": 6585,\n  \"total_estimated\": 479.05636365697336,\n  \"created_at\": \"2012-09-15T08:44:00.981Z\",\n  \"updated_at\": \"2022-11-30T14:56:09.018Z\",\n  \"labels\": [\n    9548,\n    2170\n  ],\n  \"client\": {\n    \"id\": 4590,\n    \"name\": \"string\",\n    \"client_status_id\": 3320\n  },\n  \"pm\": {\n    \"id\": 3343,\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"role_id\": 4795\n  },\n  \"estimated_by_position\": false,\n  \"estimation_by_categories\": false,\n  \"estimated_by_hourly_rates\": true,\n  \"user_positions_header_id\": 8291,\n  \"fee_id\": 5594,\n  \"contract_id\": 2029,\n  \"usersPositionsProject\": [\n    {\n      \"id\": 8414,\n      \"user_positions_unified_id\": 8992,\n      \"project_id\": 8422,\n      \"estimated_hours\": 1318.1431299820345,\n      \"hours_charged\": 4464.842032059175,\n      \"total_cost\": 5790.503612110508,\n      \"userPositionName\": {\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 3153,\n      \"user_positions_unified_id\": 2101,\n      \"project_id\": 3082,\n      \"estimated_hours\": 8400.591251026666,\n      \"hours_charged\": 1538.9739390140733,\n      \"total_cost\": 7612.069545379741,\n      \"userPositionName\": {\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"categoriesProject\": [\n    {\n      \"id\": 3277,\n      \"category_id\": 9213,\n      \"estimated_hours\": 1569.0897720436935,\n      \"hours_charged\": 1365.2909903613452,\n      \"total_cost\": 5976.712872439947\n    },\n    {\n      \"id\": 8778,\n      \"category_id\": 2518,\n      \"estimated_hours\": 684.6508683957164,\n      \"hours_charged\": 1043.0543877715882,\n      \"total_cost\": 2716.6686820834884\n    }\n  ],\n  \"ratecard\": {\n    \"id\": 6329,\n    \"name\": \"string\",\n    \"original_name\": \"string\",\n    \"percent\": 9900.845262283376,\n    \"currency_id\": 5981,\n    \"linked_to_base_price\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f83518a-fdcb-4665-b006-bb086628b16b",
+          "name": "Get project by ID",
+          "request": {
+            "name": "Get project by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3b66d58d-20fb-46f9-99b0-b0e671f4d328",
+              "name": "Project details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5653,\n  \"name\": \"string\",\n  \"brief\": \"string\",\n  \"client_id\": 4598,\n  \"health\": 4,\n  \"status\": \"suspended\",\n  \"start\": \"1965-01-17T18:20:57.630Z\",\n  \"end\": \"2016-04-27T15:54:17.762Z\",\n  \"estimated_time\": 6479.688892315872,\n  \"elapsed_time\": 662.7170161276774,\n  \"profitability_now\": 1512.9500973622978,\n  \"estimated_profitability\": 9121.966616463627,\n  \"archived\": false,\n  \"billable\": true,\n  \"income_type\": \"one_time\",\n  \"pm_id\": 3600,\n  \"created_by\": 1529,\n  \"company_id\": 9853,\n  \"template_id\": 7586,\n  \"brand_id\": 9067,\n  \"product_id\": 6585,\n  \"total_estimated\": 479.05636365697336,\n  \"created_at\": \"2012-09-15T08:44:00.981Z\",\n  \"updated_at\": \"2022-11-30T14:56:09.018Z\",\n  \"labels\": [\n    9548,\n    2170\n  ],\n  \"client\": {\n    \"id\": 4590,\n    \"name\": \"string\",\n    \"client_status_id\": 3320\n  },\n  \"pm\": {\n    \"id\": 3343,\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"role_id\": 4795\n  },\n  \"estimated_by_position\": false,\n  \"estimation_by_categories\": false,\n  \"estimated_by_hourly_rates\": true,\n  \"user_positions_header_id\": 8291,\n  \"fee_id\": 5594,\n  \"contract_id\": 2029,\n  \"usersPositionsProject\": [\n    {\n      \"id\": 8414,\n      \"user_positions_unified_id\": 8992,\n      \"project_id\": 8422,\n      \"estimated_hours\": 1318.1431299820345,\n      \"hours_charged\": 4464.842032059175,\n      \"total_cost\": 5790.503612110508,\n      \"userPositionName\": {\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 3153,\n      \"user_positions_unified_id\": 2101,\n      \"project_id\": 3082,\n      \"estimated_hours\": 8400.591251026666,\n      \"hours_charged\": 1538.9739390140733,\n      \"total_cost\": 7612.069545379741,\n      \"userPositionName\": {\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"categoriesProject\": [\n    {\n      \"id\": 3277,\n      \"category_id\": 9213,\n      \"estimated_hours\": 1569.0897720436935,\n      \"hours_charged\": 1365.2909903613452,\n      \"total_cost\": 5976.712872439947\n    },\n    {\n      \"id\": 8778,\n      \"category_id\": 2518,\n      \"estimated_hours\": 684.6508683957164,\n      \"hours_charged\": 1043.0543877715882,\n      \"total_cost\": 2716.6686820834884\n    }\n  ],\n  \"ratecard\": {\n    \"id\": 6329,\n    \"name\": \"string\",\n    \"original_name\": \"string\",\n    \"percent\": 9900.845262283376,\n    \"currency_id\": 5981,\n    \"linked_to_base_price\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2868e0a5-465e-4172-9b89-6e00b7567cf6",
+          "name": "Update a project",
+          "request": {
+            "name": "Update a project",
+            "description": {
+              "content": "Update a project entity. Include only the fields you want to change.\n\n**Time estimation** — You can switch estimation mode by updating `estimated_by_position` / `estimation_by_categories` together with `users_positions` / `categories`. Positions present in the project but absent from the `users_positions` array will have their estimated hours reset to 0 (or be soft-deleted if no hours have been logged against them).\n\n> These fields are unrelated to **Project Estimates** (`/projects/{project_id}/project_estimate`), which manage budget line items.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Project Name"
+                },
+                {
+                  "disabled": false,
+                  "key": "client_id",
+                  "value": "<integer>",
+                  "description": "Client ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "brief",
+                  "value": "<string>",
+                  "description": "Project description or brief"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<date>",
+                  "description": "Project start date (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<date>",
+                  "description": "Project end date (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "pm_id",
+                  "value": "<integer>",
+                  "description": "Project Manager User ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "estimated_time",
+                  "value": "<number>",
+                  "description": "Estimated hours for the project"
+                },
+                {
+                  "disabled": false,
+                  "key": "billable",
+                  "value": "<boolean>",
+                  "description": "Whether the project is billable"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Project status"
+                },
+                {
+                  "disabled": false,
+                  "key": "currency_id",
+                  "value": "<integer>",
+                  "description": "Currency ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "evaluation_date",
+                  "value": "<date>",
+                  "description": "Project evaluation date (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "estimated",
+                  "value": "<number>",
+                  "description": "Estimated monetary value for the project"
+                },
+                {
+                  "disabled": false,
+                  "key": "fee_id",
+                  "value": "<integer>",
+                  "description": "Fee ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "contract_id",
+                  "value": "<integer>",
+                  "description": "Contract ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "deliverables",
+                  "value": "<string>",
+                  "description": "Project deliverables description"
+                },
+                {
+                  "disabled": false,
+                  "key": "work_order",
+                  "value": "<string>",
+                  "description": "Work order number or code"
+                },
+                {
+                  "disabled": false,
+                  "key": "income_type",
+                  "value": "<string>",
+                  "description": "Income type for the project"
+                },
+                {
+                  "disabled": false,
+                  "key": "archived",
+                  "value": "false",
+                  "description": "Whether the project is archived"
+                },
+                {
+                  "disabled": false,
+                  "key": "labels",
+                  "value": "<integer>",
+                  "description": "Label IDs to assign to the project. Omit this field entirely to leave existing labels unchanged. Send an empty array (`[]`) to remove all labels from the project. Each entry may be an integer ID or an object with an `id` property (for example `[101, 102]`). Maximum 50 labels. Use **Get Categories and Labels** with `model=project` (`GET /categories/labels-model?model=project`) to list project label objects for your company; use each label's `id` in this array."
+                },
+                {
+                  "disabled": false,
+                  "key": "labels",
+                  "value": "<integer>",
+                  "description": "Label IDs to assign to the project. Omit this field entirely to leave existing labels unchanged. Send an empty array (`[]`) to remove all labels from the project. Each entry may be an integer ID or an object with an `id` property (for example `[101, 102]`). Maximum 50 labels. Use **Get Categories and Labels** with `model=project` (`GET /categories/labels-model?model=project`) to list project label objects for your company; use each label's `id` in this array."
+                },
+                {
+                  "disabled": false,
+                  "key": "estimated_by_position",
+                  "value": "<boolean>",
+                  "description": "When `true`, time estimation is split per position via the `users_positions` array. Mutually exclusive with `estimation_by_categories`."
+                },
+                {
+                  "disabled": false,
+                  "key": "estimation_by_categories",
+                  "value": "<boolean,integer>",
+                  "description": "When truthy (`true` or `1`), time estimation is split per category via the `categories` array. Mutually exclusive with `estimated_by_position`."
+                },
+                {
+                  "disabled": false,
+                  "key": "estimated_by_hourly_rates",
+                  "value": "<boolean>",
+                  "description": "When `true`, the project income is calculated from hourly rates using the assigned ratecard."
+                },
+                {
+                  "disabled": false,
+                  "key": "ratecard_id",
+                  "value": "<integer>",
+                  "description": "Ratecard ID. Alias for `user_positions_header_id` — if both are sent, `ratecard_id` takes precedence."
+                },
+                {
+                  "disabled": false,
+                  "key": "users_positions",
+                  "value": "{\"id\":\"<integer>\",\"estimated_time\":\"<number>\"}",
+                  "description": "Positions involved in the project with optional per-position hour estimates. Positions present in the project but absent from this array will have their estimated hours set to 0 (or be soft-deleted if no hours have been logged)."
+                },
+                {
+                  "disabled": false,
+                  "key": "users_positions",
+                  "value": "{\"id\":\"<integer>\",\"estimated_time\":\"<number>\"}",
+                  "description": "Positions involved in the project with optional per-position hour estimates. Positions present in the project but absent from this array will have their estimated hours set to 0 (or be soft-deleted if no hours have been logged)."
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "{\"id\":\"<integer>\",\"estimated_time\":\"<number>\"}",
+                  "description": "Categories assigned to the project with optional per-category hour estimates."
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "{\"id\":\"<integer>\",\"estimated_time\":\"<number>\"}",
+                  "description": "Categories assigned to the project with optional per-category hour estimates."
+                },
+                {
+                  "disabled": false,
+                  "key": "exchange",
+                  "value": "<number>",
+                  "description": "Exchange rate when project currency differs from the company base currency."
+                },
+                {
+                  "disabled": false,
+                  "key": "currency_change_amount",
+                  "value": "<number>",
+                  "description": "Original estimated amount in the selected currency before exchange conversion."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8cb262aa-c544-4c66-9e34-f88ca689f5af",
+              "name": "Project updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Project Name",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Client ID",
+                        "type": "text/plain"
+                      },
+                      "key": "client_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Project description or brief",
+                        "type": "text/plain"
+                      },
+                      "key": "brief",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Project start date (YYYY-MM-DD)",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "<date>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Project end date (YYYY-MM-DD)",
+                        "type": "text/plain"
+                      },
+                      "key": "end",
+                      "value": "<date>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Project Manager User ID",
+                        "type": "text/plain"
+                      },
+                      "key": "pm_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Estimated hours for the project",
+                        "type": "text/plain"
+                      },
+                      "key": "estimated_time",
+                      "value": "<number>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether the project is billable",
+                        "type": "text/plain"
+                      },
+                      "key": "billable",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Project status",
+                        "type": "text/plain"
+                      },
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Currency ID",
+                        "type": "text/plain"
+                      },
+                      "key": "currency_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Project evaluation date (YYYY-MM-DD)",
+                        "type": "text/plain"
+                      },
+                      "key": "evaluation_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Estimated monetary value for the project",
+                        "type": "text/plain"
+                      },
+                      "key": "estimated",
+                      "value": "<number>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Fee ID",
+                        "type": "text/plain"
+                      },
+                      "key": "fee_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Contract ID",
+                        "type": "text/plain"
+                      },
+                      "key": "contract_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Project deliverables description",
+                        "type": "text/plain"
+                      },
+                      "key": "deliverables",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Work order number or code",
+                        "type": "text/plain"
+                      },
+                      "key": "work_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Income type for the project",
+                        "type": "text/plain"
+                      },
+                      "key": "income_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether the project is archived",
+                        "type": "text/plain"
+                      },
+                      "key": "archived",
+                      "value": "false"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Label IDs to assign to the project. Omit this field entirely to leave existing labels unchanged. Send an empty array (`[]`) to remove all labels from the project. Each entry may be an integer ID or an object with an `id` property (for example `[101, 102]`). Maximum 50 labels. Use **Get Categories and Labels** with `model=project` (`GET /categories/labels-model?model=project`) to list project label objects for your company; use each label's `id` in this array.",
+                        "type": "text/plain"
+                      },
+                      "key": "labels",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Label IDs to assign to the project. Omit this field entirely to leave existing labels unchanged. Send an empty array (`[]`) to remove all labels from the project. Each entry may be an integer ID or an object with an `id` property (for example `[101, 102]`). Maximum 50 labels. Use **Get Categories and Labels** with `model=project` (`GET /categories/labels-model?model=project`) to list project label objects for your company; use each label's `id` in this array.",
+                        "type": "text/plain"
+                      },
+                      "key": "labels",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "When `true`, time estimation is split per position via the `users_positions` array. Mutually exclusive with `estimation_by_categories`.",
+                        "type": "text/plain"
+                      },
+                      "key": "estimated_by_position",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "When truthy (`true` or `1`), time estimation is split per category via the `categories` array. Mutually exclusive with `estimated_by_position`.",
+                        "type": "text/plain"
+                      },
+                      "key": "estimation_by_categories",
+                      "value": "<boolean,integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "When `true`, the project income is calculated from hourly rates using the assigned ratecard.",
+                        "type": "text/plain"
+                      },
+                      "key": "estimated_by_hourly_rates",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Ratecard ID. Alias for `user_positions_header_id` — if both are sent, `ratecard_id` takes precedence.",
+                        "type": "text/plain"
+                      },
+                      "key": "ratecard_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Positions involved in the project with optional per-position hour estimates. Positions present in the project but absent from this array will have their estimated hours set to 0 (or be soft-deleted if no hours have been logged).",
+                        "type": "text/plain"
+                      },
+                      "key": "users_positions",
+                      "value": "{\"id\":487,\"estimated_time\":809.4521867821902}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Positions involved in the project with optional per-position hour estimates. Positions present in the project but absent from this array will have their estimated hours set to 0 (or be soft-deleted if no hours have been logged).",
+                        "type": "text/plain"
+                      },
+                      "key": "users_positions",
+                      "value": "{\"id\":6540,\"estimated_time\":7530.232794123519}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Categories assigned to the project with optional per-category hour estimates.",
+                        "type": "text/plain"
+                      },
+                      "key": "categories",
+                      "value": "{\"id\":9957,\"estimated_time\":884.0623511428037}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Categories assigned to the project with optional per-category hour estimates.",
+                        "type": "text/plain"
+                      },
+                      "key": "categories",
+                      "value": "{\"id\":6393,\"estimated_time\":709.2650601225204}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Exchange rate when project currency differs from the company base currency.",
+                        "type": "text/plain"
+                      },
+                      "key": "exchange",
+                      "value": "<number>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Original estimated amount in the selected currency before exchange conversion.",
+                        "type": "text/plain"
+                      },
+                      "key": "currency_change_amount",
+                      "value": "<number>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5653,\n  \"name\": \"string\",\n  \"brief\": \"string\",\n  \"client_id\": 4598,\n  \"health\": 4,\n  \"status\": \"suspended\",\n  \"start\": \"1965-01-17T18:20:57.630Z\",\n  \"end\": \"2016-04-27T15:54:17.762Z\",\n  \"estimated_time\": 6479.688892315872,\n  \"elapsed_time\": 662.7170161276774,\n  \"profitability_now\": 1512.9500973622978,\n  \"estimated_profitability\": 9121.966616463627,\n  \"archived\": false,\n  \"billable\": true,\n  \"income_type\": \"one_time\",\n  \"pm_id\": 3600,\n  \"created_by\": 1529,\n  \"company_id\": 9853,\n  \"template_id\": 7586,\n  \"brand_id\": 9067,\n  \"product_id\": 6585,\n  \"total_estimated\": 479.05636365697336,\n  \"created_at\": \"2012-09-15T08:44:00.981Z\",\n  \"updated_at\": \"2022-11-30T14:56:09.018Z\",\n  \"labels\": [\n    9548,\n    2170\n  ],\n  \"client\": {\n    \"id\": 4590,\n    \"name\": \"string\",\n    \"client_status_id\": 3320\n  },\n  \"pm\": {\n    \"id\": 3343,\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"role_id\": 4795\n  },\n  \"estimated_by_position\": false,\n  \"estimation_by_categories\": false,\n  \"estimated_by_hourly_rates\": true,\n  \"user_positions_header_id\": 8291,\n  \"fee_id\": 5594,\n  \"contract_id\": 2029,\n  \"usersPositionsProject\": [\n    {\n      \"id\": 8414,\n      \"user_positions_unified_id\": 8992,\n      \"project_id\": 8422,\n      \"estimated_hours\": 1318.1431299820345,\n      \"hours_charged\": 4464.842032059175,\n      \"total_cost\": 5790.503612110508,\n      \"userPositionName\": {\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 3153,\n      \"user_positions_unified_id\": 2101,\n      \"project_id\": 3082,\n      \"estimated_hours\": 8400.591251026666,\n      \"hours_charged\": 1538.9739390140733,\n      \"total_cost\": 7612.069545379741,\n      \"userPositionName\": {\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"categoriesProject\": [\n    {\n      \"id\": 3277,\n      \"category_id\": 9213,\n      \"estimated_hours\": 1569.0897720436935,\n      \"hours_charged\": 1365.2909903613452,\n      \"total_cost\": 5976.712872439947\n    },\n    {\n      \"id\": 8778,\n      \"category_id\": 2518,\n      \"estimated_hours\": 684.6508683957164,\n      \"hours_charged\": 1043.0543877715882,\n      \"total_cost\": 2716.6686820834884\n    }\n  ],\n  \"ratecard\": {\n    \"id\": 6329,\n    \"name\": \"string\",\n    \"original_name\": \"string\",\n    \"percent\": 9900.845262283376,\n    \"currency_id\": 5981,\n    \"linked_to_base_price\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64d8abfe-d3e0-41a5-836b-bde64a4c17b8",
+          "name": "Delete a project",
+          "request": {
+            "name": "Delete a project",
+            "description": {
+              "content": "Destroy a project entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3187d930-f5e5-4050-8a94-9d39a816339d",
+              "name": "Project deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f181165-4e86-459a-8db9-2584ae0d47e1",
+          "name": "Get projects by name",
+          "request": {
+            "name": "Get projects by name",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                "search-by-name",
+                ":project_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4e71ca38-7738-4d14-aa4c-29f3a399c79b",
+              "name": "List of projects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    "search-by-name",
+                    ":project_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 550,\n    \"name\": \"string\",\n    \"brief\": \"string\",\n    \"client_id\": 6185,\n    \"health\": 2,\n    \"status\": \"finished\",\n    \"start\": \"1986-09-14T08:37:37.360Z\",\n    \"end\": \"1959-01-27T04:11:37.888Z\",\n    \"estimated_time\": 1661.0462122560486,\n    \"elapsed_time\": 4287.629761553829,\n    \"profitability_now\": 7024.260188745492,\n    \"estimated_profitability\": 8257.95356377168,\n    \"archived\": true,\n    \"billable\": false,\n    \"income_type\": \"fee\",\n    \"pm_id\": 3619,\n    \"created_by\": 8202,\n    \"company_id\": 2164,\n    \"template_id\": 5931,\n    \"brand_id\": 9451,\n    \"product_id\": 8937,\n    \"total_estimated\": 1627.9007332396734,\n    \"created_at\": \"1957-09-05T01:32:06.047Z\",\n    \"updated_at\": \"2024-05-18T10:16:52.005Z\",\n    \"labels\": [\n      2781,\n      9112\n    ],\n    \"client\": {\n      \"id\": 1326,\n      \"name\": \"string\",\n      \"client_status_id\": 7187\n    },\n    \"pm\": {\n      \"id\": 7995,\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"email\": \"string\",\n      \"role_id\": 8834\n    },\n    \"estimated_by_position\": true,\n    \"estimation_by_categories\": false,\n    \"estimated_by_hourly_rates\": false,\n    \"user_positions_header_id\": 4704,\n    \"fee_id\": 7437,\n    \"contract_id\": 2982,\n    \"usersPositionsProject\": [\n      {\n        \"id\": 6529,\n        \"user_positions_unified_id\": 5277,\n        \"project_id\": 7341,\n        \"estimated_hours\": 6838.645587704391,\n        \"hours_charged\": 4489.5661420689485,\n        \"total_cost\": 4021.490094244552,\n        \"userPositionName\": {\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": 4833,\n        \"user_positions_unified_id\": 4190,\n        \"project_id\": 6066,\n        \"estimated_hours\": 6702.274586332245,\n        \"hours_charged\": 9594.905825698894,\n        \"total_cost\": 3075.1525982689286,\n        \"userPositionName\": {\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"categoriesProject\": [\n      {\n        \"id\": 5464,\n        \"category_id\": 4494,\n        \"estimated_hours\": 6739.935192343471,\n        \"hours_charged\": 8759.061449298984,\n        \"total_cost\": 304.3399775804678\n      },\n      {\n        \"id\": 5586,\n        \"category_id\": 4036,\n        \"estimated_hours\": 7124.739501849095,\n        \"hours_charged\": 1790.6617704602834,\n        \"total_cost\": 1117.4625865361754\n      }\n    ],\n    \"ratecard\": {\n      \"id\": 8628,\n      \"name\": \"string\",\n      \"original_name\": \"string\",\n      \"percent\": 9090.647152544514,\n      \"currency_id\": 1218,\n      \"linked_to_base_price\": true\n    }\n  },\n  {\n    \"id\": 8532,\n    \"name\": \"string\",\n    \"brief\": \"string\",\n    \"client_id\": 6554,\n    \"health\": 1,\n    \"status\": \"active\",\n    \"start\": \"1974-04-08T10:39:16.940Z\",\n    \"end\": \"1995-12-15T08:17:59.141Z\",\n    \"estimated_time\": 7573.604113602834,\n    \"elapsed_time\": 9451.501406291518,\n    \"profitability_now\": 5509.6891518761095,\n    \"estimated_profitability\": 2637.799029226613,\n    \"archived\": true,\n    \"billable\": false,\n    \"income_type\": \"contract\",\n    \"pm_id\": 1400,\n    \"created_by\": 1351,\n    \"company_id\": 8266,\n    \"template_id\": 3798,\n    \"brand_id\": 3645,\n    \"product_id\": 8706,\n    \"total_estimated\": 9454.65053886016,\n    \"created_at\": \"2012-11-08T08:41:47.671Z\",\n    \"updated_at\": \"1970-03-17T13:37:52.020Z\",\n    \"labels\": [\n      6889,\n      8120\n    ],\n    \"client\": {\n      \"id\": 9012,\n      \"name\": \"string\",\n      \"client_status_id\": 2960\n    },\n    \"pm\": {\n      \"id\": 1175,\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"email\": \"string\",\n      \"role_id\": 9761\n    },\n    \"estimated_by_position\": false,\n    \"estimation_by_categories\": true,\n    \"estimated_by_hourly_rates\": true,\n    \"user_positions_header_id\": 3380,\n    \"fee_id\": 6966,\n    \"contract_id\": 4844,\n    \"usersPositionsProject\": [\n      {\n        \"id\": 8886,\n        \"user_positions_unified_id\": 5366,\n        \"project_id\": 3932,\n        \"estimated_hours\": 224.20980566122407,\n        \"hours_charged\": 3949.9083388761123,\n        \"total_cost\": 5526.6991741381225,\n        \"userPositionName\": {\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": 6410,\n        \"user_positions_unified_id\": 2282,\n        \"project_id\": 263,\n        \"estimated_hours\": 6853.295553801222,\n        \"hours_charged\": 4183.892469360254,\n        \"total_cost\": 7877.472057459107,\n        \"userPositionName\": {\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"categoriesProject\": [\n      {\n        \"id\": 2394,\n        \"category_id\": 2892,\n        \"estimated_hours\": 3301.6986912487055,\n        \"hours_charged\": 3918.1023680309977,\n        \"total_cost\": 2813.7859519481513\n      },\n      {\n        \"id\": 4437,\n        \"category_id\": 4649,\n        \"estimated_hours\": 2419.473370701407,\n        \"hours_charged\": 5772.638698677133,\n        \"total_cost\": 4189.973133855859\n      }\n    ],\n    \"ratecard\": {\n      \"id\": 9404,\n      \"name\": \"string\",\n      \"original_name\": \"string\",\n      \"percent\": 5675.422578140953,\n      \"currency_id\": 3436,\n      \"linked_to_base_price\": false\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9babaf76-6992-4126-ba6d-c7e5e13ba376",
+          "name": "Post project message",
+          "request": {
+            "name": "Post project message",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":id",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "message",
+                  "value": "<string>",
+                  "description": "(Required) Text Message"
+                },
+                {
+                  "disabled": false,
+                  "key": "attachments",
+                  "value": "{\"id\":\"<integer>\",\"name\":\"<string>\",\"url\":\"<string>\",\"type\":\"<string>\",\"source\":\"<string>\"}",
+                  "description": "Optional attachments"
+                },
+                {
+                  "disabled": false,
+                  "key": "attachments",
+                  "value": "{\"id\":\"<integer>\",\"name\":\"<string>\",\"url\":\"<string>\",\"type\":\"<string>\",\"source\":\"<string>\"}",
+                  "description": "Optional attachments"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8bcac5c6-21a1-4dd3-94b6-bc840e88eaf6",
+              "name": "Message posted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Text Message",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional attachments",
+                        "type": "text/plain"
+                      },
+                      "key": "attachments",
+                      "value": "{\"id\":330,\"name\":\"string\",\"url\":\"string\",\"type\":\"string\",\"source\":\"string\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional attachments",
+                        "type": "text/plain"
+                      },
+                      "key": "attachments",
+                      "value": "{\"id\":5954,\"name\":\"string\",\"url\":\"string\",\"type\":\"string\",\"source\":\"string\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "faef16bb-9956-4b20-9d2a-b28b24d8fb22",
+          "name": "Get messages by project",
+          "request": {
+            "name": "Get messages by project",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "532b950e-1442-4504-9d61-9e7c9526ee17",
+              "name": "List of messages",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 9395,\n    \"message\": \"string\",\n    \"attachments\": [\n      {\n        \"id\": 4267,\n        \"name\": \"string\",\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"created_at\": \"2022-01-03T04:08:07.577Z\"\n      },\n      {\n        \"id\": 8606,\n        \"name\": \"string\",\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"created_at\": \"2005-06-01T04:45:05.156Z\"\n      }\n    ]\n  },\n  {\n    \"id\": 5659,\n    \"message\": \"string\",\n    \"attachments\": [\n      {\n        \"id\": 8367,\n        \"name\": \"string\",\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"created_at\": \"2008-11-13T00:46:39.538Z\"\n      },\n      {\n        \"id\": 7058,\n        \"name\": \"string\",\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"created_at\": \"1994-05-03T14:30:06.937Z\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "602ea971-17e4-4c6e-b3fc-9bced6a8c40f",
+          "name": "Get Project Costs",
+          "request": {
+            "name": "Get Project Costs",
+            "description": {
+              "content": "Get a list of associated project costs",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "project_cost"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2001b893-a882-4bac-8376-3eafcfd3a9ff",
+              "name": "List of project costs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "project_cost"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 3715,\n    \"title\": \"string\",\n    \"cost\": 4419.908418305414,\n    \"datetime\": \"1968-02-12\",\n    \"label_id\": 5787,\n    \"project_estimate_id\": 1804,\n    \"id_project_history\": 4065\n  },\n  {\n    \"id\": 3275,\n    \"title\": \"string\",\n    \"cost\": 7903.387268361478,\n    \"datetime\": \"1988-07-20\",\n    \"label_id\": 2001,\n    \"project_estimate_id\": 7370,\n    \"id_project_history\": 9867\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1a1c954-3f54-4aac-85e1-e1a1453b330a",
+          "name": "Add Project Cost",
+          "request": {
+            "name": "Add Project Cost",
+            "description": {
+              "content": "Create an associated project cost",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "project_cost"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"cost\": \"<float>\",\n  \"datetime\": \"<date>\",\n  \"label_id\": \"<integer>\",\n  \"project_estimate_id\": \"<integer>\",\n  \"id_project_history\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ba26ca1f-d03d-42ee-9270-230016dbba6d",
+              "name": "Project cost created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "project_cost"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost\": \"<float>\",\n  \"datetime\": \"<date>\",\n  \"label_id\": \"<integer>\",\n  \"project_estimate_id\": \"<integer>\",\n  \"id_project_history\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 7814,\n  \"title\": \"string\",\n  \"cost\": 4153.292773173776,\n  \"datetime\": \"1983-08-26\",\n  \"label_id\": 6130,\n  \"project_estimate_id\": 3315,\n  \"id_project_history\": 2292\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc028f3c-aa3a-4541-8919-8759c6859cb7",
+          "name": "Update Project Cost",
+          "request": {
+            "name": "Update Project Cost",
+            "description": {
+              "content": "Update an associated project cost",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "project_cost",
+                ":project_cost_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_cost_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"cost\": \"<float>\",\n  \"datetime\": \"<date>\",\n  \"label_id\": \"<integer>\",\n  \"project_estimate_id\": \"<integer>\",\n  \"id_project_history\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2a0f7982-7783-4613-a9ac-ed33f89ee577",
+              "name": "Project cost updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "project_cost",
+                    ":project_cost_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_cost_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost\": \"<float>\",\n  \"datetime\": \"<date>\",\n  \"label_id\": \"<integer>\",\n  \"project_estimate_id\": \"<integer>\",\n  \"id_project_history\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 7814,\n  \"title\": \"string\",\n  \"cost\": 4153.292773173776,\n  \"datetime\": \"1983-08-26\",\n  \"label_id\": 6130,\n  \"project_estimate_id\": 3315,\n  \"id_project_history\": 2292\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8cef18bb-4b15-458d-ad65-4ebb12fe129f",
+          "name": "Delete Project Cost",
+          "request": {
+            "name": "Delete Project Cost",
+            "description": {
+              "content": "Delete an associated project cost",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "project_cost",
+                ":project_cost_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_cost_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5616cf0f-630c-4407-85a6-1c15e48bf1bb",
+              "name": "Project cost deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "project_cost",
+                    ":project_cost_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_cost_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b6424e6-2890-4658-929f-2f2189f43528",
+          "name": "Get attachment by Project",
+          "request": {
+            "name": "Get attachment by Project",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "attachments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b39d4759-c473-4a9b-8aed-bdbecef8772f",
+              "name": "List of attachments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1362,\n    \"name\": \"string\",\n    \"url\": \"string\",\n    \"type\": \"string\",\n    \"created_at\": \"1953-03-27T04:50:01.419Z\"\n  },\n  {\n    \"id\": 6664,\n    \"name\": \"string\",\n    \"url\": \"string\",\n    \"type\": \"string\",\n    \"created_at\": \"1970-10-30T14:21:57.363Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2010697-eeac-4af0-9be8-c70122cdb484",
+          "name": "Get project labels",
+          "request": {
+            "name": "Get project labels",
+            "description": {
+              "content": "Returns project label categories and available labels for the company (same shape as grouped categories for the project entity type), plus the labels currently assigned to the given project in **`selected`**.\n\nUse **`GET /categories/labels-model?model=project`** for a simpler category tree without per-project selection. To **assign or remove** labels on a project, use **`PUT /projects/{project_id}`** with a `labels` array.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "false",
+                  "description": "Pagination page number. Set to false (the default) to disable pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "20",
+                  "description": "Page size when pagination is enabled."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "{}",
+                  "description": "JSON object as a string (must be valid JSON) for sort criteria passed to the label query."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "{}",
+                  "description": "JSON object as a string (must be valid JSON) with filter criteria for the grouped labels query (e.g. `ids`, `name`, `limit`)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID. Must belong to the authenticated user's company."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c658275-f232-456b-a768-c7fb1975a606",
+              "name": "Grouped project labels and labels assigned to this project",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "false"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "20"
+                    },
+                    {
+                      "key": "order",
+                      "value": "{}"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "{}"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID. Must belong to the authenticated user's company."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"labels\": [\n    {\n      \"id\": 268,\n      \"name\": \"string\",\n      \"labels\": [\n        {\n          \"id\": 2845,\n          \"hex\": \"string\",\n          \"hsl\": \"string\",\n          \"rgb\": \"string\",\n          \"lang\": \"string\",\n          \"name\": \"string\",\n          \"color_id\": 3848\n        },\n        {\n          \"id\": 4767,\n          \"hex\": \"string\",\n          \"hsl\": \"string\",\n          \"rgb\": \"string\",\n          \"lang\": \"string\",\n          \"name\": \"string\",\n          \"color_id\": 7045\n        }\n      ]\n    },\n    {\n      \"id\": 3803,\n      \"name\": \"string\",\n      \"labels\": [\n        {\n          \"id\": 7770,\n          \"hex\": \"string\",\n          \"hsl\": \"string\",\n          \"rgb\": \"string\",\n          \"lang\": \"string\",\n          \"name\": \"string\",\n          \"color_id\": 5710\n        },\n        {\n          \"id\": 5342,\n          \"hex\": \"string\",\n          \"hsl\": \"string\",\n          \"rgb\": \"string\",\n          \"lang\": \"string\",\n          \"name\": \"string\",\n          \"color_id\": 7255\n        }\n      ]\n    }\n  ],\n  \"selected\": [\n    {\n      \"id\": 3991,\n      \"hex\": \"string\",\n      \"hsl\": \"string\",\n      \"rgb\": \"string\",\n      \"lang\": \"string\",\n      \"name\": \"string\",\n      \"color_id\": 5834\n    },\n    {\n      \"id\": 7002,\n      \"hex\": \"string\",\n      \"hsl\": \"string\",\n      \"rgb\": \"string\",\n      \"lang\": \"string\",\n      \"name\": \"string\",\n      \"color_id\": 9796\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6281baef-a932-4023-a398-f327c3c4f35f",
+              "name": "Validation error (e.g. invalid JSON in `order` or `filters`, or project not found / not in company)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "false"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "20"
+                    },
+                    {
+                      "key": "order",
+                      "value": "{}"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "{}"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID. Must belong to the authenticated user's company."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 5435,\n  \"name\": \"string\",\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d943e4a-7833-40d5-9506-823ebc9de230",
+          "name": "Get project collaborators",
+          "request": {
+            "name": "Get project collaborators",
+            "description": {
+              "content": "Get users and teams collaborators from project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "collaborators"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd2127c1-9e5d-4ec3-b68a-fb0102698677",
+              "name": "List of project collaborators",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 73,\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"picture\": \"string\",\n    \"remaining_hours\": 2483.392823422624\n  },\n  {\n    \"id\": 6204,\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"picture\": \"string\",\n    \"remaining_hours\": 229.12955984157546\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7250de4-21b8-46fe-81ad-406f97fb3909",
+              "name": "Validation error (e.g. project not found or not in company)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"CORCustomError\",\n  \"code\": \"PC001\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e1ffe2b-fbd3-4e5f-8b41-0f748d98cfa6",
+          "name": "Add project collaborators",
+          "request": {
+            "name": "Add project collaborators",
+            "description": {
+              "content": "Add individual collaborators to project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "collaborators"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "usersIds",
+                  "value": "<integer>",
+                  "description": "Array of user IDs to add as collaborators"
+                },
+                {
+                  "disabled": false,
+                  "key": "usersIds",
+                  "value": "<integer>",
+                  "description": "Array of user IDs to add as collaborators"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ab30e6c0-19fd-40e5-9cb9-9571550377f5",
+              "name": "Collaborators added successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Array of user IDs to add as collaborators",
+                        "type": "text/plain"
+                      },
+                      "key": "usersIds",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Array of user IDs to add as collaborators",
+                        "type": "text/plain"
+                      },
+                      "key": "usersIds",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Collaborators added successfully\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d46cfe13-6eca-4c86-9320-30e75a2b8883",
+              "name": "Validation error (e.g. project or users invalid)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Array of user IDs to add as collaborators",
+                        "type": "text/plain"
+                      },
+                      "key": "usersIds",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Array of user IDs to add as collaborators",
+                        "type": "text/plain"
+                      },
+                      "key": "usersIds",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"CORCustomError\",\n  \"code\": \"PC001\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c72c5eca-4017-4987-8083-d16fa1a99f6d",
+          "name": "Delete project collaborator",
+          "request": {
+            "name": "Delete project collaborator",
+            "description": {
+              "content": "Delete individual collaborator from project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "collaborators",
+                ":user_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "user_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fecc776e-d6bc-4949-99ab-3a854abd066d",
+              "name": "Collaborator deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "collaborators",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b6d182f1-6c59-49b7-87e0-3b27cde5c15c",
+              "name": "Validation error (e.g. project or user not found)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "collaborators",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"CORCustomError\",\n  \"code\": \"PC001\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ae62041-fa37-4932-b2ce-ba3925522b44",
+          "name": "Get Project Estimates",
+          "request": {
+            "name": "Get Project Estimates",
+            "description": {
+              "content": "Get a list of associated project estimates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "project_estimate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b906e429-f5bf-4095-8dd4-382cb6359dd4",
+              "name": "List of project estimates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "project_estimate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 9738,\n    \"title\": \"string\",\n    \"cost\": \"string\",\n    \"datetime\": \"1984-07-17\",\n    \"currency_id\": 8836,\n    \"fee_id\": 232\n  },\n  {\n    \"id\": 1893,\n    \"title\": \"string\",\n    \"cost\": \"string\",\n    \"datetime\": \"1952-12-25\",\n    \"currency_id\": 6526,\n    \"fee_id\": 5081\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ff1b79a-d4b9-4447-974a-1f693b518201",
+          "name": "Add Project Estimate",
+          "request": {
+            "name": "Add Project Estimate",
+            "description": {
+              "content": "Create an associated project estimates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "project_estimate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"cost\": \"<string>\",\n  \"datetime\": \"<date>\",\n  \"currency_id\": \"<integer>\",\n  \"fee_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5aa49028-c354-44d5-8278-b7ffca9bf539",
+              "name": "Project estimate created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "project_estimate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost\": \"<string>\",\n  \"datetime\": \"<date>\",\n  \"currency_id\": \"<integer>\",\n  \"fee_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1798,\n  \"title\": \"string\",\n  \"cost\": \"string\",\n  \"datetime\": \"1974-04-01\",\n  \"currency_id\": 1477,\n  \"fee_id\": 5983\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25092fa2-0a2a-4ed4-8ee3-440dc94370e3",
+          "name": "Update a Project Estimate",
+          "request": {
+            "name": "Update a Project Estimate",
+            "description": {
+              "content": "Modify an associated project estimates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "project_estimate",
+                ":project_estimate_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_estimate_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"cost\": \"<string>\",\n  \"datetime\": \"<date>\",\n  \"currency_id\": \"<integer>\",\n  \"fee_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f7b036b8-aa1a-4e11-af8c-9a4e1964984e",
+              "name": "Project estimate updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "project_estimate",
+                    ":project_estimate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_estimate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost\": \"<string>\",\n  \"datetime\": \"<date>\",\n  \"currency_id\": \"<integer>\",\n  \"fee_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1798,\n  \"title\": \"string\",\n  \"cost\": \"string\",\n  \"datetime\": \"1974-04-01\",\n  \"currency_id\": 1477,\n  \"fee_id\": 5983\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7d28b6b-b752-4d28-bbbb-cf41c97d6585",
+          "name": "Delete a Project Estimate",
+          "request": {
+            "name": "Delete a Project Estimate",
+            "description": {
+              "content": "Delete an associated project estimates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "project_estimate",
+                ":project_estimate_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_estimate_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c7d0b3a4-6cd8-46f1-8ce2-ff6b35aa1aa6",
+              "name": "Project estimate deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "project_estimate",
+                    ":project_estimate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_estimate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65ea3b30-4d3a-445c-88a3-73bc5a492a71",
+          "name": "Get project ratecard",
+          "request": {
+            "name": "Get project ratecard",
+            "description": {
+              "content": "Returns the ratecard currently assigned to the project, or `null` if none is assigned. The ratecard defines pricing configurations (positions, rates, custom percentages) used when `estimated_by_hourly_rates` is enabled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "ratecard"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ae0e7a95-43e3-44a9-9764-cd7439f787d8",
+              "name": "Ratecard assigned to the project (or null)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "ratecard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 954,\n  \"name\": \"string\",\n  \"original_name\": \"string\",\n  \"percent\": 4068.092444227869,\n  \"company_id\": 6954,\n  \"system\": false,\n  \"currency_id\": 4846,\n  \"linked_to_base_price\": false,\n  \"external_key\": \"string\",\n  \"created_at\": \"1975-04-07T20:19:57.447Z\",\n  \"updated_at\": \"2001-10-07T17:30:45.882Z\",\n  \"deleted_at\": \"2017-12-21T17:27:35.694Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "46870add-72b2-4b72-94b3-6f970232dd6a",
+    "name": "COR Attachments Projects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

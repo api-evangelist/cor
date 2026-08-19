@@ -1,0 +1,186 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments User Leaves API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Leaves",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get User Leaves",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/user/leaves",
+            "params": [
+              {
+                "name": "usersId",
+                "value": "8555",
+                "type": "query",
+                "description": "User ID to get leaves for"
+              },
+              {
+                "name": "offset",
+                "value": "1",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "size",
+                "value": "10",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Gets user leaves for specified users with pagination support."
+        },
+        {
+          "info": {
+            "name": "Create User Leave",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/user/leaves",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user leave.\n\n⚠️ **Important:**\n- Dates must be sent in UTC format (e.g., `2024-11-18T03:00:00Z`)\n- Dates cannot overlap with existing leaves for the same user\n- If there is an existing date between the submitted dates, the request will not be saved"
+        },
+        {
+          "info": {
+            "name": "Delete User Leave",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectcor.com/v1/user/leaves",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a user leave by providing the leave ID and user ID."
+        },
+        {
+          "info": {
+            "name": "Update User Leave",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectcor.com/v1/user/leaves/:licenseId",
+            "params": [
+              {
+                "name": "licenseId",
+                "value": "16332",
+                "type": "path",
+                "description": "User Leave ID to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing user leave. Dates must be in UTC format."
+        },
+        {
+          "info": {
+            "name": "Get Leave Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/company/leaves-types",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (default: 1). Set to `false` to disable pagination."
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (default: 20)."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of default and custom leave types for your company. By default, responses are paginated with 20 items per page."
+        },
+        {
+          "info": {
+            "name": "Create Leave Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/company/leaves-types",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new custom leave type for your company."
+        },
+        {
+          "info": {
+            "name": "Delete Leave Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectcor.com/v1/company/leaves-types",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a custom leave type. Only custom leave types (with a company_id) can be deleted."
+        },
+        {
+          "info": {
+            "name": "Update Leave Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectcor.com/v1/company/leaves-types/:leaveTypeId",
+            "params": [
+              {
+                "name": "leaveTypeId",
+                "value": "111",
+                "type": "path",
+                "description": "Leave type ID to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a custom leave type. Only the name can be modified."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

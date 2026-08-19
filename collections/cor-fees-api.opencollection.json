@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments Fees API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fees",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Fees from a client",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/clients/:client_id/fees",
+            "params": [
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Fees from a client"
+        },
+        {
+          "info": {
+            "name": "Create a fee",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/clients/:client_id/fees",
+            "params": [
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a fee"
+        },
+        {
+          "info": {
+            "name": "Update fee",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectcor.com/v1/clients/:client_id/fees/:fee_id",
+            "params": [
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fee_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update fee"
+        },
+        {
+          "info": {
+            "name": "Get Historical fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/clients/:client_id/fees/:fee_id/historicals",
+            "params": [
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fee_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Historical fees"
+        },
+        {
+          "info": {
+            "name": "Get Fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/fees",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (default: 1). Set to `false` to disable pagination."
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (default: 20)."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of fees. By default, responses are paginated with 20 items per page."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,388 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments Tasks API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/tasks",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (default: 1). Set to `false` to disable pagination."
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (default: 20)."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "Filters for the task list, expressed as a JSON object **URL-encoded** into this query string.\n\n**Examples of common keys**\n\n- **`projects`** — One project ID, or an array of project IDs.\n- **`pm`** — One user ID, or an array of user IDs for the task PM.\n- **`status`** — One status or several; examples: `nueva`, `en_proceso`, `finalizada`.\n\n**Other supported keys** in the same object include `labels`, `categories`, `clients`, `collaborator`, `priority`, and `sprints`.\n\n**Important:** Use only this parameter for filtering. Do **not** add extra query parameters such as `?project_id=` or `?user_id=`."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Optional sort specification as a JSON object **URL-encoded** into this query string.\n\nFor each field you want to sort by, set the value to **`ASC`** or **`DESC`** (where supported).\n\n**Sortable fields** include `client`, `project`, `task`, `deadline`, `datetime`, `pm`, `priority`, and `sprint`.\n\nThe response also uses a default tie-breaker: the task's defined order ascending."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of tasks. By default, responses are paginated with 20 items per page."
+        },
+        {
+          "info": {
+            "name": "Create a task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/tasks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a task"
+        },
+        {
+          "info": {
+            "name": "Get task by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/tasks/:task_id",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get task by ID"
+        },
+        {
+          "info": {
+            "name": "Update a Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectcor.com/v1/tasks/:task_id",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Task attributes"
+        },
+        {
+          "info": {
+            "name": "Delete a Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectcor.com/v1/tasks/:task_id",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Task"
+        },
+        {
+          "info": {
+            "name": "Get tasks by title",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/tasks/search-by-title/:title",
+            "params": [
+              {
+                "name": "title",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get tasks by title"
+        },
+        {
+          "info": {
+            "name": "Get messages by Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/tasks/:task_id/messages",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get messages by Task"
+        },
+        {
+          "info": {
+            "name": "Post task message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/tasks/:task_id/messages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Post task message"
+        },
+        {
+          "info": {
+            "name": "Get task attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/tasks/:task_id/attachments",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the task"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort criteria (e.g. `{\"created_at\": \"DESC\"}`)"
+              }
+            ]
+          },
+          "docs": "Lists attachments for a task (paginated), excluding child versions."
+        },
+        {
+          "info": {
+            "name": "Upload task attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/tasks/:task_id/attachments",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the task (task_log_id)"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "available",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "session_token",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "attachment_parent_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "status",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "created_from",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads one or more files to a task via multipart/form-data."
+        },
+        {
+          "info": {
+            "name": "Delete task attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectcor.com/v1/tasks/:task_id/attachments",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the task"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes one or more attachments from a task."
+        },
+        {
+          "info": {
+            "name": "Create task attachment from external source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/tasks/:task_id/attachments/source/:source_type",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the task"
+              },
+              {
+                "name": "source_type",
+                "value": "",
+                "type": "path",
+                "description": "External file source: `GoogleDrive`, `DropBox`, or `OneDrive`"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an attachment from an external source (Google Drive, Dropbox, OneDrive)."
+        },
+        {
+          "info": {
+            "name": "GET task members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/tasks/:task_id/members",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "GET task members"
+        },
+        {
+          "info": {
+            "name": "Get task collaborators",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/tasks/:task_id/collaborators",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the task"
+              }
+            ]
+          },
+          "docs": "Returns only the collaborators assigned to a task — users directly assigned to work on it."
+        },
+        {
+          "info": {
+            "name": "Assign collaborators to a task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/tasks/:task_id/collaborators",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the task"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the list of collaborators assigned to a task. The operation is a **sync** — the array provided represents the desired final state. Users present in the array but not yet assigned will be added; users currently assigned but absent from the array will be removed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

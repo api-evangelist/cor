@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments Working Time API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Working Time",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or update working time",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/working-time",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates the user's working time schedule.\n\n**Fields:**\n- `dayOfWeek` — Day of the week (1 = Sunday, 7 = Saturday)\n- `start` — Start time in HH:MM format (24-hour clock)\n- `end` — End time in HH:MM format (24-hour clock)\n- `breakTime` — Break duration in hours. Valid values: 0, 0.25, 0.5, 0.75, 1, 1.5, 2"
+        },
+        {
+          "info": {
+            "name": "Get working time users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/working-time/company/with/users"
+          },
+          "docs": "Gets information about working time for all users in the company. The response is an object where keys are user IDs and values are arrays of working time entries."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

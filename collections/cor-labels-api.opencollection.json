@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments Labels API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Labels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/labels",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID. Must belong to the authenticated user's company."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination page number. Set to false (the default) to disable pagination."
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Page size when pagination is enabled."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "JSON object as a string (must be valid JSON) for sort criteria passed to the label query."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "JSON object as a string (must be valid JSON) with filter criteria for the grouped labels query (e.g. `ids`, `name`, `limit`)."
+              }
+            ]
+          },
+          "docs": "Returns project label categories and available labels for the company (same shape as grouped categories for the project entity type), plus the labels currently assigned to the given project in **`selected`**.\n\nUse **`GET /categories/labels-model?model=project`** for a simpler category tree without per-project selection. To **assign or remove** labels on a project, use **`PUT /projects/{project_id}`** with a `labels` array."
+        },
+        {
+          "info": {
+            "name": "Get Categories and Labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/categories/labels-model",
+            "params": [
+              {
+                "name": "model",
+                "value": "user",
+                "type": "query",
+                "description": "Entity type whose category/label tree to return: `user` (user labels), `project` (project labels), `task` (task labels)."
+              },
+              {
+                "name": "is_filterable",
+                "value": "",
+                "type": "query",
+                "description": "When `true` (default), only categories with `is_filterable` set are returned. Use `false` to include categories that are not marked filterable."
+              }
+            ]
+          },
+          "docs": "Returns categories for the company, each with its labels, filtered by which entity type those categories apply to (users, projects, or tasks). Names are returned in the authenticated user's language.\n\nUse **`model`** to choose the taxonomy: `user` for user/operation labels, `project` for project labels, and `task` for task labels. Any other value yields a validation error."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

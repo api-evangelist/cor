@@ -1,0 +1,502 @@
+{
+  "item": [
+    {
+      "id": "186b5dd2-6aa6-4cc3-b7f6-de8f97891492",
+      "name": "Contracts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "df2f0c6e-865d-4b34-ae6c-382198aac6c8",
+          "name": "Get contracts",
+          "request": {
+            "name": "Get contracts",
+            "description": {
+              "content": "Retrieves a paginated list of contracts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1). Set to `false` to disable pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "20",
+                  "description": "Number of items per page (default: 20)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>",
+                  "description": "URL-encoded JSON object with filter criteria."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"with_milestones\": \"<boolean>\",\n  \"with_ratecards\": \"<boolean>\",\n  \"with_positions\": \"<boolean>\",\n  \"status\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c166ef02-b171-4de1-8302-09022bb48156",
+              "name": "Paginated list of contracts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "20"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"with_milestones\": true,\n  \"with_ratecards\": true,\n  \"with_positions\": true,\n  \"status\": \"expired\",\n  \"type\": \"time_and_materials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": \"string\",\n  \"perPage\": \"string\",\n  \"page\": \"string\",\n  \"data\": [\n    {\n      \"id\": 4799,\n      \"client_id\": 8984,\n      \"json_integrations\": {},\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"source\": \"string\",\n      \"status\": \"string\",\n      \"company_id\": 9774,\n      \"start\": \"1996-07-31T17:54:33.801Z\",\n      \"end\": \"1965-10-18T02:31:48.359Z\",\n      \"frequency\": \"string\",\n      \"currency_id\": 435,\n      \"currency\": {\n        \"id\": 4844,\n        \"name\": \"string\"\n      },\n      \"url\": \"string\",\n      \"url_name\": \"string\",\n      \"user_positions_header_id\": 4062,\n      \"created_at\": \"1963-01-07T22:04:07.597Z\",\n      \"updated_at\": \"2008-01-15T01:53:46.738Z\",\n      \"deleted_at\": \"1992-07-19T14:25:37.329Z\"\n    },\n    {\n      \"id\": 7353,\n      \"client_id\": 3786,\n      \"json_integrations\": {},\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"source\": \"string\",\n      \"status\": \"string\",\n      \"company_id\": 1731,\n      \"start\": \"2010-08-01T11:46:48.309Z\",\n      \"end\": \"1952-04-30T14:27:48.007Z\",\n      \"frequency\": \"string\",\n      \"currency_id\": 2795,\n      \"currency\": {\n        \"id\": 62,\n        \"name\": \"string\"\n      },\n      \"url\": \"string\",\n      \"url_name\": \"string\",\n      \"user_positions_header_id\": 5763,\n      \"created_at\": \"1950-03-21T15:33:05.840Z\",\n      \"updated_at\": \"1959-08-11T04:40:16.714Z\",\n      \"deleted_at\": \"2002-08-16T10:40:10.475Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "313a7a0e-3c24-43e0-850f-1789357e01db",
+          "name": "Create contract",
+          "request": {
+            "name": "Create contract",
+            "description": {
+              "content": "Creates a contract using the provided contract identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":contract_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "contract_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"company_id\": \"<integer>\",\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"frequency\": \"<string>\",\n  \"currency_id\": \"<integer>\",\n  \"json_integrations\": \"<object>\",\n  \"url\": \"<string>\",\n  \"url_name\": \"<string>\",\n  \"user_positions_header_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1a0bd9cd-c326-4822-a2d3-8626b1b85c33",
+              "name": "Contract created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"company_id\": \"<integer>\",\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"frequency\": \"<string>\",\n  \"currency_id\": \"<integer>\",\n  \"json_integrations\": \"<object>\",\n  \"url\": \"<string>\",\n  \"url_name\": \"<string>\",\n  \"user_positions_header_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 2615,\n  \"client_id\": 1287,\n  \"json_integrations\": {},\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"source\": \"string\",\n  \"status\": \"string\",\n  \"company_id\": 5085,\n  \"start\": \"2008-11-06T12:02:29.684Z\",\n  \"end\": \"2023-05-16T12:08:51.697Z\",\n  \"frequency\": \"string\",\n  \"currency_id\": 3249,\n  \"currency\": {\n    \"id\": 1994,\n    \"name\": \"string\"\n  },\n  \"url\": \"string\",\n  \"url_name\": \"string\",\n  \"user_positions_header_id\": 5839,\n  \"created_at\": \"2025-12-16T05:18:04.391Z\",\n  \"updated_at\": \"2000-11-01T23:17:47.824Z\",\n  \"deleted_at\": \"1970-11-12T07:19:22.270Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4cac1cf7-9765-400d-a3b1-aedd608abb1f",
+          "name": "Update contract",
+          "request": {
+            "name": "Update contract",
+            "description": {
+              "content": "Updates the specified contract.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":contract_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "contract_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_id\": \"<integer>\",\n  \"json_integrations\": \"<object>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"company_id\": \"<integer>\",\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"frequency\": \"<string>\",\n  \"currency_id\": \"<integer>\",\n  \"url\": \"<string>\",\n  \"url_name\": \"<string>\",\n  \"user_positions_header_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9f0fca32-e7a6-40b2-87f6-97b062a83e9c",
+              "name": "Contract updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<integer>\",\n  \"json_integrations\": \"<object>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"company_id\": \"<integer>\",\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"frequency\": \"<string>\",\n  \"currency_id\": \"<integer>\",\n  \"url\": \"<string>\",\n  \"url_name\": \"<string>\",\n  \"user_positions_header_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 2615,\n  \"client_id\": 1287,\n  \"json_integrations\": {},\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"source\": \"string\",\n  \"status\": \"string\",\n  \"company_id\": 5085,\n  \"start\": \"2008-11-06T12:02:29.684Z\",\n  \"end\": \"2023-05-16T12:08:51.697Z\",\n  \"frequency\": \"string\",\n  \"currency_id\": 3249,\n  \"currency\": {\n    \"id\": 1994,\n    \"name\": \"string\"\n  },\n  \"url\": \"string\",\n  \"url_name\": \"string\",\n  \"user_positions_header_id\": 5839,\n  \"created_at\": \"2025-12-16T05:18:04.391Z\",\n  \"updated_at\": \"2000-11-01T23:17:47.824Z\",\n  \"deleted_at\": \"1970-11-12T07:19:22.270Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da279181-a543-4675-9232-5b12972bc1d7",
+          "name": "Delete contract",
+          "request": {
+            "name": "Delete contract",
+            "description": {
+              "content": "Deletes the specified contract.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":contract_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "contract_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "104503c3-33aa-4584-bf69-894741b842c9",
+              "name": "Contract deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 2615,\n  \"client_id\": 1287,\n  \"json_integrations\": {},\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"source\": \"string\",\n  \"status\": \"string\",\n  \"company_id\": 5085,\n  \"start\": \"2008-11-06T12:02:29.684Z\",\n  \"end\": \"2023-05-16T12:08:51.697Z\",\n  \"frequency\": \"string\",\n  \"currency_id\": 3249,\n  \"currency\": {\n    \"id\": 1994,\n    \"name\": \"string\"\n  },\n  \"url\": \"string\",\n  \"url_name\": \"string\",\n  \"user_positions_header_id\": 5839,\n  \"created_at\": \"2025-12-16T05:18:04.391Z\",\n  \"updated_at\": \"2000-11-01T23:17:47.824Z\",\n  \"deleted_at\": \"1970-11-12T07:19:22.270Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5fdfbf6f-a378-4c51-92ca-d000b4177bae",
+    "name": "COR Attachments Contracts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

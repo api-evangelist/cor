@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments Ratecards API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ratecards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project ratecard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/projects/:project_id/ratecard",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the ratecard currently assigned to the project, or `null` if none is assigned. The ratecard defines pricing configurations (positions, rates, custom percentages) used when `estimated_by_hourly_rates` is enabled."
+        },
+        {
+          "info": {
+            "name": "Get Ratecards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/ratecards",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (default: 1). Set to `false` to disable pagination."
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (default: 20)."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of ratecards for the current company. Each ratecard defines pricing configurations such as positions, rates, and custom pricing percentages."
+        },
+        {
+          "info": {
+            "name": "Create a Ratecard",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/ratecards",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new ratecard for the current company."
+        },
+        {
+          "info": {
+            "name": "Update a Ratecard",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectcor.com/v1/ratecards/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Ratecard ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing ratecard by ID."
+        },
+        {
+          "info": {
+            "name": "Delete a Ratecard",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectcor.com/v1/ratecards/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Ratecard ID"
+              }
+            ]
+          },
+          "docs": "Deletes (soft-delete) a ratecard by ID. Returns the deleted ratecard object with `deleted_at` timestamp set."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

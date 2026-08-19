@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments User Positions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Positions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a user position",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/userPosition",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user position.\n\nIf company has the feature flag to manage positions by labels enabled, Field `segmentLabel` is required. For companies without this feature enabled, `segmentLabel` is ignored.\n\nFied `company_id` is automatically set from the authenticated user's company."
+        },
+        {
+          "info": {
+            "name": "Update a user position",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectcor.com/v1/userPosition/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "User position ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing user position.\n\nIf company has the feature flag to manage positions by labels enabled, field `segmentLabel` is required and will be used to group the position by label.\n\nAll fields in the request body are optional. Only provided fields will be updated."
+        },
+        {
+          "info": {
+            "name": "Get active user positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/userPosition/getPositionsOnly",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Language code for position and category names. Defaults to the authenticated user's language, or EN if not set."
+              },
+              {
+                "name": "groupedByCategory",
+                "value": "",
+                "type": "query",
+                "description": "If truthy, returns positions grouped by category. Omit or use a falsy value for a flat list."
+              }
+            ]
+          },
+          "docs": "Returns all active user positions for the authenticated user's company. Only active positions and active categories are returned. The company scope always comes from the authenticated user and cannot be set manually.\n\nResults are ordered by category name, then by position name. This endpoint does not paginate.\n\n**Query parameters**\n\n- **`lang`** (optional): Language for localized names. If omitted, uses the authenticated user's configured language; if none is set, defaults to **EN**. Examples: `"
+        },
+        {
+          "info": {
+            "name": "Get position segment labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/userPosition/labels/groupers",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Defines whether labels are retrieved for positions or categories. Must be 'c' for categories or 'p' for positions"
+              }
+            ]
+          },
+          "docs": "Returns list of segment labels used to group user positions.\n\nThis endpoint is only available for companies with feature flag to manage positions by labels enabled. The endpoint requires authentication and will return a 403 error if the feature is not enabled for company."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

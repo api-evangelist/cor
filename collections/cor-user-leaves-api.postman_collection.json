@@ -1,0 +1,897 @@
+{
+  "item": [
+    {
+      "id": "7db4e086-6f31-4c20-a2d4-59bb45e3c23b",
+      "name": "User Leaves",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c04e8345-4f15-404e-955b-209b0e7d41c4",
+          "name": "Get User Leaves",
+          "request": {
+            "name": "Get User Leaves",
+            "description": {
+              "content": "Gets user leaves for specified users with pagination support.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "leaves"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "usersId",
+                  "value": "<integer>",
+                  "description": "(Required) User ID to get leaves for"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "1",
+                  "description": "Pagination offset"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "10",
+                  "description": "Number of results per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "519ca18a-a24a-40d7-8aee-5c0a09e88991",
+              "name": "List of leaves with their associated leave types",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "leaves"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "usersId",
+                      "value": "8555"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 14050,\n    \"user_id\": 8555,\n    \"company_id\": 2336,\n    \"leave_type_id\": 1498,\n    \"start\": \"2024-10-18T03:00:00.000Z\",\n    \"end\": \"2024-10-18T03:30:00.000Z\",\n    \"created_at\": \"2024-10-21 14:19:01\",\n    \"updated_at\": \"2024-10-21 14:19:23\",\n    \"deleted_at\": null,\n    \"all_day\": false,\n    \"leaveType\": {\n      \"id\": 1498,\n      \"name\": \"Custom Leave\",\n      \"type_code\": \"UL1498\",\n      \"company_id\": 2336,\n      \"created_at\": \"2024-10-21 14:18:36\",\n      \"updated_at\": \"2024-10-21 14:18:36\",\n      \"deleted_at\": null,\n      \"icon_name\": \"Futbol\"\n    }\n  },\n  {\n    \"id\": 10030,\n    \"user_id\": 8555,\n    \"company_id\": 2336,\n    \"leave_type_id\": 12,\n    \"start\": \"2024-08-29T13:00:00.000Z\",\n    \"end\": \"2024-08-29T15:00:00.000Z\",\n    \"created_at\": \"2024-08-29 13:44:13\",\n    \"updated_at\": \"2024-08-29 13:44:13\",\n    \"deleted_at\": null,\n    \"all_day\": false,\n    \"leaveType\": {\n      \"id\": 12,\n      \"name\": \"flexday\",\n      \"type_code\": \"UL12\",\n      \"company_id\": null,\n      \"created_at\": \"2022-09-14 12:09:10\",\n      \"updated_at\": \"2024-07-15 17:16:56\",\n      \"deleted_at\": null,\n      \"icon_name\": \"Loveseat\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9543c773-e311-491b-ae8b-72862c7b337d",
+          "name": "Create User Leave",
+          "request": {
+            "name": "Create User Leave",
+            "description": {
+              "content": "Creates a new user leave.\n\n⚠️ **Important:**\n- Dates must be sent in UTC format (e.g., `2024-11-18T03:00:00Z`)\n- Dates cannot overlap with existing leaves for the same user\n- If there is an existing date between the submitted dates, the request will not be saved",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "leaves"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<integer>\",\n  \"leaveTypeId\": \"<integer>\",\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"allDay\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "53f7554d-6d3c-4c92-95f0-86c0e89c33aa",
+              "name": "Leave created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "leaves"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": 8555,\n  \"leaveTypeId\": 11,\n  \"start\": \"2024-11-18T03:00:00Z\",\n  \"end\": \"2024-11-19T02:59:00Z\",\n  \"allDay\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user_id\": 8555,\n  \"company_id\": 2336,\n  \"leave_type_id\": 11,\n  \"start\": \"2024-11-18T03:00:00Z\",\n  \"end\": \"2024-11-19T02:59:00Z\",\n  \"created_at\": \"2024-11-07 22:11:30\",\n  \"updated_at\": \"2024-11-07 22:11:30\",\n  \"all_day\": false,\n  \"id\": 16332\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb78ce93-cb96-4f48-b30a-c50b12e50630",
+          "name": "Delete User Leave",
+          "request": {
+            "name": "Delete User Leave",
+            "description": {
+              "content": "Deletes a user leave by providing the leave ID and user ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "leaves"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\",\n  \"userId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2b6264d5-8826-4102-8214-a09c8b681aa1",
+              "name": "Leave deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "leaves"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 15489,\n  \"userId\": 8555\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 15489\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d4f0453-f965-4fd1-97ef-fb1510756ec3",
+          "name": "Update User Leave",
+          "request": {
+            "name": "Update User Leave",
+            "description": {
+              "content": "Updates an existing user leave. Dates must be in UTC format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "leaves",
+                ":licenseId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "licenseId",
+                  "description": "(Required) User Leave ID to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<integer>\",\n  \"leaveTypeId\": \"<integer>\",\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "716766c1-bbbc-49c5-b2a3-455c053bae53",
+              "name": "Leave updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "leaves",
+                    ":licenseId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "licenseId",
+                      "description": "(Required) User Leave ID to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": 8555,\n  \"leaveTypeId\": 12,\n  \"start\": \"2024-11-18T03:00:00Z\",\n  \"end\": \"2024-11-19T05:00:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 16332,\n  \"user_id\": 8555,\n  \"company_id\": 2336,\n  \"leave_type_id\": 12,\n  \"start\": \"2024-11-18T03:00:00Z\",\n  \"end\": \"2024-11-19T05:00:00Z\",\n  \"created_at\": \"2024-11-07 22:11:30\",\n  \"updated_at\": \"2024-11-07 22:20:48\",\n  \"deleted_at\": null,\n  \"all_day\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aa6f372f-7a77-4172-8b9f-83a49c062c09",
+          "name": "Get Leave Types",
+          "request": {
+            "name": "Get Leave Types",
+            "description": {
+              "content": "Retrieves a paginated list of default and custom leave types for your company. By default, responses are paginated with 20 items per page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "leaves-types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1). Set to `false` to disable pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "20",
+                  "description": "Number of items per page (default: 20)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2174e5f4-ff7f-4003-a0ea-6b5d8a8d13a7",
+              "name": "Paginated list of leave types",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "leaves-types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 2,\n  \"perPage\": 20,\n  \"page\": 1,\n  \"lastPage\": 1,\n  \"data\": [\n    {\n      \"id\": 111,\n      \"name\": \"Custom leave\",\n      \"type_code\": \"CODE\",\n      \"company_id\": 111,\n      \"created_at\": \"2024-12-06T13:02:53.000Z\",\n      \"updated_at\": \"2024-12-06T13:02:53.000Z\",\n      \"deleted_at\": null,\n      \"icon_name\": \"icon name\"\n    },\n    {\n      \"id\": 12,\n      \"name\": \"flexday\",\n      \"type_code\": \"UL12\",\n      \"company_id\": null,\n      \"created_at\": \"2022-09-14T12:09:10.000Z\",\n      \"updated_at\": \"2024-07-15T17:16:56.000Z\",\n      \"deleted_at\": null,\n      \"icon_name\": \"Loveseat\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1aa1fd4e-0550-42f0-bd33-e9f1ac700e8b",
+          "name": "Create Leave Type",
+          "request": {
+            "name": "Create Leave Type",
+            "description": {
+              "content": "Creates a new custom leave type for your company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "leaves-types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cf5abae0-6cce-450d-ac14-846e26340f22",
+              "name": "Leave type created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "leaves-types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Custom leave type\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Custom leave type\",\n  \"company_id\": 111,\n  \"icon_name\": \"ICON\",\n  \"created_at\": \"2024-12-10 17:57:12\",\n  \"updated_at\": \"2024-12-10 17:57:12\",\n  \"id\": 111\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba896c21-f9a0-4fbe-8d29-a415810ed7ab",
+          "name": "Delete Leave Type",
+          "request": {
+            "name": "Delete Leave Type",
+            "description": {
+              "content": "Deletes a custom leave type. Only custom leave types (with a company_id) can be deleted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "leaves-types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7b939476-ae2f-48a6-ac93-0e5f5b0411b4",
+              "name": "Leave type deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "leaves-types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 111\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 111\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4792a40-5bcb-4e9e-b119-cd1babc9b17a",
+          "name": "Update Leave Type",
+          "request": {
+            "name": "Update Leave Type",
+            "description": {
+              "content": "Updates a custom leave type. Only the name can be modified.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "leaves-types",
+                ":leaveTypeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "leaveTypeId",
+                  "description": "(Required) Leave type ID to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1287daee-1c8c-42ad-9ce5-fb277e0b9da2",
+              "name": "Leave type updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "leaves-types",
+                    ":leaveTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "leaveTypeId",
+                      "description": "(Required) Leave type ID to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Custom type - edited\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 111,\n  \"name\": \"Custom type - edited\",\n  \"type_code\": \"CODE\",\n  \"company_id\": 1111,\n  \"created_at\": \"2024-12-10T17:57:12.000Z\",\n  \"updated_at\": \"2024-12-10T18:19:13.000Z\",\n  \"deleted_at\": null,\n  \"icon_name\": \"ICON\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a42b64d1-39ff-40ff-b181-a97b189e156a",
+    "name": "COR Attachments User Leaves API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

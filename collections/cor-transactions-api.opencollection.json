@@ -1,0 +1,206 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments Transactions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/transactions",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (default: 1). Set to `false` to disable pagination."
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (default: 20)."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "URL-encoded JSON object with filter criteria."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of transactions. By default, responses are paginated with 20 items per page."
+        },
+        {
+          "info": {
+            "name": "Create transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create transaction"
+        },
+        {
+          "info": {
+            "name": "Update transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectcor.com/v1/transactions/:transaction_id",
+            "params": [
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update transaction"
+        },
+        {
+          "info": {
+            "name": "Delete transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectcor.com/v1/transactions/:transaction_id",
+            "params": [
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete transaction"
+        },
+        {
+          "info": {
+            "name": "Get Total",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/transactions/total"
+          },
+          "docs": "Get Total"
+        },
+        {
+          "info": {
+            "name": "Create transaction items",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/transaction/:transaction_id/transactionItems",
+            "params": [
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create transaction items"
+        },
+        {
+          "info": {
+            "name": "Delete transaction items",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectcor.com/v1/transaction/:transaction_id/transactionItems",
+            "params": [
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete transaction items"
+        },
+        {
+          "info": {
+            "name": "Update transaction item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectcor.com/v1/transaction/:transaction_id/transactionItems/:transaction_item_id",
+            "params": [
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "transaction_item_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update transaction item"
+        },
+        {
+          "info": {
+            "name": "Get Suggest Allocation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/transactions/:transaction_item_id/suggest-allocation",
+            "params": [
+              {
+                "name": "transaction_item_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Suggest Allocation"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

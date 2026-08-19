@@ -1,0 +1,599 @@
+{
+  "item": [
+    {
+      "id": "a5a459dc-be89-47e9-b806-0f9008d73ced",
+      "name": "Ratecards",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "173b7b95-2ca7-4358-b68f-72fbbdbbf318",
+          "name": "Get project ratecard",
+          "request": {
+            "name": "Get project ratecard",
+            "description": {
+              "content": "Returns the ratecard currently assigned to the project, or `null` if none is assigned. The ratecard defines pricing configurations (positions, rates, custom percentages) used when `estimated_by_hourly_rates` is enabled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "ratecard"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc4aa334-3219-4e5b-9e75-69526c3d4551",
+              "name": "Ratecard assigned to the project (or null)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "ratecard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4586,\n  \"name\": \"string\",\n  \"original_name\": \"string\",\n  \"percent\": 1096.152682713868,\n  \"company_id\": 1191,\n  \"system\": true,\n  \"currency_id\": 7410,\n  \"linked_to_base_price\": true,\n  \"external_key\": \"string\",\n  \"created_at\": \"2003-01-03T22:17:10.432Z\",\n  \"updated_at\": \"2022-08-07T13:29:36.572Z\",\n  \"deleted_at\": \"1995-09-10T09:49:36.993Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33921e8c-3200-4867-a94e-464cb16c7805",
+          "name": "Get Ratecards",
+          "request": {
+            "name": "Get Ratecards",
+            "description": {
+              "content": "Retrieves a paginated list of ratecards for the current company. Each ratecard defines pricing configurations such as positions, rates, and custom pricing percentages.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ratecards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1). Set to `false` to disable pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "20",
+                  "description": "Number of items per page (default: 20)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cf59c533-f957-4ca2-9b07-9863a8d52715",
+              "name": "Paginated list of ratecards",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ratecards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": \"string\",\n  \"perPage\": 3596,\n  \"page\": 2053,\n  \"lastPage\": 5968,\n  \"data\": [\n    {\n      \"id\": 4012,\n      \"name\": \"string\",\n      \"original_name\": \"string\",\n      \"percent\": 387.46970763543055,\n      \"company_id\": 4346,\n      \"system\": true,\n      \"currency_id\": 8531,\n      \"linked_to_base_price\": false,\n      \"external_key\": \"string\",\n      \"created_at\": \"1985-09-22T14:16:58.512Z\",\n      \"updated_at\": \"1981-10-09T16:04:43.473Z\",\n      \"deleted_at\": \"1998-08-03T04:09:12.424Z\"\n    },\n    {\n      \"id\": 8956,\n      \"name\": \"string\",\n      \"original_name\": \"string\",\n      \"percent\": 2443.58671735896,\n      \"company_id\": 8633,\n      \"system\": true,\n      \"currency_id\": 157,\n      \"linked_to_base_price\": true,\n      \"external_key\": \"string\",\n      \"created_at\": \"1951-06-15T03:00:35.907Z\",\n      \"updated_at\": \"1952-05-23T05:27:18.521Z\",\n      \"deleted_at\": \"1976-09-18T14:38:54.860Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6c2524d-51dc-4f17-808c-463b50be6806",
+          "name": "Create a Ratecard",
+          "request": {
+            "name": "Create a Ratecard",
+            "description": {
+              "content": "Creates a new ratecard for the current company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ratecards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"original_name\": \"<string>\",\n  \"percent\": \"<number>\",\n  \"currency_id\": \"<integer>\",\n  \"linked_to_base_price\": \"<boolean>\",\n  \"external_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7a4c3b83-b649-45e0-ae80-726a6aea61cd",
+              "name": "Ratecard created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ratecards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Custom Ratecard 1\",\n  \"original_name\": \"Custom Ratecard 1\",\n  \"percent\": 15,\n  \"currency_id\": 1,\n  \"linked_to_base_price\": false,\n  \"external_key\": \"BILLING-RC-001\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 51,\n  \"original_name\": \"Custom Ratecard 1\",\n  \"name\": \"Custom Ratecard 1\",\n  \"percent\": 15,\n  \"company_id\": 2336,\n  \"system\": false,\n  \"created_at\": \"2025-12-15 00:24:41\",\n  \"updated_at\": \"2025-12-15 00:24:41\",\n  \"deleted_at\": null,\n  \"external_key\": \"BILLING-RC-001\",\n  \"currency_id\": 1,\n  \"linked_to_base_price\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "186381e7-f40b-4845-95b1-158b205c364b",
+          "name": "Update a Ratecard",
+          "request": {
+            "name": "Update a Ratecard",
+            "description": {
+              "content": "Updates an existing ratecard by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ratecards",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Ratecard ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"original_name\": \"<string>\",\n  \"percent\": \"<number>\",\n  \"currency_id\": \"<integer>\",\n  \"linked_to_base_price\": \"<boolean>\",\n  \"external_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "692b24c2-58d9-421f-980f-88eb8a2a5630",
+              "name": "Ratecard updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ratecards",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Ratecard ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Custom Ratecard 1 (updated)\",\n  \"original_name\": \"Custom Ratecard 1\",\n  \"percent\": 20,\n  \"currency_id\": 2,\n  \"linked_to_base_price\": true,\n  \"external_key\": \"BILLING-RC-001\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 50,\n  \"original_name\": \"Custom Ratecard 1\",\n  \"name\": \"Custom Ratecard 1 (updated)\",\n  \"percent\": 20,\n  \"company_id\": 2336,\n  \"system\": false,\n  \"created_at\": \"2025-12-15 00:24:41\",\n  \"updated_at\": \"2025-12-15 01:10:05\",\n  \"deleted_at\": null,\n  \"external_key\": \"BILLING-RC-001\",\n  \"currency_id\": 2,\n  \"linked_to_base_price\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a554915-a17e-422a-bce7-50a282f3ae0e",
+          "name": "Delete a Ratecard",
+          "request": {
+            "name": "Delete a Ratecard",
+            "description": {
+              "content": "Deletes (soft-delete) a ratecard by ID. Returns the deleted ratecard object with `deleted_at` timestamp set.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ratecards",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Ratecard ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2f40e54-a34d-4dee-918d-0e9e701e79a8",
+              "name": "Ratecard deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ratecards",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Ratecard ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 50,\n  \"original_name\": \"Custom Ratecard 1\",\n  \"name\": \"Custom Ratecard 1\",\n  \"percent\": 20,\n  \"company_id\": 2336,\n  \"system\": false,\n  \"created_at\": \"2025-12-15 00:24:41\",\n  \"updated_at\": \"2025-12-15 01:10:05\",\n  \"deleted_at\": \"2025-12-15 01:15:10\",\n  \"external_key\": \"BILLING-RC-001\",\n  \"currency_id\": 2,\n  \"linked_to_base_price\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93f8ab29-6d9b-4139-8486-a2f8743218c3",
+              "name": "Ratecard deleted successfully (no content)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ratecards",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Ratecard ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ba6b0cd1-8723-4d90-8ac6-1163caa6226d",
+    "name": "COR Attachments Ratecards API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,949 @@
+{
+  "item": [
+    {
+      "id": "d9be8337-5413-436f-b23f-e6cbb98eba37",
+      "name": "Transactions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8d2aa6d5-4c66-4604-9248-85007e0a3d86",
+          "name": "Get transactions",
+          "request": {
+            "name": "Get transactions",
+            "description": {
+              "content": "Retrieves a paginated list of transactions. By default, responses are paginated with 20 items per page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1). Set to `false` to disable pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "20",
+                  "description": "Number of items per page (default: 20)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>",
+                  "description": "URL-encoded JSON object with filter criteria."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bdfb3a92-bf7d-4755-97de-d5b0ee429558",
+              "name": "Paginated list of transactions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "20"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": \"string\",\n  \"perPage\": 6951,\n  \"page\": 4220,\n  \"lastPage\": 9927,\n  \"data\": [\n    {\n      \"id\": 2520,\n      \"date\": \"2002-06-03\",\n      \"receipt_number\": \"string\",\n      \"type\": \"string\",\n      \"total\": 2250.990903943241,\n      \"currency_change_amount\": 100.14410298069043,\n      \"exchange\": 702.8133843832085,\n      \"source_id\": 9871,\n      \"currency_id\": 1237,\n      \"is_income\": true,\n      \"client_id\": 1916,\n      \"company_id\": 1597\n    },\n    {\n      \"id\": 8956,\n      \"date\": \"1962-06-14\",\n      \"receipt_number\": \"string\",\n      \"type\": \"string\",\n      \"total\": 5994.1490697420895,\n      \"currency_change_amount\": 2031.789285796316,\n      \"exchange\": 6327.154597841167,\n      \"source_id\": 284,\n      \"currency_id\": 9049,\n      \"is_income\": false,\n      \"client_id\": 8540,\n      \"company_id\": 9701\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a48ce270-7546-4414-8377-27e9b6402ebb",
+          "name": "Create transaction",
+          "request": {
+            "name": "Create transaction",
+            "description": {},
+            "url": {
+              "path": [
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"<date>\",\n  \"type\": \"<string>\",\n  \"total\": \"<number>\",\n  \"currency_change_amount\": \"<number>\",\n  \"exchange\": \"<number>\",\n  \"source_id\": \"<integer>\",\n  \"currency_id\": \"<integer>\",\n  \"receipt_number\": \"<string>\",\n  \"is_income\": \"<boolean>\",\n  \"client_id\": \"<integer>\",\n  \"company_id\": \"<integer>\",\n  \"can_update\": \"<boolean>\",\n  \"can_delete\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5359a89e-e7ef-4fbc-b09d-3da4ee1d5072",
+              "name": "Transaction created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"<date>\",\n  \"type\": \"<string>\",\n  \"total\": \"<number>\",\n  \"currency_change_amount\": \"<number>\",\n  \"exchange\": \"<number>\",\n  \"source_id\": \"<integer>\",\n  \"currency_id\": \"<integer>\",\n  \"receipt_number\": \"<string>\",\n  \"is_income\": \"<boolean>\",\n  \"client_id\": \"<integer>\",\n  \"company_id\": \"<integer>\",\n  \"can_update\": \"<boolean>\",\n  \"can_delete\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 7660,\n  \"date\": \"1949-09-11\",\n  \"receipt_number\": \"string\",\n  \"type\": \"string\",\n  \"total\": 8877.340876194185,\n  \"currency_change_amount\": 1963.194233530634,\n  \"exchange\": 5261.445255854174,\n  \"source_id\": 9199,\n  \"currency_id\": 8161,\n  \"is_income\": false,\n  \"client_id\": 1968,\n  \"company_id\": 4349\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3873332-9e0f-415d-809e-856d33f5b537",
+          "name": "Update transaction",
+          "request": {
+            "name": "Update transaction",
+            "description": {},
+            "url": {
+              "path": [
+                "transactions",
+                ":transaction_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"<date>\",\n  \"type\": \"<string>\",\n  \"total\": \"<number>\",\n  \"currency_change_amount\": \"<number>\",\n  \"exchange\": \"<number>\",\n  \"source_id\": \"<integer>\",\n  \"currency_id\": \"<integer>\",\n  \"receipt_number\": \"<string>\",\n  \"is_income\": \"<boolean>\",\n  \"client_id\": \"<integer>\",\n  \"company_id\": \"<integer>\",\n  \"can_update\": \"<boolean>\",\n  \"can_delete\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "46e8ae64-a1f7-4dd3-a5c4-5693f42ca38d",
+              "name": "Transaction updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"<date>\",\n  \"type\": \"<string>\",\n  \"total\": \"<number>\",\n  \"currency_change_amount\": \"<number>\",\n  \"exchange\": \"<number>\",\n  \"source_id\": \"<integer>\",\n  \"currency_id\": \"<integer>\",\n  \"receipt_number\": \"<string>\",\n  \"is_income\": \"<boolean>\",\n  \"client_id\": \"<integer>\",\n  \"company_id\": \"<integer>\",\n  \"can_update\": \"<boolean>\",\n  \"can_delete\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 7660,\n  \"date\": \"1949-09-11\",\n  \"receipt_number\": \"string\",\n  \"type\": \"string\",\n  \"total\": 8877.340876194185,\n  \"currency_change_amount\": 1963.194233530634,\n  \"exchange\": 5261.445255854174,\n  \"source_id\": 9199,\n  \"currency_id\": 8161,\n  \"is_income\": false,\n  \"client_id\": 1968,\n  \"company_id\": 4349\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b7d5c4d6-1fae-4325-b893-ec383c3efae5",
+          "name": "Delete transaction",
+          "request": {
+            "name": "Delete transaction",
+            "description": {},
+            "url": {
+              "path": [
+                "transactions",
+                ":transaction_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f98679be-22c8-4ca8-871a-e62114772b4d",
+              "name": "Transaction deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a86837cd-2fc4-4578-9bde-16ab9d412216",
+          "name": "Get Total",
+          "request": {
+            "name": "Get Total",
+            "description": {},
+            "url": {
+              "path": [
+                "transactions",
+                "total"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6ba92f76-870b-4adb-a12a-a1a5af7823dd",
+              "name": "Transaction totals",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "total"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 6852.588850199945\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6070c28b-b773-45fe-8530-648f208842f7",
+          "name": "Delete transaction items",
+          "request": {
+            "name": "Delete transaction items",
+            "description": {},
+            "url": {
+              "path": [
+                "transaction",
+                ":transaction_id",
+                "transactionItems"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e850c731-2e51-4e29-82c5-097a4fb3cb39",
+              "name": "Transaction items deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transaction",
+                    ":transaction_id",
+                    "transactionItems"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8815ec1-c1c6-4e8e-92b1-0cad3a0c0d98",
+          "name": "Create transaction items",
+          "request": {
+            "name": "Create transaction items",
+            "description": {},
+            "url": {
+              "path": [
+                "transaction",
+                ":transaction_id",
+                "transactionItems"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"status\": \"<string>\",\n  \"transaction_id\": \"<integer>\",\n  \"company_id\": \"<integer>\",\n  \"client_id\": \"<integer>\",\n  \"project_id\": \"<integer>\",\n  \"can_update\": \"<boolean>\",\n  \"can_delete\": \"<boolean>\",\n  \"integrated\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "49a47012-6dc1-4f6d-9c06-3101f0c66de6",
+              "name": "Transaction item created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transaction",
+                    ":transaction_id",
+                    "transactionItems"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"status\": \"<string>\",\n  \"transaction_id\": \"<integer>\",\n  \"company_id\": \"<integer>\",\n  \"client_id\": \"<integer>\",\n  \"project_id\": \"<integer>\",\n  \"can_update\": \"<boolean>\",\n  \"can_delete\": \"<boolean>\",\n  \"integrated\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4074,\n  \"description\": \"string\",\n  \"client_id\": 162,\n  \"project_id\": 2022,\n  \"amount\": 995.8016455346774,\n  \"status\": \"string\",\n  \"transaction_id\": 8039,\n  \"company_id\": 8264\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "39cfc487-7eb7-4caf-b4a2-5bbbd5f463f1",
+          "name": "Update transaction item",
+          "request": {
+            "name": "Update transaction item",
+            "description": {},
+            "url": {
+              "path": [
+                "transaction",
+                ":transaction_id",
+                "transactionItems",
+                ":transaction_item_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction_item_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"status\": \"<string>\",\n  \"transaction_id\": \"<integer>\",\n  \"company_id\": \"<integer>\",\n  \"client_id\": \"<integer>\",\n  \"project_id\": \"<integer>\",\n  \"can_update\": \"<boolean>\",\n  \"can_delete\": \"<boolean>\",\n  \"integrated\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "326bafa2-cc58-4a97-9e7c-ad06e4b4e928",
+              "name": "Transaction item updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transaction",
+                    ":transaction_id",
+                    "transactionItems",
+                    ":transaction_item_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_item_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"status\": \"<string>\",\n  \"transaction_id\": \"<integer>\",\n  \"company_id\": \"<integer>\",\n  \"client_id\": \"<integer>\",\n  \"project_id\": \"<integer>\",\n  \"can_update\": \"<boolean>\",\n  \"can_delete\": \"<boolean>\",\n  \"integrated\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4074,\n  \"description\": \"string\",\n  \"client_id\": 162,\n  \"project_id\": 2022,\n  \"amount\": 995.8016455346774,\n  \"status\": \"string\",\n  \"transaction_id\": 8039,\n  \"company_id\": 8264\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ac6bd47-fa28-47fb-811d-1a4da8c7328e",
+          "name": "Get Suggest Allocation",
+          "request": {
+            "name": "Get Suggest Allocation",
+            "description": {},
+            "url": {
+              "path": [
+                "transactions",
+                ":transaction_item_id",
+                "suggest-allocation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction_item_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "683087b5-0925-4a8b-aabb-9bf6c1072e00",
+              "name": "Suggested allocation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transaction_item_id",
+                    "suggest-allocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_item_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8ea56da8-0e2d-437c-9a4e-e055a9036eea",
+    "name": "COR Attachments Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

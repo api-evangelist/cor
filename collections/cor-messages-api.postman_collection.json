@@ -1,0 +1,281 @@
+{
+  "item": [
+    {
+      "id": "274693de-78f3-488b-890d-7bb5f65196b1",
+      "name": "Messages",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b91eca11-0f89-478b-bcb0-05fbad04b662",
+          "name": "Post project message",
+          "request": {
+            "name": "Post project message",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":id",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "message",
+                  "value": "<string>",
+                  "description": "(Required) Text Message"
+                },
+                {
+                  "disabled": false,
+                  "key": "attachments",
+                  "value": "{\"id\":\"<integer>\",\"name\":\"<string>\",\"url\":\"<string>\",\"type\":\"<string>\",\"source\":\"<string>\"}",
+                  "description": "Optional attachments"
+                },
+                {
+                  "disabled": false,
+                  "key": "attachments",
+                  "value": "{\"id\":\"<integer>\",\"name\":\"<string>\",\"url\":\"<string>\",\"type\":\"<string>\",\"source\":\"<string>\"}",
+                  "description": "Optional attachments"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8605c86d-02e8-4bef-b19b-de38d5a7a8a6",
+              "name": "Message posted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Text Message",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional attachments",
+                        "type": "text/plain"
+                      },
+                      "key": "attachments",
+                      "value": "{\"id\":6355,\"name\":\"string\",\"url\":\"string\",\"type\":\"string\",\"source\":\"string\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional attachments",
+                        "type": "text/plain"
+                      },
+                      "key": "attachments",
+                      "value": "{\"id\":7788,\"name\":\"string\",\"url\":\"string\",\"type\":\"string\",\"source\":\"string\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "50a79fb6-a463-4ed7-a0be-c7c50d19d665",
+          "name": "Get messages by project",
+          "request": {
+            "name": "Get messages by project",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "07364f08-c49a-4548-8987-ee4084c8ad85",
+              "name": "List of messages",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 8518,\n    \"message\": \"string\",\n    \"attachments\": [\n      {\n        \"id\": 2794,\n        \"name\": \"string\",\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"created_at\": \"1980-03-24T15:05:34.018Z\"\n      },\n      {\n        \"id\": 3844,\n        \"name\": \"string\",\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"created_at\": \"2002-09-13T00:57:23.245Z\"\n      }\n    ]\n  },\n  {\n    \"id\": 347,\n    \"message\": \"string\",\n    \"attachments\": [\n      {\n        \"id\": 2423,\n        \"name\": \"string\",\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"created_at\": \"1975-11-05T05:36:54.644Z\"\n      },\n      {\n        \"id\": 6125,\n        \"name\": \"string\",\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"created_at\": \"1978-03-19T08:59:33.543Z\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectcor.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e4ea46ec-3da2-4ae7-90b1-7621b018a0f9",
+    "name": "COR Attachments Messages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications",
+      "type": "text/plain"
+    }
+  }
+}

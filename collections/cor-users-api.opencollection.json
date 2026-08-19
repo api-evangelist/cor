@@ -1,0 +1,165 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "COR Attachments Users API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/users",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (default: 1). Set to `false` to disable pagination."
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (default: 20)."
+              },
+              {
+                "name": "filters",
+                "value": "{\"withHiddenUsers\":true, \"withPosition\":true, \"createdAt\": \"2024-01-01\", \"updatedAt\": \"2024-01-31\"}",
+                "type": "query",
+                "description": "URL-encoded JSON filters object. Available fields: `withHiddenUsers`, `withPosition`, `createdAt`, `updatedAt`."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of users with optional filtering. By default, responses are paginated with 20 items per page.\n\n**Filter options:**\n- `withHiddenUsers` (boolean): Include hidden users in the response\n- `withPosition` (boolean): Include user positions in the response\n- `createdAt` (string): Filter users created on or after this date (YYYY-MM-DD)\n- `updatedAt` (string): Filter users updated on or after this date (YYYY-MM-DD)"
+        },
+        {
+          "info": {
+            "name": "Create a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectcor.com/v1/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a user using a POST http method. The user will receive an invitation email.\n\n**Required properties:**\n- `first_name` — User given name\n- `last_name` — User family name\n- `email` — User email\n- `role_id` — ID of the user's role:\n  - **1**: C-Level\n  - **2**: Director\n  - **3**: Project Manager\n  - **4**: Collaborator\n  - **5**: Freelancer\n  - **6**: Client"
+        },
+        {
+          "info": {
+            "name": "Update a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectcor.com/v1/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "123",
+                "type": "path",
+                "description": "User ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a user using a PUT http method.\n\n⚠️ **Important:** Use caution when using this endpoint. The system will replace the existing user with the values passed in the request body.\n\n**Available properties:**\n- `first_name` — User given name\n- `last_name` — User family name\n- `email` — User email\n- `role_id` — ID of the user's role (1-6)\n- `user_position_id` — ID of the user's position\n- `phone`, `description`, `birthday`, `work_in`\n- `hourly_rate`, `monthly_hours`, `daily_hours`\n- `plan_id` — "
+        },
+        {
+          "info": {
+            "name": "Delete a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectcor.com/v1/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "123",
+                "type": "path",
+                "description": "User ID to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a user from the system."
+        },
+        {
+          "info": {
+            "name": "Assign or unassign user label",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectcor.com/v1/users/:user_id/labels",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "123",
+                "type": "path",
+                "description": "User ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a label for a specified user by their user ID. It assigns a new label to the user or unassigns the existing label with the specified `labelId`.\n\n**To assign a label:** Omit the `unassign` property or set it to `false`.\n\n**To remove a label:** Set `unassign` to `true`."
+        },
+        {
+          "info": {
+            "name": "Get users by Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectcor.com/v1/users/search-by-name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (default: 1). Set to `false` to disable pagination."
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (default: 20)."
+              }
+            ]
+          },
+          "docs": "Get users by Name"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
