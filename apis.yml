@@ -454,6 +454,9 @@ apis:
   - type: Authentication
     url: authentication/cor-authentication.yml
 common:
+- type: CapabilityMap
+  url: capabilities/cor-capability-edges.yml
+  name: COR Business Capability Map
 - type: Overlay
   url: overlays/cor-openapi-overlay.yaml
 - type: MCPServer

@@ -1,0 +1,52 @@
+slug: cor
+provider: COR
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Professional Services
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Hours
+  spec_file: cor-hours-api-openapi.yml
+  capability_id: BC-4330.10
+  capability_id_l1: BC-4330
+  capability_name: Timekeeping Management
+  confidence: 0.8
+  evidence: POST /hours "Post hours"; POST /hours/status-bills-change "Status bill change"; schema "HourInput"
+  reason: Operations capture and submit time entries and flip their billing status, which is timekeeping
+    for chargeable work rather than generic HR or project scheduling.
+- tag: Projects
+  spec_file: cor-projects-api-openapi.yml
+  capability_id: BC-900.30
+  capability_id_l1: BC-900
+  capability_name: Project Management
+  confidence: 0.8
+  evidence: POST /projects "Create a project"; GET /projects/{project_id}/project_cost "Get Project Costs";
+    schemas "ProjectEstimate", "ProjectCollaborator"
+  reason: Full lifecycle CRUD over projects with costs, estimates and collaborators is project execution
+    and tracking.
+- tag: Tasks
+  spec_file: cor-tasks-api-openapi.yml
+  capability_id: BC-900.30
+  capability_id_l1: BC-900
+  capability_name: Project Management
+  confidence: 0.75
+  evidence: POST /tasks "Create a task"; PUT /tasks/{task_id} "Update a Task"; schema "TaskCollaborator"
+  reason: Task creation, assignment, collaborators and attachments constitute day-to-day project execution
+    tracking.
+- tag: User Leaves
+  spec_file: cor-user-leaves-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.75
+  evidence: POST /user/leaves "Create User Leave"; GET /company/leaves-types "Get Leave Types"
+  reason: Recording employee leave and maintaining company leave types is absence administration within
+    HR operations, even though it also feeds capacity planning.
