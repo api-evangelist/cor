@@ -323,7 +323,7 @@ apis:
   humanURL: https://developers.projectcor.com
   baseURL: https://api.projectcor.com/v1
   tags:
-  - Ratecards
+  - Rate cards
   tags_raw:
   - Ratecards
   properties:
