@@ -317,22 +317,6 @@ apis:
     url: https://developers.projectcor.com/api-reference/introduction
   - type: Authentication
     url: authentication/cor-authentication.yml
-- aid: cor:cor-ratecards-api
-  name: COR Ratecards API
-  description: The Ratecards API from COR — 3 operation(s) for ratecards.
-  humanURL: https://developers.projectcor.com
-  baseURL: https://api.projectcor.com/v1
-  tags:
-  - Rate cards
-  tags_raw:
-  - Ratecards
-  properties:
-  - type: OpenAPI
-    url: openapi/cor-ratecards-api-openapi.yml
-  - type: Documentation
-    url: https://developers.projectcor.com/api-reference/introduction
-  - type: Authentication
-    url: authentication/cor-authentication.yml
 - aid: cor:cor-resource-allocation-api
   name: COR Resource Allocation API
   description: The Resource Allocation API from COR — 4 operation(s) for resource allocation.
@@ -449,6 +433,20 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/cor-working-time-api-openapi.yml
+  - type: Documentation
+    url: https://developers.projectcor.com/api-reference/introduction
+  - type: Authentication
+    url: authentication/cor-authentication.yml
+- aid: cor:cor-rate-cards-api
+  name: COR Rate cards API
+  description: The Rate cards API from COR — 3 operation(s) for rate cards.
+  humanURL: https://developers.projectcor.com
+  baseURL: https://api.projectcor.com/v1
+  tags:
+  - Rate cards
+  properties:
+  - type: OpenAPI
+    url: openapi/cor-rate-cards-api-openapi.yml
   - type: Documentation
     url: https://developers.projectcor.com/api-reference/introduction
   - type: Authentication
