@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments Contracts API
+  title: COR Contracts API
   description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
   version: 1.0.0
 servers:
@@ -50,6 +50,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedContractsResponse'
+      operationId: getContracts
+      x-operation-id-source: derived
   /contracts/{contract_id}:
     post:
       tags:
@@ -75,6 +77,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Contract'
+      operationId: postContractsByContractId
+      x-operation-id-source: derived
     put:
       tags:
       - Contracts
@@ -99,6 +103,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Contract'
+      operationId: putContractsByContractId
+      x-operation-id-source: derived
     delete:
       tags:
       - Contracts
@@ -117,15 +123,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Contract'
+      operationId: deleteContractsByContractId
+      x-operation-id-source: derived
 components:
   schemas:
-    Contract:
+    ContractUpdateInput:
       type: object
-      description: Contract entity
       properties:
-        id:
-          type: integer
-          description: Contract ID
         client_id:
           type: integer
           description: Client ID
@@ -167,15 +171,6 @@ components:
         currency_id:
           type: integer
           description: Currency ID
-        currency:
-          type: object
-          properties:
-            id:
-              type: integer
-              description: Currency ID
-            name:
-              type: string
-              description: Currency name
         url:
           type: string
           description: External URL
@@ -185,20 +180,30 @@ components:
         user_positions_header_id:
           type: integer
           description: User positions header ID
-        created_at:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
-        deleted_at:
+    PaginatedContractsResponse:
+      type: object
+      description: Paginated response for contracts list
+      properties:
+        total:
           type:
           - string
-          - 'null'
-          format: date-time
-          description: Deletion timestamp (soft delete)
+          - integer
+          description: Total number of contracts
+        perPage:
+          type:
+          - string
+          - integer
+          description: Number of items per page
+        page:
+          type:
+          - string
+          - integer
+          description: Current page number
+        data:
+          type: array
+          description: Array of contracts for the current page
+          items:
+            $ref: '#/components/schemas/Contract'
     ContractCreateInput:
       type: object
       required:
@@ -289,9 +294,13 @@ components:
         with_positions: true
         status: expired
         type: time_and_materials
-    ContractUpdateInput:
+    Contract:
       type: object
+      description: Contract entity
       properties:
+        id:
+          type: integer
+          description: Contract ID
         client_id:
           type: integer
           description: Client ID
@@ -333,6 +342,15 @@ components:
         currency_id:
           type: integer
           description: Currency ID
+        currency:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: Currency ID
+            name:
+              type: string
+              description: Currency name
         url:
           type: string
           description: External URL
@@ -342,30 +360,20 @@ components:
         user_positions_header_id:
           type: integer
           description: User positions header ID
-    PaginatedContractsResponse:
-      type: object
-      description: Paginated response for contracts list
-      properties:
-        total:
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        deleted_at:
           type:
           - string
-          - integer
-          description: Total number of contracts
-        perPage:
-          type:
-          - string
-          - integer
-          description: Number of items per page
-        page:
-          type:
-          - string
-          - integer
-          description: Current page number
-        data:
-          type: array
-          description: Array of contracts for the current page
-          items:
-            $ref: '#/components/schemas/Contract'
+          - 'null'
+          format: date-time
+          description: Deletion timestamp (soft delete)
   securitySchemes:
     bearerAuth:
       type: http

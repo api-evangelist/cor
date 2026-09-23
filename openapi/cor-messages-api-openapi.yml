@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments Messages API
+  title: COR Messages API
   description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
   version: 1.0.0
 servers:
@@ -31,6 +31,8 @@ paths:
       responses:
         '200':
           description: Message posted successfully
+      operationId: postProjectsByIdMessages
+      x-operation-id-source: derived
   /projects/{project_id}/messages:
     get:
       tags:
@@ -51,6 +53,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Message'
+      operationId: getProjectsByProjectIdMessages
+      x-operation-id-source: derived
 components:
   schemas:
     MessageInput:
@@ -66,17 +70,6 @@ components:
           items:
             $ref: '#/components/schemas/AttachmentInput'
           description: Optional attachments
-    Message:
-      type: object
-      properties:
-        id:
-          type: integer
-        message:
-          type: string
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Attachment'
     Attachment:
       type: object
       properties:
@@ -91,6 +84,17 @@ components:
         created_at:
           type: string
           format: date-time
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
     AttachmentInput:
       type: object
       properties:

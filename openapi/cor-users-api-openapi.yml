@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments Users API
+  title: COR Users API
   description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
   version: 1.0.0
 servers:
@@ -103,11 +103,36 @@ paths:
                   category_name: null
                   gmt: -03:00
                   leaves: []
+      operationId: getUsers
+      x-operation-id-source: derived
     post:
       tags:
       - Users
       summary: Create a user
-      description: "Creates a user using a POST http method. The user will receive an invitation email.\n\n**Required properties:**\n- `first_name` — User given name\n- `last_name` — User family name\n- `email` — User email\n- `role_id` — ID of the user's role:\n  - **1**: C-Level\n  - **2**: Director\n  - **3**: Project Manager\n  - **4**: Collaborator\n  - **5**: Freelancer\n  - **6**: Client"
+      description: 'Creates a user using a POST http method. The user will receive an invitation email.
+
+
+        **Required properties:**
+
+        - `first_name` — User given name
+
+        - `last_name` — User family name
+
+        - `email` — User email
+
+        - `role_id` — ID of the user''s role:
+
+        - **1**: C-Level
+
+        - **2**: Director
+
+        - **3**: Project Manager
+
+        - **4**: Collaborator
+
+        - **5**: Freelancer
+
+        - **6**: Client'
       requestBody:
         required: true
         content:
@@ -135,6 +160,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+      operationId: postUsers
+      x-operation-id-source: derived
   /users/{user_id}:
     put:
       tags:
@@ -197,6 +224,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+      operationId: putUsersByUserId
+      x-operation-id-source: derived
     delete:
       tags:
       - Users
@@ -218,6 +247,8 @@ paths:
               schema:
                 type: boolean
               example: true
+      operationId: deleteUsersByUserId
+      x-operation-id-source: derived
   /users/{user_id}/labels:
     put:
       tags:
@@ -257,6 +288,8 @@ paths:
       responses:
         '200':
           description: Label updated successfully
+      operationId: putUsersByUserIdLabels
+      x-operation-id-source: derived
   /users/search-by-name/{name}:
     get:
       tags:
@@ -317,34 +350,10 @@ paths:
                   category_name: null
                   gmt: -03:00
                   leaves: []
+      operationId: getUsersSearchByNameByName
+      x-operation-id-source: derived
 components:
   schemas:
-    UserListItem:
-      description: User object returned by list endpoints (GET /users, GET /users/search-by-name).
-      allOf:
-      - $ref: '#/components/schemas/UserBase'
-      - type: object
-        properties:
-          labels:
-            type: array
-            description: Labels assigned to the user.
-            items:
-              $ref: '#/components/schemas/UserAssignedLabel'
-    UserListResponse:
-      type: object
-      properties:
-        total:
-          type: string
-        perPage:
-          type: integer
-        page:
-          type: integer
-        lastPage:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserListItem'
     LeaveType:
       type: object
       properties:
@@ -369,6 +378,26 @@ components:
           nullable: true
         icon_name:
           type: string
+    User:
+      allOf:
+      - $ref: '#/components/schemas/UserBase'
+      - type: object
+        properties:
+          labels:
+            type: array
+            items:
+              $ref: '#/components/schemas/Label'
+            nullable: true
+    UserAssignedLabel:
+      type: object
+      description: Label assigned to a user, as returned in user list endpoints.
+      properties:
+        id:
+          type: integer
+        lang:
+          type: string
+        name:
+          type: string
     UserLabelInput:
       type: object
       required:
@@ -381,6 +410,87 @@ components:
           type: boolean
           description: Set to true to remove label from the user. Omit or set to false to assign the label.
           default: false
+    Label:
+      type: object
+      properties:
+        id:
+          type: integer
+        hex:
+          type: string
+          description: Hex color code
+        hsl:
+          type: string
+          nullable: true
+        rgb:
+          type: string
+          nullable: true
+        lang:
+          type: string
+        name:
+          type: string
+        color_id:
+          type: integer
+    UserListItem:
+      description: User object returned by list endpoints (GET /users, GET /users/search-by-name).
+      allOf:
+      - $ref: '#/components/schemas/UserBase'
+      - type: object
+        properties:
+          labels:
+            type: array
+            description: Labels assigned to the user.
+            items:
+              $ref: '#/components/schemas/UserAssignedLabel'
+    UserBase:
+      type: object
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        picture:
+          type: string
+          description: URL to user's profile picture
+        email:
+          type: string
+          format: email
+        cuil:
+          type: string
+        remaining_hours:
+          type: number
+        user_position_id:
+          type: integer
+        role_id:
+          type: integer
+          description: 1=C-Level, 2=Director, 3=Project Manager, 4=Collaborator, 5=Freelancer, 6=Client
+        daily_hours:
+          type: number
+        plan_id:
+          type: integer
+          description: 4=Project Management, 5=Capacity Planning
+        plan_name:
+          type: string
+        hidden:
+          type: boolean
+        position_name:
+          type: string
+          nullable: true
+        category_id:
+          type: integer
+          nullable: true
+        category_name:
+          type: string
+          nullable: true
+        gmt:
+          type: string
+          description: UTC offset from the user's last login location. Indicates the timezone configured at their last login.
+          example: -03:00
+        leaves:
+          type: array
+          items:
+            $ref: '#/components/schemas/Leave'
     UserUpdateInput:
       type: object
       properties:
@@ -447,127 +557,6 @@ components:
         salary_from:
           type: string
           description: Month from which salary should apply (MM-YYYY). Defaults to the current month if salary is provided.
-    UserAssignedLabel:
-      type: object
-      description: Label assigned to a user, as returned in user list endpoints.
-      properties:
-        id:
-          type: integer
-        lang:
-          type: string
-        name:
-          type: string
-    Label:
-      type: object
-      properties:
-        id:
-          type: integer
-        hex:
-          type: string
-          description: Hex color code
-        hsl:
-          type: string
-          nullable: true
-        rgb:
-          type: string
-          nullable: true
-        lang:
-          type: string
-        name:
-          type: string
-        color_id:
-          type: integer
-    Leave:
-      type: object
-      properties:
-        id:
-          type: integer
-        user_id:
-          type: integer
-        company_id:
-          type: integer
-        leave_type_id:
-          type: integer
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        deleted_at:
-          type: string
-          format: date-time
-          nullable: true
-        all_day:
-          type: boolean
-        leaveType:
-          $ref: '#/components/schemas/LeaveType'
-    UserBase:
-      type: object
-      properties:
-        id:
-          type: integer
-        first_name:
-          type: string
-        last_name:
-          type: string
-        picture:
-          type: string
-          description: URL to user's profile picture
-        email:
-          type: string
-          format: email
-        cuil:
-          type: string
-        remaining_hours:
-          type: number
-        user_position_id:
-          type: integer
-        role_id:
-          type: integer
-          description: 1=C-Level, 2=Director, 3=Project Manager, 4=Collaborator, 5=Freelancer, 6=Client
-        daily_hours:
-          type: number
-        plan_id:
-          type: integer
-          description: 4=Project Management, 5=Capacity Planning
-        plan_name:
-          type: string
-        hidden:
-          type: boolean
-        position_name:
-          type: string
-          nullable: true
-        category_id:
-          type: integer
-          nullable: true
-        category_name:
-          type: string
-          nullable: true
-        gmt:
-          type: string
-          description: UTC offset from the user's last login location. Indicates the timezone configured at their last login.
-          example: -03:00
-        leaves:
-          type: array
-          items:
-            $ref: '#/components/schemas/Leave'
-    User:
-      allOf:
-      - $ref: '#/components/schemas/UserBase'
-      - type: object
-        properties:
-          labels:
-            type: array
-            items:
-              $ref: '#/components/schemas/Label'
-            nullable: true
     UserCreateInput:
       type: object
       required:
@@ -636,6 +625,52 @@ components:
         salary:
           type: integer
           description: Monthly salary amount
+    UserListResponse:
+      type: object
+      properties:
+        total:
+          type: string
+        perPage:
+          type: integer
+        page:
+          type: integer
+        lastPage:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserListItem'
+    Leave:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        company_id:
+          type: integer
+        leave_type_id:
+          type: integer
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        all_day:
+          type: boolean
+        leaveType:
+          $ref: '#/components/schemas/LeaveType'
   securitySchemes:
     bearerAuth:
       type: http

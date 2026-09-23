@@ -1,11 +1,11 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments Resource Allocation API
-  description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
+  title: COR Resource Allocation API
+  description: The Resource Allocation API is a dedicated service for managing the capacity of users on the COR platform. This API uses the same authentication as the main COR API.
   version: 1.0.0
 servers:
-- url: https://api.projectcor.com/v1
-  description: Production server
+- url: https://planner.svc.v2.projectcor.com
+  description: Resource Allocation Service
 security:
 - bearerAuth: []
 tags:
@@ -16,7 +16,31 @@ paths:
       tags:
       - Resource Allocation
       summary: Save Allocation
-      description: "Creates a new resource allocation for a user on a project.\n\n**Request Body Requirements:**\nAll values in the object are required.\n\n**Known Errors:**\n- `InvalidAllocationError` — The allocation is invalid:\n  - Empty `allocatedHours` field\n  - The `from` date is greater than or equal to the `to` date\n  - The date range exceeds 12 months\n- `AllocationAlreadyExistInDatesRangeError` — An allocation already exists within the specified date range\n- `UserNotFoundError` — The specified user cannot be found\n- `UserNotHaveWorkDaysError` — The user does not have any work days configured\n- `ProjectNotFoundError` — The specified project cannot be found"
+      description: 'Creates a new resource allocation for a user on a project.
+
+
+        **Request Body Requirements:**
+
+        All values in the object are required.
+
+
+        **Known Errors:**
+
+        - `InvalidAllocationError` — The allocation is invalid:
+
+        - Empty `allocatedHours` field
+
+        - The `from` date is greater than or equal to the `to` date
+
+        - The date range exceeds 12 months
+
+        - `AllocationAlreadyExistInDatesRangeError` — An allocation already exists within the specified date range
+
+        - `UserNotFoundError` — The specified user cannot be found
+
+        - `UserNotHaveWorkDaysError` — The user does not have any work days configured
+
+        - `ProjectNotFoundError` — The specified project cannot be found'
       requestBody:
         required: true
         content:
@@ -59,12 +83,38 @@ paths:
                   value:
                     error: AllocationAlreadyExistInDatesRangeError
                     message: An allocation already exists within the specified date range
+      operationId: postAllocationSaveAllocation
+      x-operation-id-source: derived
   /allocation/updateAllocation:
     put:
       tags:
       - Resource Allocation
       summary: Update Allocation
-      description: "Updates an existing resource allocation. Requires both the old allocation data and the new allocation data.\n\n**Known Errors:**\n- `InvalidAllocationError` — The new allocation is invalid:\n  - Empty `allocatedHours` field\n  - The `from` date is greater than or equal to the `to` date\n  - The date range exceeds 12 months\n- `AllocationNotFoundError` — The specified old allocation cannot be found\n- `AllocationAlreadyExistInDatesRangeError` — The new allocation already exists within the specified date range\n- `UserNotFoundError` — The specified user in new allocation cannot be found\n- `UserNotHaveWorkDaysError` — The user does not have any work days in the new allocation dates range\n- `ProjectNotFoundError` — The specified project in new allocation cannot be found\n\n**Note:** You can use this endpoint to change a project allocation, as long as there isn't an existing allocation for the same user in the target project for any date within the range of the new allocation."
+      description: 'Updates an existing resource allocation. Requires both the old allocation data and the new allocation data.
+
+
+        **Known Errors:**
+
+        - `InvalidAllocationError` — The new allocation is invalid:
+
+        - Empty `allocatedHours` field
+
+        - The `from` date is greater than or equal to the `to` date
+
+        - The date range exceeds 12 months
+
+        - `AllocationNotFoundError` — The specified old allocation cannot be found
+
+        - `AllocationAlreadyExistInDatesRangeError` — The new allocation already exists within the specified date range
+
+        - `UserNotFoundError` — The specified user in new allocation cannot be found
+
+        - `UserNotHaveWorkDaysError` — The user does not have any work days in the new allocation dates range
+
+        - `ProjectNotFoundError` — The specified project in new allocation cannot be found
+
+
+        **Note:** You can use this endpoint to change a project allocation, as long as there isn''t an existing allocation for the same user in the target project for any date within the range of the new allocation.'
       requestBody:
         required: true
         content:
@@ -107,6 +157,8 @@ paths:
                   value:
                     error: AllocationNotFoundError
                     message: The specified allocation cannot be found
+      operationId: putAllocationUpdateAllocation
+      x-operation-id-source: derived
   /allocation/removeAllocation:
     delete:
       tags:
@@ -156,6 +208,8 @@ paths:
               example:
                 error: AllocationNotFoundError
                 message: The specified allocation cannot be found
+      operationId: deleteAllocationRemoveAllocation
+      x-operation-id-source: derived
   /allocation/getAllocations/{projectId}:
     get:
       tags:
@@ -210,20 +264,10 @@ paths:
                       clientName: Client XYZ
                       allocatedHours: 5
                   totalAllocatedHours: 20
+      operationId: getAllocationGetAllocationsByProjectId
+      x-operation-id-source: derived
 components:
   schemas:
-    AllocationUpdateInput:
-      type: object
-      required:
-      - oldAllocation
-      - newAllocation
-      properties:
-        oldAllocation:
-          $ref: '#/components/schemas/AllocationInput'
-          description: The existing allocation to be updated
-        newAllocation:
-          $ref: '#/components/schemas/AllocationInput'
-          description: The new allocation data
     AllocationResource:
       type: object
       required:
@@ -238,59 +282,34 @@ components:
         entityId:
           type: integer
           description: Project ID
-    UserAllocation:
+    AllocationUpdateInput:
+      type: object
+      required:
+      - oldAllocation
+      - newAllocation
+      properties:
+        oldAllocation:
+          $ref: '#/components/schemas/AllocationInput'
+          description: The existing allocation to be updated
+        newAllocation:
+          $ref: '#/components/schemas/AllocationInput'
+          description: The new allocation data
+    AllocationError:
       type: object
       properties:
-        primaryKey:
+        error:
           type: string
-          description: Unique identifier for the allocation
-        from:
+          description: Error type
+          enum:
+          - InvalidAllocationError
+          - AllocationAlreadyExistInDatesRangeError
+          - UserNotFoundError
+          - UserNotHaveWorkDaysError
+          - ProjectNotFoundError
+          - AllocationNotFoundError
+        message:
           type: string
-          format: date-time
-          description: Start date of the allocation
-        to:
-          type: string
-          format: date-time
-          description: End date of the allocation
-        allocatedHours:
-          type: number
-          description: Number of hours allocated
-        capacity:
-          type: number
-          description: Total capacity in hours
-        availabilityLeft:
-          type: number
-          description: Remaining availability (can be negative if overallocated)
-        createdAt:
-          type: string
-          format: date-time
-          description: When the allocation was created
-        allocationUserAnotherProjects:
-          type: array
-          description: Other project allocations for this user in the same period
-          items:
-            type: object
-            properties:
-              projectId:
-                type: integer
-                description: Project ID
-              projectName:
-                type: string
-                description: Name of the project
-              clientName:
-                type: string
-                description: Name of the client
-              allocatedHours:
-                type: number
-                description: Hours allocated to this project
-    ProjectAllocationsResponse:
-      type: object
-      properties:
-        users:
-          type: array
-          description: List of users allocated to the project
-          items:
-            $ref: '#/components/schemas/AllocatedUser'
+          description: Error description
     AllocationInput:
       type: object
       required:
@@ -328,22 +347,14 @@ components:
         allocatedHours:
           type: number
           description: Number of hours allocated
-    AllocationError:
+    ProjectAllocationsResponse:
       type: object
       properties:
-        error:
-          type: string
-          description: Error type
-          enum:
-          - InvalidAllocationError
-          - AllocationAlreadyExistInDatesRangeError
-          - UserNotFoundError
-          - UserNotHaveWorkDaysError
-          - ProjectNotFoundError
-          - AllocationNotFoundError
-        message:
-          type: string
-          description: Error description
+        users:
+          type: array
+          description: List of users allocated to the project
+          items:
+            $ref: '#/components/schemas/AllocatedUser'
     AllocatedUser:
       type: object
       properties:
@@ -397,11 +408,54 @@ components:
         totalAllocatedHours:
           type: number
           description: Total hours allocated to this user for the project
+    UserAllocation:
+      type: object
+      properties:
+        primaryKey:
+          type: string
+          description: Unique identifier for the allocation
+        from:
+          type: string
+          format: date-time
+          description: Start date of the allocation
+        to:
+          type: string
+          format: date-time
+          description: End date of the allocation
+        allocatedHours:
+          type: number
+          description: Number of hours allocated
+        capacity:
+          type: number
+          description: Total capacity in hours
+        availabilityLeft:
+          type: number
+          description: Remaining availability (can be negative if overallocated)
+        createdAt:
+          type: string
+          format: date-time
+          description: When the allocation was created
+        allocationUserAnotherProjects:
+          type: array
+          description: Other project allocations for this user in the same period
+          items:
+            type: object
+            properties:
+              projectId:
+                type: integer
+                description: Project ID
+              projectName:
+                type: string
+                description: Name of the project
+              clientName:
+                type: string
+                description: Name of the client
+              allocatedHours:
+                type: number
+                description: Hours allocated to this project
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-    basicAuth:
-      type: http
-      scheme: basic
+      description: Uses the same authentication as the main COR API. Obtain a token from https://api.projectcor.com/v1/oauth/token

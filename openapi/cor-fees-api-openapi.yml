@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments Fees API
+  title: COR Fees API
   description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
   version: 1.0.0
 servers:
@@ -31,6 +31,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Fee'
+      operationId: getClientsByClientIdFees
+      x-operation-id-source: derived
     post:
       tags:
       - Fees
@@ -54,6 +56,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Fee'
+      operationId: postClientsByClientIdFees
+      x-operation-id-source: derived
   /clients/{client_id}/fees/{fee_id}:
     put:
       tags:
@@ -83,6 +87,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Fee'
+      operationId: putClientsByClientIdFeesByFeeId
+      x-operation-id-source: derived
   /clients/{client_id}/fees/{fee_id}/historicals:
     get:
       tags:
@@ -108,6 +114,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Fee'
+      operationId: getClientsByClientIdFeesByFeeIdHistoricals
+      x-operation-id-source: derived
   /fees:
     get:
       tags:
@@ -136,8 +144,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedFeesResponse'
+      operationId: getFees
+      x-operation-id-source: derived
 components:
   schemas:
+    FeeInput:
+      type: object
+      required:
+      - name
+      - estimate
+      - work_order
+      properties:
+        name:
+          type: string
+          description: Name of fee
+        estimate:
+          type: number
+          format: float
+          description: Estimate
+        work_order:
+          type: string
+          description: Work order
+        description:
+          type: string
+          description: Description
+        frequency:
+          type: integer
+          description: Frequency
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          description: Status
+        estimated_time:
+          type: integer
+          description: Estimated time in hours
+        start:
+          type: string
+          format: date
+          description: Start date
+        end:
+          type: string
+          format: date
+          description: End date
+        currency_id:
+          type: integer
+          description: Currency of fee
     PaginatedFeesResponse:
       type: object
       description: Paginated response for fees list
@@ -192,49 +245,6 @@ components:
           format: date
         currency_id:
           type: integer
-    FeeInput:
-      type: object
-      required:
-      - name
-      - estimate
-      - work_order
-      properties:
-        name:
-          type: string
-          description: Name of fee
-        estimate:
-          type: number
-          format: float
-          description: Estimate
-        work_order:
-          type: string
-          description: Work order
-        description:
-          type: string
-          description: Description
-        frequency:
-          type: integer
-          description: Frequency
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-          description: Status
-        estimated_time:
-          type: integer
-          description: Estimated time in hours
-        start:
-          type: string
-          format: date
-          description: Start date
-        end:
-          type: string
-          format: date
-          description: End date
-        currency_id:
-          type: integer
-          description: Currency of fee
   securitySchemes:
     bearerAuth:
       type: http

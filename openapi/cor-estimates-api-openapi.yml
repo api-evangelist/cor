@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments Estimates API
+  title: COR Estimates API
   description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
   version: 1.0.0
 servers:
@@ -32,6 +32,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ProjectEstimate'
+      operationId: getProjectsByProjectIdProjectEstimate
+      x-operation-id-source: derived
     post:
       tags:
       - Estimates
@@ -56,6 +58,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProjectEstimate'
+      operationId: postProjectsByProjectIdProjectEstimate
+      x-operation-id-source: derived
   /projects/{project_id}/project_estimate/{project_estimate_id}:
     put:
       tags:
@@ -86,6 +90,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProjectEstimate'
+      operationId: putProjectsByProjectIdProjectEstimateByProjectEstimateId
+      x-operation-id-source: derived
     delete:
       tags:
       - Estimates
@@ -105,8 +111,26 @@ paths:
       responses:
         '204':
           description: Project estimate deleted successfully
+      operationId: deleteProjectsByProjectIdProjectEstimateByProjectEstimateId
+      x-operation-id-source: derived
 components:
   schemas:
+    ProjectEstimate:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        cost:
+          type: string
+        datetime:
+          type: string
+          format: date
+        currency_id:
+          type: integer
+        fee_id:
+          type: integer
     ProjectEstimateInput:
       type: object
       required:
@@ -130,22 +154,6 @@ components:
         fee_id:
           type: integer
           description: Related Fee
-    ProjectEstimate:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        cost:
-          type: string
-        datetime:
-          type: string
-          format: date
-        currency_id:
-          type: integer
-        fee_id:
-          type: integer
   securitySchemes:
     bearerAuth:
       type: http

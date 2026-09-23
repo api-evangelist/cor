@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments User Positions API
+  title: COR User Positions API
   description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
   version: 1.0.0
 servers:
@@ -61,6 +61,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: postUserPosition
+      x-operation-id-source: derived
   /userPosition/{id}:
     put:
       tags:
@@ -118,6 +120,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: putUserPositionById
+      x-operation-id-source: derived
   /userPosition/getPositionsOnly:
     get:
       tags:
@@ -201,6 +205,8 @@ paths:
               example:
                 error: 401
                 message: Unauthorized
+      operationId: getUserPositionGetPositionsOnly
+      x-operation-id-source: derived
   /userPosition/labels/groupers:
     get:
       tags:
@@ -258,8 +264,67 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getUserPositionLabelsGroupers
+      x-operation-id-source: derived
 components:
   schemas:
+    UserPositionUpdateInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Position name. Must be unique within the company and pass validation rules if provided.
+        rate:
+          type: number
+          description: Base rate for the position
+        seniority:
+          type: string
+          nullable: true
+          description: Seniority level of the position
+        segmentLabel:
+          type: string
+          nullable: true
+          description: Segment label used to group positions. Required only if company has feature flag to manage positions by labels enabled. Ignored if feature flag is not enabled.
+    UserPositionActiveInCategory:
+      type: object
+      description: Position object inside a category group
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    UserPosition:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        user_position_category_id:
+          type: number
+        type:
+          type: string
+          enum:
+          - C
+          - P
+          description: 'Type of position: ''C'' for category, ''P'' for position'
+        rate:
+          type: integer
+        seniority:
+          type: string
+        company_id:
+          type: integer
+    UserPositionsGroupedByCategoryItem:
+      type: object
+      description: Category bucket when `groupedByCategory` is truthy
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: integer
+        positions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserPositionActiveInCategory'
     SegmentLabel:
       type: object
       properties:
@@ -269,6 +334,33 @@ components:
         name:
           type: string
           description: Label name
+    UserPositionActiveFlatItem:
+      type: object
+      description: Active position row in flat list responses
+      properties:
+        id:
+          type: integer
+          description: Position ID
+        name:
+          type: string
+          description: Position name (localized when `lang` is used)
+        category_id:
+          type: integer
+          description: Parent category ID
+        category_name:
+          type: string
+          description: Category name (localized when `lang` is used)
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: integer
+          format: int32
+        message:
+          type: string
     UserPositionInput:
       type: object
       required:
@@ -299,90 +391,6 @@ components:
           type: string
           nullable: true
           description: Segment label used to group positions. Required only if company has feature flag to manage positions by labels enabled. Ignored if feature flag is not enabled.
-    UserPositionsGroupedByCategoryItem:
-      type: object
-      description: Category bucket when `groupedByCategory` is truthy
-      properties:
-        categoryName:
-          type: string
-        categoryId:
-          type: integer
-        positions:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserPositionActiveInCategory'
-    UserPositionActiveInCategory:
-      type: object
-      description: Position object inside a category group
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-    UserPosition:
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        user_position_category_id:
-          type: number
-        type:
-          type: string
-          enum:
-          - C
-          - P
-          description: 'Type of position: ''C'' for category, ''P'' for position'
-        rate:
-          type: integer
-        seniority:
-          type: string
-        company_id:
-          type: integer
-    UserPositionUpdateInput:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Position name. Must be unique within the company and pass validation rules if provided.
-        rate:
-          type: number
-          description: Base rate for the position
-        seniority:
-          type: string
-          nullable: true
-          description: Seniority level of the position
-        segmentLabel:
-          type: string
-          nullable: true
-          description: Segment label used to group positions. Required only if company has feature flag to manage positions by labels enabled. Ignored if feature flag is not enabled.
-    UserPositionActiveFlatItem:
-      type: object
-      description: Active position row in flat list responses
-      properties:
-        id:
-          type: integer
-          description: Position ID
-        name:
-          type: string
-          description: Position name (localized when `lang` is used)
-        category_id:
-          type: integer
-          description: Parent category ID
-        category_name:
-          type: string
-          description: Category name (localized when `lang` is used)
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: integer
-          format: int32
-        message:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http

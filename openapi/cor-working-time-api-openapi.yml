@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments Working Time API
+  title: COR Working Time API
   description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
   version: 1.0.0
 servers:
@@ -49,6 +49,8 @@ paths:
       responses:
         '200':
           description: Working time saved successfully
+      operationId: postWorkingTime
+      x-operation-id-source: derived
   /working-time/company/with/users:
     get:
       tags:
@@ -80,8 +82,29 @@ paths:
                   end_at: '18:00:00'
                   user_id: 12345
                   break_time: 1
+      operationId: getWorkingTimeCompanyWithUsers
+      x-operation-id-source: derived
 components:
   schemas:
+    WorkingTime:
+      type: object
+      properties:
+        daily_hours:
+          type: number
+        day_of_week:
+          type: integer
+          description: Day of the week (1=Sunday, 7=Saturday)
+        start_at:
+          type: string
+          description: Start time (HH:MM:SS)
+        end_at:
+          type: string
+          description: End time (HH:MM:SS)
+        user_id:
+          type: integer
+        break_time:
+          type: number
+          description: Break duration in hours
     WorkingTimeInput:
       type: object
       required:
@@ -112,25 +135,6 @@ components:
               breakTime:
                 type: string
                 description: Break duration in hours (0, 0.25, 0.5, 0.75, 1, 1.5, 2)
-    WorkingTime:
-      type: object
-      properties:
-        daily_hours:
-          type: number
-        day_of_week:
-          type: integer
-          description: Day of the week (1=Sunday, 7=Saturday)
-        start_at:
-          type: string
-          description: Start time (HH:MM:SS)
-        end_at:
-          type: string
-          description: End time (HH:MM:SS)
-        user_id:
-          type: integer
-        break_time:
-          type: number
-          description: Break duration in hours
   securitySchemes:
     bearerAuth:
       type: http

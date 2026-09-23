@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments Ratecards API
+  title: COR Ratecards API
   description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
   version: 1.0.0
 servers:
@@ -9,12 +9,12 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: Ratecards
+- name: Rate cards
 paths:
   /projects/{project_id}/ratecard:
     get:
       tags:
-      - Ratecards
+      - Rate cards
       summary: Get project ratecard
       description: Returns the ratecard currently assigned to the project, or `null` if none is assigned. The ratecard defines pricing configurations (positions, rates, custom percentages) used when `estimated_by_hourly_rates` is enabled.
       parameters:
@@ -32,10 +32,12 @@ paths:
                 nullable: true
                 allOf:
                 - $ref: '#/components/schemas/Ratecard'
+      operationId: getProjectsByProjectIdRatecard
+      x-operation-id-source: derived
   /ratecards:
     get:
       tags:
-      - Ratecards
+      - Rate cards
       summary: Get Ratecards
       description: Retrieves a paginated list of ratecards for the current company. Each ratecard defines pricing configurations such as positions, rates, and custom pricing percentages.
       parameters:
@@ -60,9 +62,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedRatecardsResponse'
+      operationId: getRatecards
+      x-operation-id-source: derived
     post:
       tags:
-      - Ratecards
+      - Rate cards
       summary: Create a Ratecard
       description: Creates a new ratecard for the current company.
       requestBody:
@@ -98,10 +102,12 @@ paths:
                 external_key: BILLING-RC-001
                 currency_id: 1
                 linked_to_base_price: false
+      operationId: postRatecards
+      x-operation-id-source: derived
   /ratecards/{id}:
     put:
       tags:
-      - Ratecards
+      - Rate cards
       summary: Update a Ratecard
       description: Updates an existing ratecard by ID.
       parameters:
@@ -144,9 +150,11 @@ paths:
                 external_key: BILLING-RC-001
                 currency_id: 2
                 linked_to_base_price: true
+      operationId: putRatecardsById
+      x-operation-id-source: derived
     delete:
       tags:
-      - Ratecards
+      - Rate cards
       summary: Delete a Ratecard
       description: Deletes (soft-delete) a ratecard by ID. Returns the deleted ratecard object with `deleted_at` timestamp set.
       parameters:
@@ -178,31 +186,10 @@ paths:
                 linked_to_base_price: true
         '204':
           description: Ratecard deleted successfully (no content)
+      operationId: deleteRatecardsById
+      x-operation-id-source: derived
 components:
   schemas:
-    PaginatedRatecardsResponse:
-      type: object
-      description: Paginated response for ratecards list
-      properties:
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of ratecards
-        perPage:
-          type: integer
-          description: Number of items per page
-        page:
-          type: integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of ratecards for the current page
-          items:
-            $ref: '#/components/schemas/Ratecard'
     RatecardInput:
       type: object
       required:
@@ -227,6 +214,29 @@ components:
         external_key:
           type: string
           description: External key for integration with external systems
+    PaginatedRatecardsResponse:
+      type: object
+      description: Paginated response for ratecards list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of ratecards
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of ratecards for the current page
+          items:
+            $ref: '#/components/schemas/Ratecard'
     Ratecard:
       type: object
       description: A ratecard defines pricing configurations for the company

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments Tasks API
+  title: COR Tasks API
   description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
   version: 1.0.0
 servers:
@@ -74,6 +74,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedTasksResponse'
+      operationId: getTasks
+      x-operation-id-source: derived
     post:
       tags:
       - Tasks
@@ -91,6 +93,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Task'
+      operationId: postTasks
+      x-operation-id-source: derived
   /tasks/{task_id}:
     get:
       tags:
@@ -109,6 +113,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Task'
+      operationId: getTasksByTaskId
+      x-operation-id-source: derived
     put:
       tags:
       - Tasks
@@ -133,11 +139,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Task'
+      operationId: putTasksByTaskId
+      x-operation-id-source: derived
     delete:
       tags:
       - Tasks
       summary: Delete a Task
-      description: Delete a Task
       parameters:
       - name: task_id
         in: path
@@ -147,6 +154,8 @@ paths:
       responses:
         '204':
           description: Task deleted successfully
+      operationId: deleteTasksByTaskId
+      x-operation-id-source: derived
   /tasks/search-by-title/{title}:
     get:
       tags:
@@ -167,6 +176,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Task'
+      operationId: getTasksSearchByTitleByTitle
+      x-operation-id-source: derived
   /tasks/{task_id}/messages:
     get:
       tags:
@@ -187,6 +198,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Message'
+      operationId: getTasksByTaskIdMessages
+      x-operation-id-source: derived
     post:
       tags:
       - Tasks
@@ -200,6 +213,8 @@ paths:
       responses:
         '200':
           description: Message posted successfully
+      operationId: postTasksByTaskIdMessages
+      x-operation-id-source: derived
   /tasks/{task_id}/attachments:
     get:
       tags:
@@ -250,6 +265,8 @@ paths:
                 type: object
                 nullable: true
                 example: null
+      operationId: getTasksByTaskIdAttachments
+      x-operation-id-source: derived
     post:
       tags:
       - Tasks
@@ -326,6 +343,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorArray'
+      operationId: postTasksByTaskIdAttachments
+      x-operation-id-source: derived
     delete:
       tags:
       - Tasks
@@ -390,6 +409,8 @@ paths:
                 name: CORCustomError
                 code: AC001
                 message: exists validation failed on taskId
+      operationId: deleteTasksByTaskIdAttachments
+      x-operation-id-source: derived
   /tasks/{task_id}/attachments/source/{source_type}:
     post:
       tags:
@@ -466,6 +487,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorArray'
+      operationId: postTasksByTaskIdAttachmentsSourceBySourceType
+      x-operation-id-source: derived
   /tasks/{task_id}/members:
     get:
       tags:
@@ -486,6 +509,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
+      operationId: getTasksByTaskIdMembers
+      x-operation-id-source: derived
   /tasks/{task_id}/collaborators:
     get:
       tags:
@@ -508,6 +533,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/TaskCollaboratorSummary'
+      operationId: getTasksByTaskIdCollaborators
+      x-operation-id-source: derived
     post:
       tags:
       - Tasks
@@ -549,8 +576,31 @@ paths:
                     message:
                       type: string
                       example: exists validation failed on task_id
+      operationId: postTasksByTaskIdCollaborators
+      x-operation-id-source: derived
 components:
   schemas:
+    User:
+      allOf:
+      - $ref: '#/components/schemas/UserBase'
+      - type: object
+        properties:
+          labels:
+            type: array
+            items:
+              $ref: '#/components/schemas/Label'
+            nullable: true
+    ValidationErrorArray:
+      type: array
+      items:
+        type: object
+        properties:
+          field:
+            type: string
+          validation:
+            type: string
+          message:
+            type: string
     Task:
       type: object
       properties:
@@ -582,6 +632,94 @@ components:
           description: 0 = Low, 1 = Medium, 2 = High, 3 = Urgent
         archived:
           type: boolean
+    TaskAttachmentUploadResponse:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskAttachmentUploadedFile'
+        files_q:
+          type: integer
+          description: Total number of attachments currently on the task
+        errors:
+          type: array
+          description: Present only when individual files failed (size exceeded or invalid extension)
+          items:
+            $ref: '#/components/schemas/AttachmentUploadError'
+    TaskInput:
+      type: object
+      required:
+      - title
+      properties:
+        title:
+          type: string
+          description: Task Title
+        project_id:
+          type: integer
+          description: Project ID
+    Leave:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        company_id:
+          type: integer
+        leave_type_id:
+          type: integer
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        all_day:
+          type: boolean
+        leaveType:
+          $ref: '#/components/schemas/LeaveType'
+    MessageInput:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Text Message
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentInput'
+          description: Optional attachments
+    AttachmentInput:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID Attachment
+        name:
+          type: string
+          description: Name of file
+        url:
+          type: string
+          description: public-url provided by COR
+        type:
+          type: string
+          description: File type
+        source:
+          type: string
+          description: 'Source of file: attachments S#, Drive, One Drive, Dropbox'
     Attachment:
       type: object
       properties:
@@ -596,35 +734,43 @@ components:
         created_at:
           type: string
           format: date-time
-    TaskAttachmentSourceResponse:
+    PaginatedTasksResponse:
       type: object
+      description: Paginated response for tasks list
       properties:
-        id:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of tasks
+        perPage:
           type: integer
-        url:
-          type: string
-        name:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        source:
-          type: string
-          description: Source provider (e.g. `GoogleDrive`)
-        size:
+          description: Number of items per page
+        page:
           type: integer
-        file_type:
-          type: string
-        media_type:
-          type: string
-        user_id:
+          description: Current page number
+        lastPage:
           type: integer
-        discussions_id:
-          type: integer
-          nullable: true
-        session_token:
-          type: string
-          nullable: true
+          description: Last available page number
+        data:
+          type: array
+          description: Array of tasks for the current page
+          items:
+            $ref: '#/components/schemas/Task'
+    TaskCollaboratorsInput:
+      type: object
+      required:
+      - collaborators
+      properties:
+        collaborators:
+          type: array
+          items:
+            type: integer
+          description: Array of user IDs that should be assigned to the task. Pass an empty array [] to remove all collaborators.
+        reasignEstimate:
+          type: boolean
+          default: false
+          description: If true, redistributes the estimated hours evenly among the new collaborators.
     LeaveType:
       type: object
       properties:
@@ -649,69 +795,87 @@ components:
           nullable: true
         icon_name:
           type: string
-    CORCustomError:
-      type: object
-      properties:
-        status:
-          type: integer
-        name:
-          type: string
-        code:
-          type: string
-        message:
-          type: string
-    TaskCollaboratorsInput:
-      type: object
-      required:
-      - collaborators
-      properties:
-        collaborators:
-          type: array
-          items:
-            type: integer
-          description: Array of user IDs that should be assigned to the task. Pass an empty array [] to remove all collaborators.
-        reasignEstimate:
-          type: boolean
-          default: false
-          description: If true, redistributes the estimated hours evenly among the new collaborators.
-    AttachmentUploadError:
-      type: object
-      properties:
-        filename:
-          type: string
-        message:
-          type: string
-    Message:
+    TaskAttachmentUploadedFile:
       type: object
       properties:
         id:
           type: integer
-        message:
+        url:
           type: string
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Attachment'
-    User:
-      allOf:
-      - $ref: '#/components/schemas/UserBase'
-      - type: object
-        properties:
-          labels:
-            type: array
-            items:
-              $ref: '#/components/schemas/Label'
-            nullable: true
-    TaskAttachmentDeleteResponse:
-      type: object
-      properties:
-        deleted:
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        source:
+          type: string
+        size:
+          type: integer
+        filename:
+          type: string
+          description: Internal storage path
+        available:
           type: boolean
-        elements:
-          type: array
-          description: Attachments from the last page that fill the gaps left by deleted items
-          items:
-            $ref: '#/components/schemas/TaskAttachmentDetail'
+        item_id:
+          type: integer
+        originalname:
+          type: string
+        attachment_parent_id:
+          type: integer
+          nullable: true
+        file_type:
+          type: string
+        discussions_id:
+          type: integer
+          nullable: true
+        user_id:
+          type: integer
+        parent_id:
+          type: integer
+        type:
+          type: string
+          description: Parent type (e.g. `tasks`)
+        version:
+          type: integer
+        status:
+          type: string
+          nullable: true
+        token:
+          type: string
+          description: Unique file token
+        company_id:
+          type: integer
+        task_log_reworks_id:
+          type: integer
+          nullable: true
+        task_log_id:
+          type: integer
+        media_type:
+          type: string
+        graphics_count:
+          type: string
+          nullable: true
+        created_from:
+          type: string
+    TaskCollaboratorSummary:
+      type: object
+      description: Summary of a collaborator assigned to a task (used in GET /tasks/{task_id}/collaborators)
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        picture:
+          type: string
+        remaining_hours:
+          type: number
+        estimated_by_user:
+          type: integer
     AttachmentUploadBadRequest:
       type: object
       properties:
@@ -728,62 +892,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AttachmentUploadError'
-    AttachmentInput:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: ID Attachment
-        name:
-          type: string
-          description: Name of file
-        url:
-          type: string
-          description: public-url provided by COR
-        type:
-          type: string
-          description: File type
-        source:
-          type: string
-          description: 'Source of file: attachments S#, Drive, One Drive, Dropbox'
-    TaskCollaborator:
-      type: object
-      properties:
-        id:
-          type: integer
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-          format: email
-        picture:
-          type: string
-        user_position_id:
-          type: integer
-          nullable: true
-        role_id:
-          type: integer
-        userPosition:
-          type: object
-          nullable: true
-          properties:
-            id:
-              type: integer
-            name:
-              type: string
-        pivot:
-          type: object
-          properties:
-            user_id:
-              type: integer
-            task_log_id:
-              type: integer
-            created_at:
-              type: string
-            estimated_by_user:
-              type: integer
     Label:
       type: object
       properties:
@@ -804,28 +912,6 @@ components:
           type: string
         color_id:
           type: integer
-    ValidationErrorArray:
-      type: array
-      items:
-        type: object
-        properties:
-          field:
-            type: string
-          validation:
-            type: string
-          message:
-            type: string
-    TaskInput:
-      type: object
-      required:
-      - title
-      properties:
-        title:
-          type: string
-          description: Task Title
-        project_id:
-          type: integer
-          description: Project ID
     TaskAttachmentDetail:
       type: object
       properties:
@@ -909,6 +995,28 @@ components:
         createdFrom:
           type: string
           description: 'Origin: `task_panel`, `rework`, or `feedback`'
+    CORCustomError:
+      type: object
+      properties:
+        status:
+          type: integer
+        name:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
     TaskUpdateInput:
       type: object
       required:
@@ -946,52 +1054,108 @@ components:
         archived:
           type: boolean
           description: Archived task
-    Leave:
+    CORErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
+    AttachmentUploadError:
+      type: object
+      properties:
+        filename:
+          type: string
+        message:
+          type: string
+    TaskAttachmentSourceResponse:
       type: object
       properties:
         id:
           type: integer
-        user_id:
-          type: integer
-        company_id:
-          type: integer
-        leave_type_id:
-          type: integer
-        start:
+        url:
           type: string
-          format: date-time
-        end:
+        name:
           type: string
-          format: date-time
         created_at:
           type: string
           format: date-time
-        updated_at:
+        source:
           type: string
-          format: date-time
-        deleted_at:
+          description: Source provider (e.g. `GoogleDrive`)
+        size:
+          type: integer
+        file_type:
           type: string
-          format: date-time
+        media_type:
+          type: string
+        user_id:
+          type: integer
+        discussions_id:
+          type: integer
           nullable: true
-        all_day:
-          type: boolean
-        leaveType:
-          $ref: '#/components/schemas/LeaveType'
-    TaskAttachmentUploadResponse:
+        session_token:
+          type: string
+          nullable: true
+    TaskCollaborator:
       type: object
       properties:
-        files:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskAttachmentUploadedFile'
-        files_q:
+        id:
           type: integer
-          description: Total number of attachments currently on the task
-        errors:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        picture:
+          type: string
+        user_position_id:
+          type: integer
+          nullable: true
+        role_id:
+          type: integer
+        userPosition:
+          type: object
+          nullable: true
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+        pivot:
+          type: object
+          properties:
+            user_id:
+              type: integer
+            task_log_id:
+              type: integer
+            created_at:
+              type: string
+            estimated_by_user:
+              type: integer
+    TaskAttachmentListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of attachments
+        perPage:
+          type: integer
+          description: Items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last page number
+        data:
           type: array
-          description: Present only when individual files failed (size exceeded or invalid extension)
           items:
-            $ref: '#/components/schemas/AttachmentUploadError'
+            $ref: '#/components/schemas/TaskAttachmentDetail'
     UserBase:
       type: object
       properties:
@@ -1042,151 +1206,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Leave'
-    TaskAttachmentUploadedFile:
+    TaskAttachmentDeleteResponse:
       type: object
       properties:
-        id:
-          type: integer
-        url:
-          type: string
-        name:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        source:
-          type: string
-        size:
-          type: integer
-        filename:
-          type: string
-          description: Internal storage path
-        available:
+        deleted:
           type: boolean
-        item_id:
-          type: integer
-        originalname:
-          type: string
-        attachment_parent_id:
-          type: integer
-          nullable: true
-        file_type:
-          type: string
-        discussions_id:
-          type: integer
-          nullable: true
-        user_id:
-          type: integer
-        parent_id:
-          type: integer
-        type:
-          type: string
-          description: Parent type (e.g. `tasks`)
-        version:
-          type: integer
-        status:
-          type: string
-          nullable: true
-        token:
-          type: string
-          description: Unique file token
-        company_id:
-          type: integer
-        task_log_reworks_id:
-          type: integer
-          nullable: true
-        task_log_id:
-          type: integer
-        media_type:
-          type: string
-        graphics_count:
-          type: string
-          nullable: true
-        created_from:
-          type: string
-    TaskAttachmentListResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of attachments
-        perPage:
-          type: integer
-          description: Items per page
-        page:
-          type: integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last page number
-        data:
+        elements:
           type: array
+          description: Attachments from the last page that fill the gaps left by deleted items
           items:
             $ref: '#/components/schemas/TaskAttachmentDetail'
-    CORErrorResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        code:
-          type: string
-        message:
-          type: string
-    TaskCollaboratorSummary:
-      type: object
-      description: Summary of a collaborator assigned to a task (used in GET /tasks/{task_id}/collaborators)
-      properties:
-        id:
-          type: integer
-        first_name:
-          type: string
-        last_name:
-          type: string
-        picture:
-          type: string
-        remaining_hours:
-          type: number
-        estimated_by_user:
-          type: integer
-    MessageInput:
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Text Message
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentInput'
-          description: Optional attachments
-    PaginatedTasksResponse:
-      type: object
-      description: Paginated response for tasks list
-      properties:
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of tasks
-        perPage:
-          type: integer
-          description: Number of items per page
-        page:
-          type: integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of tasks for the current page
-          items:
-            $ref: '#/components/schemas/Task'
   securitySchemes:
     bearerAuth:
       type: http

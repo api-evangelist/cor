@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments Contracts Users API
+  title: COR Contracts Users API
   description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
   version: 1.0.0
 servers:
@@ -113,17 +113,50 @@ paths:
                   - start: '2024-01-01'
                     end: '2024-06-30'
                   message: User malformatted
+      operationId: postContractsByContractIdUsers
+      x-operation-id-source: derived
 components:
   schemas:
-    ContractAttachUsersInput:
+    ContractAttachUsersUserInput:
       type: object
       required:
-      - users
+      - id
+      - dates
       properties:
-        users:
+        id:
+          type: integer
+          description: User ID
+        dates:
+          type: array
+          description: Date ranges to assign for the user
+          items:
+            $ref: '#/components/schemas/ContractAttachUsersDateInput'
+    ContractAttachUsersError:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - string
+          description: User ID that contains rejected dates
+        dates:
           type: array
           items:
-            $ref: '#/components/schemas/ContractAttachUsersUserInput'
+            $ref: '#/components/schemas/ContractAttachUsersErrorDate'
+        start:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Legacy start date field used in malformed payloads
+        end:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Legacy end date field used in malformed payloads
+        message:
+          type: string
     ContractUserAssignment:
       type: object
       properties:
@@ -147,6 +180,15 @@ components:
           type: string
           format: date-time
           description: Assignment end date-time
+    ContractAttachUsersInput:
+      type: object
+      required:
+      - users
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContractAttachUsersUserInput'
     ContractAttachUsersResponse:
       type: object
       properties:
@@ -214,46 +256,6 @@ components:
           - string
           - 'null'
           format: date
-        message:
-          type: string
-    ContractAttachUsersUserInput:
-      type: object
-      required:
-      - id
-      - dates
-      properties:
-        id:
-          type: integer
-          description: User ID
-        dates:
-          type: array
-          description: Date ranges to assign for the user
-          items:
-            $ref: '#/components/schemas/ContractAttachUsersDateInput'
-    ContractAttachUsersError:
-      type: object
-      properties:
-        id:
-          type:
-          - integer
-          - string
-          description: User ID that contains rejected dates
-        dates:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContractAttachUsersErrorDate'
-        start:
-          type:
-          - string
-          - 'null'
-          format: date
-          description: Legacy start date field used in malformed payloads
-        end:
-          type:
-          - string
-          - 'null'
-          format: date
-          description: Legacy end date field used in malformed payloads
         message:
           type: string
   securitySchemes:

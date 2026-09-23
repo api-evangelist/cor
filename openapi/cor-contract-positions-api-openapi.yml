@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments Contract Positions API
+  title: COR Contract Positions API
   description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
   version: 1.0.0
 servers:
@@ -44,6 +44,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedContractPositionRatesResponse'
+      operationId: getContractsByContractIdPositions
+      x-operation-id-source: derived
     post:
       tags:
       - Contract Positions
@@ -68,6 +70,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContractPositionRate'
+      operationId: postContractsByContractIdPositions
+      x-operation-id-source: derived
   /contracts/{contract_id}/positions/{contract_position_rate_id}:
     put:
       tags:
@@ -98,17 +102,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContractPositionRate'
+      operationId: putContractsByContractIdPositionsByContractPositionRateId
+      x-operation-id-source: derived
 components:
   schemas:
-    ContractPositionUpdateInput:
-      type: object
-      properties:
-        rate:
-          type: number
-          description: Updated hourly rate
-        hours:
-          type: number
-          description: Updated hours
     ContractPositionCreateInput:
       type: object
       required:
@@ -129,57 +126,15 @@ components:
         hours:
           type: number
           description: Hours to assign
-    PaginatedContractPositionRatesResponse:
+    ContractPositionUpdateInput:
       type: object
-      description: Paginated response for contract positions list
       properties:
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of contract position rates
-        perPage:
-          type:
-          - string
-          - integer
-          description: Number of items per page
-        page:
-          type:
-          - string
-          - integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of contract positions for the current page
-          items:
-            $ref: '#/components/schemas/ContractPositionRate'
-      example:
-        total: '1'
-        perPage: 20
-        page: 1
-        lastPage: 1
-        data:
-        - id: 1
-          user_positions_header_id: 1
-          contract_id: 1
-          position_id: 1
-          team_id: 1
-          rate: 1.0
-          hours: 10
-          currency_id: 1
-          currency:
-            id: 1
-            name: USD
-          team:
-            id: 1
-            name: Team 1
-            workspace_id: null
-          position:
-            id: 1
-            name: User Position 1
+        rate:
+          type: number
+          description: Updated hourly rate
+        hours:
+          type: number
+          description: Updated hours
     ContractPositionRate:
       type: object
       description: Contract position rate configuration
@@ -238,6 +193,57 @@ components:
             seniority:
               type: string
               description: Seniority name
+    PaginatedContractPositionRatesResponse:
+      type: object
+      description: Paginated response for contract positions list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of contract position rates
+        perPage:
+          type:
+          - string
+          - integer
+          description: Number of items per page
+        page:
+          type:
+          - string
+          - integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of contract positions for the current page
+          items:
+            $ref: '#/components/schemas/ContractPositionRate'
+      example:
+        total: '1'
+        perPage: 20
+        page: 1
+        lastPage: 1
+        data:
+        - id: 1
+          user_positions_header_id: 1
+          contract_id: 1
+          position_id: 1
+          team_id: 1
+          rate: 1.0
+          hours: 10
+          currency_id: 1
+          currency:
+            id: 1
+            name: USD
+          team:
+            id: 1
+            name: Team 1
+            workspace_id: null
+          position:
+            id: 1
+            name: User Position 1
   securitySchemes:
     bearerAuth:
       type: http

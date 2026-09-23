@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments Project Templates API
+  title: COR Project Templates API
   description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
   version: 1.0.0
 servers:
@@ -44,6 +44,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedProjectTemplatesResponse'
+      operationId: getProjectTemplates
+      x-operation-id-source: derived
 components:
   schemas:
     ProjectTemplate:

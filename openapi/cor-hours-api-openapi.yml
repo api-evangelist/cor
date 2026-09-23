@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: COR Attachments Hours API
+  title: COR Hours API
   description: The COR API lets you integrate with projectcor.com applications using simple HTTP methods, in either XML or JSON formats, making this an ideal API for developing integrations with other softwares, external clients or mobile applications
   version: 1.0.0
 servers:
@@ -103,6 +103,8 @@ paths:
                 perPage: 20
                 page: '1'
                 lastPage: 1
+      operationId: getHours
+      x-operation-id-source: derived
     post:
       tags:
       - Hours
@@ -120,6 +122,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Hour'
+      operationId: postHours
+      x-operation-id-source: derived
   /hours/status-change:
     post:
       tags:
@@ -153,6 +157,8 @@ paths:
       responses:
         '200':
           description: Status changed successfully
+      operationId: postHoursStatusChange
+      x-operation-id-source: derived
   /hours/status-bills-change:
     post:
       tags:
@@ -179,6 +185,8 @@ paths:
       responses:
         '200':
           description: Status changed successfully
+      operationId: postHoursStatusBillsChange
+      x-operation-id-source: derived
   /hours/by-day/{datetime}:
     get:
       tags:
@@ -202,6 +210,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Hour'
+      operationId: getHoursByDayByDatetime
+      x-operation-id-source: derived
   /hours/by-day/weigh:
     post:
       tags:
@@ -227,6 +237,8 @@ paths:
       responses:
         '200':
           description: Status updated successfully
+      operationId: postHoursByDayWeigh
+      x-operation-id-source: derived
   /hours/accept-suggested/{datetime}:
     post:
       tags:
@@ -244,8 +256,60 @@ paths:
       responses:
         '200':
           description: Suggested hours accepted successfully
+      operationId: postHoursAcceptSuggestedByDatetime
+      x-operation-id-source: derived
 components:
   schemas:
+    PaginatedHoursResponse:
+      type: object
+      description: Paginated response for time entries list
+      properties:
+        total_hours:
+          type: string
+          description: Total hours summed across all entries matching the query
+        total_cost:
+          type: number
+          description: Total cost summed across all entries matching the query
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of time entries
+        perPage:
+          type:
+          - string
+          - integer
+          description: Number of items per page
+        page:
+          type:
+          - string
+          - integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of time entries for the current page
+          items:
+            $ref: '#/components/schemas/Hour'
+    HourInput:
+      type: object
+      required:
+      - task_log_id
+      - start
+      properties:
+        task_log_id:
+          type: integer
+          description: Task ID
+        start:
+          type: string
+          format: date-time
+          description: Start Timestamp
+        stop:
+          type: string
+          format: date-time
+          description: Stop Timestamp
     Hour:
       type: object
       properties:
@@ -482,56 +546,6 @@ components:
               type: string
               format: date-time
               description: Date the rework was requested
-    HourInput:
-      type: object
-      required:
-      - task_log_id
-      - start
-      properties:
-        task_log_id:
-          type: integer
-          description: Task ID
-        start:
-          type: string
-          format: date-time
-          description: Start Timestamp
-        stop:
-          type: string
-          format: date-time
-          description: Stop Timestamp
-    PaginatedHoursResponse:
-      type: object
-      description: Paginated response for time entries list
-      properties:
-        total_hours:
-          type: string
-          description: Total hours summed across all entries matching the query
-        total_cost:
-          type: number
-          description: Total cost summed across all entries matching the query
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of time entries
-        perPage:
-          type:
-          - string
-          - integer
-          description: Number of items per page
-        page:
-          type:
-          - string
-          - integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of time entries for the current page
-          items:
-            $ref: '#/components/schemas/Hour'
   securitySchemes:
     bearerAuth:
       type: http
