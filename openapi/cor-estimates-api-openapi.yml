@@ -115,22 +115,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ProjectEstimate:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        cost:
-          type: string
-        datetime:
-          type: string
-          format: date
-        currency_id:
-          type: integer
-        fee_id:
-          type: integer
     ProjectEstimateInput:
       type: object
       required:
@@ -154,6 +138,22 @@ components:
         fee_id:
           type: integer
           description: Related Fee
+    ProjectEstimate:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        cost:
+          type: string
+        datetime:
+          type: string
+          format: date
+        currency_id:
+          type: integer
+        fee_id:
+          type: integer
   securitySchemes:
     bearerAuth:
       type: http

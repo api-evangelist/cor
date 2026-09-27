@@ -145,40 +145,17 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    LeaveType:
+    AuthResponse:
       type: object
       properties:
-        id:
+        access_token:
+          type: string
+        token_type:
+          type: string
+        expires_in:
           type: integer
-        name:
+        refresh_token:
           type: string
-        type_code:
-          type: string
-        company_id:
-          type: integer
-          nullable: true
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        deleted_at:
-          type: string
-          format: date-time
-          nullable: true
-        icon_name:
-          type: string
-    User:
-      allOf:
-      - $ref: '#/components/schemas/UserBase'
-      - type: object
-        properties:
-          labels:
-            type: array
-            items:
-              $ref: '#/components/schemas/Label'
-            nullable: true
     Label:
       type: object
       properties:
@@ -199,6 +176,16 @@ components:
           type: string
         color_id:
           type: integer
+    User:
+      allOf:
+      - $ref: '#/components/schemas/UserBase'
+      - type: object
+        properties:
+          labels:
+            type: array
+            items:
+              $ref: '#/components/schemas/Label'
+            nullable: true
     UserBase:
       type: object
       properties:
@@ -280,16 +267,29 @@ components:
           type: boolean
         leaveType:
           $ref: '#/components/schemas/LeaveType'
-    AuthResponse:
+    LeaveType:
       type: object
       properties:
-        access_token:
-          type: string
-        token_type:
-          type: string
-        expires_in:
+        id:
           type: integer
-        refresh_token:
+        name:
+          type: string
+        type_code:
+          type: string
+        company_id:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        icon_name:
           type: string
   securitySchemes:
     bearerAuth:

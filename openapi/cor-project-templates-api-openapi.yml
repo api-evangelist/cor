@@ -48,13 +48,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ProjectTemplate:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
     PaginatedProjectTemplatesResponse:
       type: object
       description: Paginated response for project templates list
@@ -78,6 +71,13 @@ components:
           description: Array of project templates for the current page
           items:
             $ref: '#/components/schemas/ProjectTemplate'
+    ProjectTemplate:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

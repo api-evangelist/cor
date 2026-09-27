@@ -127,9 +127,13 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ContractUpdateInput:
+    Contract:
       type: object
+      description: Contract entity
       properties:
+        id:
+          type: integer
+          description: Contract ID
         client_id:
           type: integer
           description: Client ID
@@ -171,6 +175,15 @@ components:
         currency_id:
           type: integer
           description: Currency ID
+        currency:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: Currency ID
+            name:
+              type: string
+              description: Currency name
         url:
           type: string
           description: External URL
@@ -180,6 +193,20 @@ components:
         user_positions_header_id:
           type: integer
           description: User positions header ID
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        deleted_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Deletion timestamp (soft delete)
     PaginatedContractsResponse:
       type: object
       description: Paginated response for contracts list
@@ -294,13 +321,9 @@ components:
         with_positions: true
         status: expired
         type: time_and_materials
-    Contract:
+    ContractUpdateInput:
       type: object
-      description: Contract entity
       properties:
-        id:
-          type: integer
-          description: Contract ID
         client_id:
           type: integer
           description: Client ID
@@ -342,15 +365,6 @@ components:
         currency_id:
           type: integer
           description: Currency ID
-        currency:
-          type: object
-          properties:
-            id:
-              type: integer
-              description: Currency ID
-            name:
-              type: string
-              description: Currency name
         url:
           type: string
           description: External URL
@@ -360,20 +374,6 @@ components:
         user_positions_header_id:
           type: integer
           description: User positions header ID
-        created_at:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
-        deleted_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Deletion timestamp (soft delete)
   securitySchemes:
     bearerAuth:
       type: http

@@ -236,73 +236,6 @@ components:
           type: integer
         company_id:
           type: integer
-    TransactionItemInput:
-      type: object
-      required:
-      - description
-      - amount
-      - status
-      - transaction_id
-      - company_id
-      properties:
-        description:
-          type: string
-          description: Description
-        client_id:
-          type: integer
-          description: Client ID
-        project_id:
-          type: integer
-          description: Project ID
-        amount:
-          type: number
-          description: Amount
-        status:
-          type: string
-          description: Status
-        transaction_id:
-          type: integer
-          description: Transaction ID
-        company_id:
-          type: integer
-          description: Company ID
-        can_update:
-          type: boolean
-          description: Can update
-        can_delete:
-          type: boolean
-          description: Can delete
-        integrated:
-          type: boolean
-          description: Integrated
-    Transaction:
-      type: object
-      properties:
-        id:
-          type: integer
-        date:
-          type: string
-          format: date
-        receipt_number:
-          type: string
-        type:
-          type: string
-        total:
-          type: number
-        currency_change_amount:
-          type: number
-        exchange:
-          type: number
-        source_id:
-          type: integer
-        currency_id:
-          type: integer
-        is_income:
-          type: boolean
-        client_id:
-          type: integer
-        company_id:
-          type: integer
     TransactionInput:
       type: object
       required:
@@ -354,6 +287,73 @@ components:
         can_delete:
           type: boolean
           description: Can delete
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+        date:
+          type: string
+          format: date
+        receipt_number:
+          type: string
+        type:
+          type: string
+        total:
+          type: number
+        currency_change_amount:
+          type: number
+        exchange:
+          type: number
+        source_id:
+          type: integer
+        currency_id:
+          type: integer
+        is_income:
+          type: boolean
+        client_id:
+          type: integer
+        company_id:
+          type: integer
+    TransactionItemInput:
+      type: object
+      required:
+      - description
+      - amount
+      - status
+      - transaction_id
+      - company_id
+      properties:
+        description:
+          type: string
+          description: Description
+        client_id:
+          type: integer
+          description: Client ID
+        project_id:
+          type: integer
+          description: Project ID
+        amount:
+          type: number
+          description: Amount
+        status:
+          type: string
+          description: Status
+        transaction_id:
+          type: integer
+          description: Transaction ID
+        company_id:
+          type: integer
+          description: Company ID
+        can_update:
+          type: boolean
+          description: Can update
+        can_delete:
+          type: boolean
+          description: Can delete
+        integrated:
+          type: boolean
+          description: Integrated
     PaginatedTransactionsResponse:
       type: object
       description: Paginated response for transactions list

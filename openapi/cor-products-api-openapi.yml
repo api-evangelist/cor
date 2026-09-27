@@ -135,22 +135,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ProductInput:
-      type: object
-      required:
-      - name
-      - client_id
-      - brand_id
-      properties:
-        name:
-          type: string
-          description: Product Name
-        client_id:
-          type: integer
-          description: Client ID
-        brand_id:
-          type: integer
-          description: Brand ID
     Product:
       type: object
       properties:
@@ -185,6 +169,22 @@ components:
           description: Array of products for the current page
           items:
             $ref: '#/components/schemas/Product'
+    ProductInput:
+      type: object
+      required:
+      - name
+      - client_id
+      - brand_id
+      properties:
+        name:
+          type: string
+          description: Product Name
+        client_id:
+          type: integer
+          description: Client ID
+        brand_id:
+          type: integer
+          description: Brand ID
   securitySchemes:
     bearerAuth:
       type: http

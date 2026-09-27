@@ -106,35 +106,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ContractPositionCreateInput:
-      type: object
-      required:
-      - position_id
-      - team_id
-      - rate
-      - hours
-      properties:
-        position_id:
-          type: integer
-          description: Position ID
-        team_id:
-          type: integer
-          description: Team ID
-        rate:
-          type: number
-          description: Hourly rate to assign
-        hours:
-          type: number
-          description: Hours to assign
-    ContractPositionUpdateInput:
-      type: object
-      properties:
-        rate:
-          type: number
-          description: Updated hourly rate
-        hours:
-          type: number
-          description: Updated hours
     ContractPositionRate:
       type: object
       description: Contract position rate configuration
@@ -244,6 +215,35 @@ components:
           position:
             id: 1
             name: User Position 1
+    ContractPositionCreateInput:
+      type: object
+      required:
+      - position_id
+      - team_id
+      - rate
+      - hours
+      properties:
+        position_id:
+          type: integer
+          description: Position ID
+        team_id:
+          type: integer
+          description: Team ID
+        rate:
+          type: number
+          description: Hourly rate to assign
+        hours:
+          type: number
+          description: Hours to assign
+    ContractPositionUpdateInput:
+      type: object
+      properties:
+        rate:
+          type: number
+          description: Updated hourly rate
+        hours:
+          type: number
+          description: Updated hours
   securitySchemes:
     bearerAuth:
       type: http

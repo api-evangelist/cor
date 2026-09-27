@@ -57,44 +57,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    MessageInput:
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Text Message
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentInput'
-          description: Optional attachments
-    Attachment:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        url:
-          type: string
-        type:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-    Message:
-      type: object
-      properties:
-        id:
-          type: integer
-        message:
-          type: string
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Attachment'
     AttachmentInput:
       type: object
       properties:
@@ -113,6 +75,44 @@ components:
         source:
           type: string
           description: 'Source of file: attachments S#, Drive, One Drive, Dropbox'
+    MessageInput:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Text Message
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentInput'
+          description: Optional attachments
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+    Attachment:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        url:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+          format: date-time
   securitySchemes:
     bearerAuth:
       type: http

@@ -169,6 +169,28 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/Label'
+    CORCustomError:
+      type: object
+      properties:
+        status:
+          type: integer
+        name:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
     Label:
       type: object
       properties:
@@ -189,17 +211,17 @@ components:
           type: string
         color_id:
           type: integer
-    Category:
+    Error:
       type: object
+      required:
+      - error
+      - message
       properties:
-        id:
+        error:
           type: integer
-        name:
+          format: int32
+        message:
           type: string
-        labels:
-          type: array
-          items:
-            $ref: '#/components/schemas/Label'
     ProjectLabelsResponse:
       type: object
       required:
@@ -215,28 +237,6 @@ components:
           description: Labels currently assigned to the project (present when a valid `project_id` is provided).
           items:
             $ref: '#/components/schemas/Label'
-    CORCustomError:
-      type: object
-      properties:
-        status:
-          type: integer
-        name:
-          type: string
-        code:
-          type: string
-        message:
-          type: string
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: integer
-          format: int32
-        message:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http

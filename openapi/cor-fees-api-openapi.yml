@@ -148,49 +148,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    FeeInput:
-      type: object
-      required:
-      - name
-      - estimate
-      - work_order
-      properties:
-        name:
-          type: string
-          description: Name of fee
-        estimate:
-          type: number
-          format: float
-          description: Estimate
-        work_order:
-          type: string
-          description: Work order
-        description:
-          type: string
-          description: Description
-        frequency:
-          type: integer
-          description: Frequency
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-          description: Status
-        estimated_time:
-          type: integer
-          description: Estimated time in hours
-        start:
-          type: string
-          format: date
-          description: Start date
-        end:
-          type: string
-          format: date
-          description: End date
-        currency_id:
-          type: integer
-          description: Currency of fee
     PaginatedFeesResponse:
       type: object
       description: Paginated response for fees list
@@ -245,6 +202,49 @@ components:
           format: date
         currency_id:
           type: integer
+    FeeInput:
+      type: object
+      required:
+      - name
+      - estimate
+      - work_order
+      properties:
+        name:
+          type: string
+          description: Name of fee
+        estimate:
+          type: number
+          format: float
+          description: Estimate
+        work_order:
+          type: string
+          description: Work order
+        description:
+          type: string
+          description: Description
+        frequency:
+          type: integer
+          description: Frequency
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          description: Status
+        estimated_time:
+          type: integer
+          description: Estimated time in hours
+        start:
+          type: string
+          format: date
+          description: Start date
+        end:
+          type: string
+          format: date
+          description: End date
+        currency_id:
+          type: integer
+          description: Currency of fee
   securitySchemes:
     bearerAuth:
       type: http

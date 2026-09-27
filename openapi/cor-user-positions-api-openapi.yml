@@ -268,6 +268,56 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    UserPosition:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        user_position_category_id:
+          type: number
+        type:
+          type: string
+          enum:
+          - C
+          - P
+          description: 'Type of position: ''C'' for category, ''P'' for position'
+        rate:
+          type: integer
+        seniority:
+          type: string
+        company_id:
+          type: integer
+    UserPositionInput:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        name:
+          type: string
+          description: Position name. Must be unique within the company and pass validation rules.
+        type:
+          type: string
+          enum:
+          - C
+          - P
+          description: 'Type of position: ''C'' for category, ''P'' for position'
+        rate:
+          type: number
+          description: Base rate for the position
+        seniority:
+          type: string
+          nullable: true
+          description: Seniority level of the position
+        user_position_category_id:
+          type: integer
+          nullable: true
+          description: ID of the parent category (only for positions, not categories). This field is required if you need to see positions in capacity planning and positions list
+        segmentLabel:
+          type: string
+          nullable: true
+          description: Segment label used to group positions. Required only if company has feature flag to manage positions by labels enabled. Ignored if feature flag is not enabled.
     UserPositionUpdateInput:
       type: object
       properties:
@@ -293,26 +343,17 @@ components:
           type: integer
         name:
           type: string
-    UserPosition:
+    Error:
+      type: object
+      required:
+      - error
+      - message
       properties:
-        id:
+        error:
           type: integer
-        name:
+          format: int32
+        message:
           type: string
-        user_position_category_id:
-          type: number
-        type:
-          type: string
-          enum:
-          - C
-          - P
-          description: 'Type of position: ''C'' for category, ''P'' for position'
-        rate:
-          type: integer
-        seniority:
-          type: string
-        company_id:
-          type: integer
     UserPositionsGroupedByCategoryItem:
       type: object
       description: Category bucket when `groupedByCategory` is truthy
@@ -350,47 +391,6 @@ components:
         category_name:
           type: string
           description: Category name (localized when `lang` is used)
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: integer
-          format: int32
-        message:
-          type: string
-    UserPositionInput:
-      type: object
-      required:
-      - name
-      - type
-      properties:
-        name:
-          type: string
-          description: Position name. Must be unique within the company and pass validation rules.
-        type:
-          type: string
-          enum:
-          - C
-          - P
-          description: 'Type of position: ''C'' for category, ''P'' for position'
-        rate:
-          type: number
-          description: Base rate for the position
-        seniority:
-          type: string
-          nullable: true
-          description: Seniority level of the position
-        user_position_category_id:
-          type: integer
-          nullable: true
-          description: ID of the parent category (only for positions, not categories). This field is required if you need to see positions in capacity planning and positions list
-        segmentLabel:
-          type: string
-          nullable: true
-          description: Segment label used to group positions. Required only if company has feature flag to manage positions by labels enabled. Ignored if feature flag is not enabled.
   securitySchemes:
     bearerAuth:
       type: http

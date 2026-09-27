@@ -237,6 +237,28 @@ components:
           description: Array of ratecards for the current page
           items:
             $ref: '#/components/schemas/Ratecard'
+    RatecardUpdate:
+      type: object
+      description: Input schema for updating an existing ratecard
+      properties:
+        name:
+          type: string
+          description: Display name of the ratecard
+        original_name:
+          type: string
+          description: Original/system name of the ratecard
+        percent:
+          type: number
+          description: Percentage applied by this ratecard
+        currency_id:
+          type: integer
+          description: Associated currency ID. Defaults to the system's base currency.
+        linked_to_base_price:
+          type: boolean
+          description: Whether the ratecard should be calculated based on base price
+        external_key:
+          type: string
+          description: External key for integration with external systems
     Ratecard:
       type: object
       description: A ratecard defines pricing configurations for the company
@@ -286,28 +308,6 @@ components:
           - 'null'
           format: date-time
           description: Deletion timestamp (soft delete)
-    RatecardUpdate:
-      type: object
-      description: Input schema for updating an existing ratecard
-      properties:
-        name:
-          type: string
-          description: Display name of the ratecard
-        original_name:
-          type: string
-          description: Original/system name of the ratecard
-        percent:
-          type: number
-          description: Percentage applied by this ratecard
-        currency_id:
-          type: integer
-          description: Associated currency ID. Defaults to the system's base currency.
-        linked_to_base_price:
-          type: boolean
-          description: Whether the ratecard should be calculated based on base price
-        external_key:
-          type: string
-          description: External key for integration with external systems
   securitySchemes:
     bearerAuth:
       type: http

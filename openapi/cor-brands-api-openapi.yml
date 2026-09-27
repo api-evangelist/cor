@@ -144,15 +144,6 @@ components:
         client_id:
           type: integer
           description: Client ID
-    Brand:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        client_id:
-          type: integer
     PaginatedBrandsResponse:
       type: object
       description: Paginated response for brands list
@@ -176,6 +167,15 @@ components:
           description: Array of brands for the current page
           items:
             $ref: '#/components/schemas/Brand'
+    Brand:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        client_id:
+          type: integer
   securitySchemes:
     bearerAuth:
       type: http

@@ -232,6 +232,20 @@ components:
           items:
             type: integer
           description: Array of user IDs to add or remove from the team
+    TeamInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Team Name
+        description:
+          type: string
+          description: Team description
+        workspace_id:
+          type: integer
+          description: Workspace ID
     PaginatedTeamsResponse:
       type: object
       description: Paginated response for teams list
@@ -255,20 +269,6 @@ components:
           description: Array of teams for the current page
           items:
             $ref: '#/components/schemas/Team'
-    TeamInput:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Team Name
-        description:
-          type: string
-          description: Team description
-        workspace_id:
-          type: integer
-          description: Workspace ID
     TeamUserRelation:
       type: object
       properties:

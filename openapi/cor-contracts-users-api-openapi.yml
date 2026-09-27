@@ -117,69 +117,21 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ContractAttachUsersUserInput:
-      type: object
-      required:
-      - id
-      - dates
-      properties:
-        id:
-          type: integer
-          description: User ID
-        dates:
-          type: array
-          description: Date ranges to assign for the user
-          items:
-            $ref: '#/components/schemas/ContractAttachUsersDateInput'
-    ContractAttachUsersError:
+    ContractAttachUsersErrorDate:
       type: object
       properties:
-        id:
-          type:
-          - integer
-          - string
-          description: User ID that contains rejected dates
-        dates:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContractAttachUsersErrorDate'
         start:
           type:
           - string
           - 'null'
           format: date
-          description: Legacy start date field used in malformed payloads
         end:
           type:
           - string
           - 'null'
           format: date
-          description: Legacy end date field used in malformed payloads
         message:
           type: string
-    ContractUserAssignment:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Assignment ID
-        user_id:
-          type: integer
-          description: User ID
-        contract_id:
-          type: integer
-          description: Contract ID
-        company_id:
-          type: integer
-          description: Company ID
-        start_date:
-          type: string
-          format: date-time
-          description: Assignment start date-time
-        end_date:
-          type: string
-          format: date-time
-          description: Assignment end date-time
     ContractAttachUsersInput:
       type: object
       required:
@@ -189,6 +141,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ContractAttachUsersUserInput'
+    ContractAttachUsersDateInput:
+      type: object
+      required:
+      - start
+      - end
+      properties:
+        start:
+          type: string
+          format: date
+          description: Assignment start date
+        end:
+          type: string
+          format: date
+          description: Assignment end date
     ContractAttachUsersResponse:
       type: object
       properties:
@@ -229,35 +195,69 @@ components:
           items:
             $ref: '#/components/schemas/ContractAttachUsersError'
           description: Array of user assignments that failed to be assigned to the contract
-    ContractAttachUsersDateInput:
-      type: object
-      required:
-      - start
-      - end
-      properties:
-        start:
-          type: string
-          format: date
-          description: Assignment start date
-        end:
-          type: string
-          format: date
-          description: Assignment end date
-    ContractAttachUsersErrorDate:
+    ContractUserAssignment:
       type: object
       properties:
+        id:
+          type: integer
+          description: Assignment ID
+        user_id:
+          type: integer
+          description: User ID
+        contract_id:
+          type: integer
+          description: Contract ID
+        company_id:
+          type: integer
+          description: Company ID
+        start_date:
+          type: string
+          format: date-time
+          description: Assignment start date-time
+        end_date:
+          type: string
+          format: date-time
+          description: Assignment end date-time
+    ContractAttachUsersError:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - string
+          description: User ID that contains rejected dates
+        dates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContractAttachUsersErrorDate'
         start:
           type:
           - string
           - 'null'
           format: date
+          description: Legacy start date field used in malformed payloads
         end:
           type:
           - string
           - 'null'
           format: date
+          description: Legacy end date field used in malformed payloads
         message:
           type: string
+    ContractAttachUsersUserInput:
+      type: object
+      required:
+      - id
+      - dates
+      properties:
+        id:
+          type: integer
+          description: User ID
+        dates:
+          type: array
+          description: Date ranges to assign for the user
+          items:
+            $ref: '#/components/schemas/ContractAttachUsersDateInput'
   securitySchemes:
     bearerAuth:
       type: http
