@@ -169,28 +169,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Category:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        labels:
-          type: array
-          items:
-            $ref: '#/components/schemas/Label'
-    CORCustomError:
-      type: object
-      properties:
-        status:
-          type: integer
-        name:
-          type: string
-        code:
-          type: string
-        message:
-          type: string
     Label:
       type: object
       properties:
@@ -222,6 +200,28 @@ components:
           format: int32
         message:
           type: string
+    CORCustomError:
+      type: object
+      properties:
+        status:
+          type: integer
+        name:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/Label'
     ProjectLabelsResponse:
       type: object
       required:

@@ -135,17 +135,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Product:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        client_id:
-          type: integer
-        brand_id:
-          type: integer
     PaginatedProductsResponse:
       type: object
       description: Paginated response for products list
@@ -169,6 +158,17 @@ components:
           description: Array of products for the current page
           items:
             $ref: '#/components/schemas/Product'
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        client_id:
+          type: integer
+        brand_id:
+          type: integer
     ProductInput:
       type: object
       required:

@@ -354,150 +354,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    UserListItem:
-      description: User object returned by list endpoints (GET /users, GET /users/search-by-name).
-      allOf:
-      - $ref: '#/components/schemas/UserBase'
-      - type: object
-        properties:
-          labels:
-            type: array
-            description: Labels assigned to the user.
-            items:
-              $ref: '#/components/schemas/UserAssignedLabel'
-    UserUpdateInput:
-      type: object
-      properties:
-        first_name:
-          type: string
-          description: User given name
-        last_name:
-          type: string
-          description: User family name
-        email:
-          type: string
-          format: email
-          description: User email
-        role_id:
-          type: integer
-          enum:
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          description: 'User Role: 1=C-Level, 2=Director, 3=Project Manager, 4=Collaborator, 5=Freelancer, 6=Client'
-        user_position_id:
-          type: integer
-          description: ID of the user's position
-        phone:
-          type: string
-          description: User phone number
-        description:
-          type: string
-          description: User description
-        birthday:
-          type: string
-          format: date
-          description: User birthday (YYYY-MM-DD)
-        work_in:
-          type: string
-          description: Department or area
-        hourly_rate:
-          type: number
-          description: Hourly rate
-        monthly_hours:
-          type: integer
-          description: Monthly hours
-        daily_hours:
-          type: integer
-          description: Daily hours
-        plan_id:
-          type: integer
-          enum:
-          - 4
-          - 5
-          description: 'Plan ID: 4=Project Management, 5=Capacity Planning'
-        hidden:
-          type: boolean
-          description: Whether user is hidden
-        charge_hours:
-          type: boolean
-          description: Whether to charge hours
-        salary:
-          type: integer
-          description: Monthly salary amount
-        salary_from:
-          type: string
-          description: Month from which salary should apply (MM-YYYY). Defaults to the current month if salary is provided.
-    UserListResponse:
-      type: object
-      properties:
-        total:
-          type: string
-        perPage:
-          type: integer
-        page:
-          type: integer
-        lastPage:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserListItem'
-    UserAssignedLabel:
-      type: object
-      description: Label assigned to a user, as returned in user list endpoints.
-      properties:
-        id:
-          type: integer
-        lang:
-          type: string
-        name:
-          type: string
-    Label:
-      type: object
-      properties:
-        id:
-          type: integer
-        hex:
-          type: string
-          description: Hex color code
-        hsl:
-          type: string
-          nullable: true
-        rgb:
-          type: string
-          nullable: true
-        lang:
-          type: string
-        name:
-          type: string
-        color_id:
-          type: integer
-    User:
-      allOf:
-      - $ref: '#/components/schemas/UserBase'
-      - type: object
-        properties:
-          labels:
-            type: array
-            items:
-              $ref: '#/components/schemas/Label'
-            nullable: true
-    UserLabelInput:
-      type: object
-      required:
-      - labelId
-      properties:
-        labelId:
-          type: integer
-          description: Label ID to assign or unassign
-        unassign:
-          type: boolean
-          description: Set to true to remove label from the user. Omit or set to false to assign the label.
-          default: false
     UserCreateInput:
       type: object
       required:
@@ -566,6 +422,190 @@ components:
         salary:
           type: integer
           description: Monthly salary amount
+    UserUpdateInput:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: User given name
+        last_name:
+          type: string
+          description: User family name
+        email:
+          type: string
+          format: email
+          description: User email
+        role_id:
+          type: integer
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          description: 'User Role: 1=C-Level, 2=Director, 3=Project Manager, 4=Collaborator, 5=Freelancer, 6=Client'
+        user_position_id:
+          type: integer
+          description: ID of the user's position
+        phone:
+          type: string
+          description: User phone number
+        description:
+          type: string
+          description: User description
+        birthday:
+          type: string
+          format: date
+          description: User birthday (YYYY-MM-DD)
+        work_in:
+          type: string
+          description: Department or area
+        hourly_rate:
+          type: number
+          description: Hourly rate
+        monthly_hours:
+          type: integer
+          description: Monthly hours
+        daily_hours:
+          type: integer
+          description: Daily hours
+        plan_id:
+          type: integer
+          enum:
+          - 4
+          - 5
+          description: 'Plan ID: 4=Project Management, 5=Capacity Planning'
+        hidden:
+          type: boolean
+          description: Whether user is hidden
+        charge_hours:
+          type: boolean
+          description: Whether to charge hours
+        salary:
+          type: integer
+          description: Monthly salary amount
+        salary_from:
+          type: string
+          description: Month from which salary should apply (MM-YYYY). Defaults to the current month if salary is provided.
+    Label:
+      type: object
+      properties:
+        id:
+          type: integer
+        hex:
+          type: string
+          description: Hex color code
+        hsl:
+          type: string
+          nullable: true
+        rgb:
+          type: string
+          nullable: true
+        lang:
+          type: string
+        name:
+          type: string
+        color_id:
+          type: integer
+    Leave:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        company_id:
+          type: integer
+        leave_type_id:
+          type: integer
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        all_day:
+          type: boolean
+        leaveType:
+          $ref: '#/components/schemas/LeaveType'
+    UserAssignedLabel:
+      type: object
+      description: Label assigned to a user, as returned in user list endpoints.
+      properties:
+        id:
+          type: integer
+        lang:
+          type: string
+        name:
+          type: string
+    UserListItem:
+      description: User object returned by list endpoints (GET /users, GET /users/search-by-name).
+      allOf:
+      - $ref: '#/components/schemas/UserBase'
+      - type: object
+        properties:
+          labels:
+            type: array
+            description: Labels assigned to the user.
+            items:
+              $ref: '#/components/schemas/UserAssignedLabel'
+    LeaveType:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type_code:
+          type: string
+        company_id:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        icon_name:
+          type: string
+    UserLabelInput:
+      type: object
+      required:
+      - labelId
+      properties:
+        labelId:
+          type: integer
+          description: Label ID to assign or unassign
+        unassign:
+          type: boolean
+          description: Set to true to remove label from the user. Omit or set to false to assign the label.
+          default: false
+    User:
+      allOf:
+      - $ref: '#/components/schemas/UserBase'
+      - type: object
+        properties:
+          labels:
+            type: array
+            items:
+              $ref: '#/components/schemas/Label'
+            nullable: true
     UserBase:
       type: object
       properties:
@@ -616,61 +656,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Leave'
-    Leave:
+    UserListResponse:
       type: object
       properties:
-        id:
+        total:
+          type: string
+        perPage:
           type: integer
-        user_id:
+        page:
           type: integer
-        company_id:
+        lastPage:
           type: integer
-        leave_type_id:
-          type: integer
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        deleted_at:
-          type: string
-          format: date-time
-          nullable: true
-        all_day:
-          type: boolean
-        leaveType:
-          $ref: '#/components/schemas/LeaveType'
-    LeaveType:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        type_code:
-          type: string
-        company_id:
-          type: integer
-          nullable: true
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        deleted_at:
-          type: string
-          format: date-time
-          nullable: true
-        icon_name:
-          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserListItem'
   securitySchemes:
     bearerAuth:
       type: http

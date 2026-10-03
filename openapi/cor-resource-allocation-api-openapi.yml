@@ -268,101 +268,43 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ProjectAllocationsResponse:
-      type: object
-      properties:
-        users:
-          type: array
-          description: List of users allocated to the project
-          items:
-            $ref: '#/components/schemas/AllocatedUser'
-    AllocationUpdateInput:
+    AllocationInput:
       type: object
       required:
-      - oldAllocation
-      - newAllocation
+      - userId
+      - companyId
+      - resource
+      - from
+      - to
+      - assignedByUserId
+      - allocatedHours
       properties:
-        oldAllocation:
-          $ref: '#/components/schemas/AllocationInput'
-          description: The existing allocation to be updated
-        newAllocation:
-          $ref: '#/components/schemas/AllocationInput'
-          description: The new allocation data
-    AllocationError:
-      type: object
-      properties:
-        error:
+        userId:
+          type: integer
+          description: ID of the user being allocated
+        companyId:
+          type: integer
+          description: Company ID
+        email:
           type: string
-          description: Error type
-          enum:
-          - InvalidAllocationError
-          - AllocationAlreadyExistInDatesRangeError
-          - UserNotFoundError
-          - UserNotHaveWorkDaysError
-          - ProjectNotFoundError
-          - AllocationNotFoundError
-        message:
-          type: string
-          description: Error description
-    UserAllocation:
-      type: object
-      properties:
-        primaryKey:
-          type: string
-          description: Unique identifier for the allocation
+          format: email
+          description: User email (optional)
+        resource:
+          $ref: '#/components/schemas/AllocationResource'
         from:
           type: string
-          format: date-time
-          description: Start date of the allocation
+          format: date
+          description: Start date (YYYY-MM-DD)
         to:
           type: string
-          format: date-time
-          description: End date of the allocation
+          format: date
+          description: End date (YYYY-MM-DD). Must be after 'from' date and within 12 months.
+        assignedByUserId:
+          type: integer
+          description: ID of the user who assigned the allocation
         allocatedHours:
           type: number
           description: Number of hours allocated
-        capacity:
-          type: number
-          description: Total capacity in hours
-        availabilityLeft:
-          type: number
-          description: Remaining availability (can be negative if overallocated)
-        createdAt:
-          type: string
-          format: date-time
-          description: When the allocation was created
-        allocationUserAnotherProjects:
-          type: array
-          description: Other project allocations for this user in the same period
-          items:
-            type: object
-            properties:
-              projectId:
-                type: integer
-                description: Project ID
-              projectName:
-                type: string
-                description: Name of the project
-              clientName:
-                type: string
-                description: Name of the client
-              allocatedHours:
-                type: number
-                description: Hours allocated to this project
-    AllocationResource:
-      type: object
-      required:
-      - typeId
-      - entityId
-      properties:
-        typeId:
-          type: string
-          enum:
-          - Project
-          description: Type of resource (currently only Project is supported)
-        entityId:
-          type: integer
-          description: Project ID
     AllocatedUser:
       type: object
       properties:
@@ -416,43 +358,101 @@ components:
         totalAllocatedHours:
           type: number
           description: Total hours allocated to this user for the project
-    AllocationInput:
+    UserAllocation:
       type: object
-      required:
-      - userId
-      - companyId
-      - resource
-      - from
-      - to
-      - assignedByUserId
-      - allocatedHours
       properties:
-        userId:
-          type: integer
-          description: ID of the user being allocated
-        companyId:
-          type: integer
-          description: Company ID
-        email:
+        primaryKey:
           type: string
-          format: email
-          description: User email (optional)
-        resource:
-          $ref: '#/components/schemas/AllocationResource'
+          description: Unique identifier for the allocation
         from:
           type: string
-          format: date
-          description: Start date (YYYY-MM-DD)
+          format: date-time
+          description: Start date of the allocation
         to:
           type: string
-          format: date
-          description: End date (YYYY-MM-DD). Must be after 'from' date and within 12 months.
-        assignedByUserId:
-          type: integer
-          description: ID of the user who assigned the allocation
+          format: date-time
+          description: End date of the allocation
         allocatedHours:
           type: number
           description: Number of hours allocated
+        capacity:
+          type: number
+          description: Total capacity in hours
+        availabilityLeft:
+          type: number
+          description: Remaining availability (can be negative if overallocated)
+        createdAt:
+          type: string
+          format: date-time
+          description: When the allocation was created
+        allocationUserAnotherProjects:
+          type: array
+          description: Other project allocations for this user in the same period
+          items:
+            type: object
+            properties:
+              projectId:
+                type: integer
+                description: Project ID
+              projectName:
+                type: string
+                description: Name of the project
+              clientName:
+                type: string
+                description: Name of the client
+              allocatedHours:
+                type: number
+                description: Hours allocated to this project
+    ProjectAllocationsResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          description: List of users allocated to the project
+          items:
+            $ref: '#/components/schemas/AllocatedUser'
+    AllocationError:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type
+          enum:
+          - InvalidAllocationError
+          - AllocationAlreadyExistInDatesRangeError
+          - UserNotFoundError
+          - UserNotHaveWorkDaysError
+          - ProjectNotFoundError
+          - AllocationNotFoundError
+        message:
+          type: string
+          description: Error description
+    AllocationResource:
+      type: object
+      required:
+      - typeId
+      - entityId
+      properties:
+        typeId:
+          type: string
+          enum:
+          - Project
+          description: Type of resource (currently only Project is supported)
+        entityId:
+          type: integer
+          description: Project ID
+    AllocationUpdateInput:
+      type: object
+      required:
+      - oldAllocation
+      - newAllocation
+      properties:
+        oldAllocation:
+          $ref: '#/components/schemas/AllocationInput'
+          description: The existing allocation to be updated
+        newAllocation:
+          $ref: '#/components/schemas/AllocationInput'
+          description: The new allocation data
   securitySchemes:
     bearerAuth:
       type: http

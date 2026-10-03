@@ -217,25 +217,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    TransactionItem:
-      type: object
-      properties:
-        id:
-          type: integer
-        description:
-          type: string
-        client_id:
-          type: integer
-        project_id:
-          type: integer
-        amount:
-          type: number
-        status:
-          type: string
-        transaction_id:
-          type: integer
-        company_id:
-          type: integer
     TransactionInput:
       type: object
       required:
@@ -287,34 +268,48 @@ components:
         can_delete:
           type: boolean
           description: Can delete
-    Transaction:
+    TransactionItem:
       type: object
       properties:
         id:
           type: integer
-        date:
+        description:
           type: string
-          format: date
-        receipt_number:
-          type: string
-        type:
-          type: string
-        total:
-          type: number
-        currency_change_amount:
-          type: number
-        exchange:
-          type: number
-        source_id:
-          type: integer
-        currency_id:
-          type: integer
-        is_income:
-          type: boolean
         client_id:
+          type: integer
+        project_id:
+          type: integer
+        amount:
+          type: number
+        status:
+          type: string
+        transaction_id:
           type: integer
         company_id:
           type: integer
+    PaginatedTransactionsResponse:
+      type: object
+      description: Paginated response for transactions list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of transactions
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of transactions for the current page
+          items:
+            $ref: '#/components/schemas/Transaction'
     TransactionItemInput:
       type: object
       required:
@@ -354,29 +349,34 @@ components:
         integrated:
           type: boolean
           description: Integrated
-    PaginatedTransactionsResponse:
+    Transaction:
       type: object
-      description: Paginated response for transactions list
       properties:
+        id:
+          type: integer
+        date:
+          type: string
+          format: date
+        receipt_number:
+          type: string
+        type:
+          type: string
         total:
-          type:
-          - string
-          - integer
-          description: Total number of transactions
-        perPage:
+          type: number
+        currency_change_amount:
+          type: number
+        exchange:
+          type: number
+        source_id:
           type: integer
-          description: Number of items per page
-        page:
+        currency_id:
           type: integer
-          description: Current page number
-        lastPage:
+        is_income:
+          type: boolean
+        client_id:
           type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of transactions for the current page
-          items:
-            $ref: '#/components/schemas/Transaction'
+        company_id:
+          type: integer
   securitySchemes:
     bearerAuth:
       type: http

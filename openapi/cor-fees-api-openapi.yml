@@ -171,37 +171,6 @@ components:
           description: Array of fees for the current page
           items:
             $ref: '#/components/schemas/Fee'
-    Fee:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        estimate:
-          type: number
-          format: float
-        work_order:
-          type: string
-        description:
-          type: string
-        frequency:
-          type: integer
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-        estimated_time:
-          type: integer
-        start:
-          type: string
-          format: date
-        end:
-          type: string
-          format: date
-        currency_id:
-          type: integer
     FeeInput:
       type: object
       required:
@@ -245,6 +214,37 @@ components:
         currency_id:
           type: integer
           description: Currency of fee
+    Fee:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        estimate:
+          type: number
+          format: float
+        work_order:
+          type: string
+        description:
+          type: string
+        frequency:
+          type: integer
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+        estimated_time:
+          type: integer
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+        currency_id:
+          type: integer
   securitySchemes:
     bearerAuth:
       type: http

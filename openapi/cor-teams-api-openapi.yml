@@ -222,30 +222,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    TeamUsersInput:
-      type: object
-      required:
-      - users_ids
-      properties:
-        users_ids:
-          type: array
-          items:
-            type: integer
-          description: Array of user IDs to add or remove from the team
-    TeamInput:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Team Name
-        description:
-          type: string
-          description: Team description
-        workspace_id:
-          type: integer
-          description: Workspace ID
     PaginatedTeamsResponse:
       type: object
       description: Paginated response for teams list
@@ -269,6 +245,47 @@ components:
           description: Array of teams for the current page
           items:
             $ref: '#/components/schemas/Team'
+    TeamInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Team Name
+        description:
+          type: string
+          description: Team description
+        workspace_id:
+          type: integer
+          description: Workspace ID
+    TeamUsersInput:
+      type: object
+      required:
+      - users_ids
+      properties:
+        users_ids:
+          type: array
+          items:
+            type: integer
+          description: Array of user IDs to add or remove from the team
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        workspace_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     TeamUserRelation:
       type: object
       properties:
@@ -314,23 +331,6 @@ components:
                   format: email
                 company_id:
                   type: integer
-    Team:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        description:
-          type: string
-        workspace_id:
-          type: integer
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
   securitySchemes:
     bearerAuth:
       type: http

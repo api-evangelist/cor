@@ -260,6 +260,56 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    HourInput:
+      type: object
+      required:
+      - task_log_id
+      - start
+      properties:
+        task_log_id:
+          type: integer
+          description: Task ID
+        start:
+          type: string
+          format: date-time
+          description: Start Timestamp
+        stop:
+          type: string
+          format: date-time
+          description: Stop Timestamp
+    PaginatedHoursResponse:
+      type: object
+      description: Paginated response for time entries list
+      properties:
+        total_hours:
+          type: string
+          description: Total hours summed across all entries matching the query
+        total_cost:
+          type: number
+          description: Total cost summed across all entries matching the query
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of time entries
+        perPage:
+          type:
+          - string
+          - integer
+          description: Number of items per page
+        page:
+          type:
+          - string
+          - integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of time entries for the current page
+          items:
+            $ref: '#/components/schemas/Hour'
     Hour:
       type: object
       properties:
@@ -496,56 +546,6 @@ components:
               type: string
               format: date-time
               description: Date the rework was requested
-    PaginatedHoursResponse:
-      type: object
-      description: Paginated response for time entries list
-      properties:
-        total_hours:
-          type: string
-          description: Total hours summed across all entries matching the query
-        total_cost:
-          type: number
-          description: Total cost summed across all entries matching the query
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of time entries
-        perPage:
-          type:
-          - string
-          - integer
-          description: Number of items per page
-        page:
-          type:
-          - string
-          - integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of time entries for the current page
-          items:
-            $ref: '#/components/schemas/Hour'
-    HourInput:
-      type: object
-      required:
-      - task_log_id
-      - start
-      properties:
-        task_log_id:
-          type: integer
-          description: Task ID
-        start:
-          type: string
-          format: date-time
-          description: Start Timestamp
-        stop:
-          type: string
-          format: date-time
-          description: Stop Timestamp
   securitySchemes:
     bearerAuth:
       type: http

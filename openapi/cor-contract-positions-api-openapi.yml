@@ -106,6 +106,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ContractPositionUpdateInput:
+      type: object
+      properties:
+        rate:
+          type: number
+          description: Updated hourly rate
+        hours:
+          type: number
+          description: Updated hours
     ContractPositionRate:
       type: object
       description: Contract position rate configuration
@@ -235,15 +244,6 @@ components:
         hours:
           type: number
           description: Hours to assign
-    ContractPositionUpdateInput:
-      type: object
-      properties:
-        rate:
-          type: number
-          description: Updated hourly rate
-        hours:
-          type: number
-          description: Updated hours
   securitySchemes:
     bearerAuth:
       type: http

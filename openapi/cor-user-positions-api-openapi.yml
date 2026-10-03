@@ -288,6 +288,18 @@ components:
           type: string
         company_id:
           type: integer
+    UserPositionsGroupedByCategoryItem:
+      type: object
+      description: Category bucket when `groupedByCategory` is truthy
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: integer
+        positions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserPositionActiveInCategory'
     UserPositionInput:
       type: object
       required:
@@ -318,6 +330,34 @@ components:
           type: string
           nullable: true
           description: Segment label used to group positions. Required only if company has feature flag to manage positions by labels enabled. Ignored if feature flag is not enabled.
+    SegmentLabel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Label ID
+        name:
+          type: string
+          description: Label name
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: integer
+          format: int32
+        message:
+          type: string
+    UserPositionActiveInCategory:
+      type: object
+      description: Position object inside a category group
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
     UserPositionUpdateInput:
       type: object
       properties:
@@ -335,46 +375,6 @@ components:
           type: string
           nullable: true
           description: Segment label used to group positions. Required only if company has feature flag to manage positions by labels enabled. Ignored if feature flag is not enabled.
-    UserPositionActiveInCategory:
-      type: object
-      description: Position object inside a category group
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: integer
-          format: int32
-        message:
-          type: string
-    UserPositionsGroupedByCategoryItem:
-      type: object
-      description: Category bucket when `groupedByCategory` is truthy
-      properties:
-        categoryName:
-          type: string
-        categoryId:
-          type: integer
-        positions:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserPositionActiveInCategory'
-    SegmentLabel:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Label ID
-        name:
-          type: string
-          description: Label name
     UserPositionActiveFlatItem:
       type: object
       description: Active position row in flat list responses

@@ -185,30 +185,6 @@ components:
           description: Array of clients for the current page
           items:
             $ref: '#/components/schemas/Client'
-    Client:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        business_name:
-          type: string
-        name_contact:
-          type: string
-        last_name_contact:
-          type: string
-        email_contact:
-          type: string
-          format: email
-        website:
-          type: string
-        description:
-          type: string
-        condition:
-          type: string
-        phone:
-          type: string
     ClientInput:
       type: object
       required:
@@ -242,6 +218,30 @@ components:
         phone:
           type: string
           description: Phone
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        business_name:
+          type: string
+        name_contact:
+          type: string
+        last_name_contact:
+          type: string
+        email_contact:
+          type: string
+          format: email
+        website:
+          type: string
+        description:
+          type: string
+        condition:
+          type: string
+        phone:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http
