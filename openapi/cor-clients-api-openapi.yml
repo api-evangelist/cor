@@ -162,29 +162,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    PaginatedClientsResponse:
-      type: object
-      description: Paginated response for clients list
-      properties:
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of clients
-        perPage:
-          type: integer
-          description: Number of items per page
-        page:
-          type: integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of clients for the current page
-          items:
-            $ref: '#/components/schemas/Client'
     ClientInput:
       type: object
       required:
@@ -242,6 +219,29 @@ components:
           type: string
         phone:
           type: string
+    PaginatedClientsResponse:
+      type: object
+      description: Paginated response for clients list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of clients
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of clients for the current page
+          items:
+            $ref: '#/components/schemas/Client'
   securitySchemes:
     bearerAuth:
       type: http

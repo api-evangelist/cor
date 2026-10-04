@@ -106,73 +106,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ContractPositionUpdateInput:
-      type: object
-      properties:
-        rate:
-          type: number
-          description: Updated hourly rate
-        hours:
-          type: number
-          description: Updated hours
-    ContractPositionRate:
-      type: object
-      description: Contract position rate configuration
-      properties:
-        id:
-          type: integer
-          description: Contract position rate ID
-        user_positions_header_id:
-          type: integer
-          description: User positions header ID
-        contract_id:
-          type: integer
-          description: Contract ID
-        position_id:
-          type: integer
-          description: Position ID
-        team_id:
-          type: integer
-          description: Team ID
-        currency_id:
-          type: integer
-          description: Currency ID
-        rate:
-          type: number
-          description: Configured hourly rate
-        hours:
-          type: number
-          description: Configured contract hours
-        team:
-          type: object
-          properties:
-            id:
-              type: integer
-              description: Team ID
-            name:
-              type: string
-              description: Team name
-        currency:
-          type: object
-          properties:
-            id:
-              type: integer
-              description: Currency ID
-            name:
-              type: string
-              description: Currency name
-        position:
-          type: object
-          properties:
-            id:
-              type: integer
-              description: Position Id
-            name:
-              type: string
-              description: Position name
-            seniority:
-              type: string
-              description: Seniority name
     PaginatedContractPositionRatesResponse:
       type: object
       description: Paginated response for contract positions list
@@ -244,6 +177,73 @@ components:
         hours:
           type: number
           description: Hours to assign
+    ContractPositionRate:
+      type: object
+      description: Contract position rate configuration
+      properties:
+        id:
+          type: integer
+          description: Contract position rate ID
+        user_positions_header_id:
+          type: integer
+          description: User positions header ID
+        contract_id:
+          type: integer
+          description: Contract ID
+        position_id:
+          type: integer
+          description: Position ID
+        team_id:
+          type: integer
+          description: Team ID
+        currency_id:
+          type: integer
+          description: Currency ID
+        rate:
+          type: number
+          description: Configured hourly rate
+        hours:
+          type: number
+          description: Configured contract hours
+        team:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: Team ID
+            name:
+              type: string
+              description: Team name
+        currency:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: Currency ID
+            name:
+              type: string
+              description: Currency name
+        position:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: Position Id
+            name:
+              type: string
+              description: Position name
+            seniority:
+              type: string
+              description: Seniority name
+    ContractPositionUpdateInput:
+      type: object
+      properties:
+        rate:
+          type: number
+          description: Updated hourly rate
+        hours:
+          type: number
+          description: Updated hours
   securitySchemes:
     bearerAuth:
       type: http

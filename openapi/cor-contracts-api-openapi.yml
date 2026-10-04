@@ -127,6 +127,32 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ContractListBodyInput:
+      type: object
+      properties:
+        with_milestones:
+          type: boolean
+          description: Include milestones in each contract response.
+        with_ratecards:
+          type: boolean
+          description: Include ratecards in each contract response.
+        with_positions:
+          type: boolean
+          description: Include contract positions in each contract response.
+        status:
+          type: string
+          description: Filter contracts by status.
+          example: expired
+        type:
+          type: string
+          description: Filter contracts by type.
+          example: time_and_materials
+      example:
+        with_milestones: true
+        with_ratecards: true
+        with_positions: true
+        status: expired
+        type: time_and_materials
     ContractCreateInput:
       type: object
       required:
@@ -271,32 +297,6 @@ components:
           - 'null'
           format: date-time
           description: Deletion timestamp (soft delete)
-    ContractListBodyInput:
-      type: object
-      properties:
-        with_milestones:
-          type: boolean
-          description: Include milestones in each contract response.
-        with_ratecards:
-          type: boolean
-          description: Include ratecards in each contract response.
-        with_positions:
-          type: boolean
-          description: Include contract positions in each contract response.
-        status:
-          type: string
-          description: Filter contracts by status.
-          example: expired
-        type:
-          type: string
-          description: Filter contracts by type.
-          example: time_and_materials
-      example:
-        with_milestones: true
-        with_ratecards: true
-        with_positions: true
-        status: expired
-        type: time_and_materials
     ContractUpdateInput:
       type: object
       properties:

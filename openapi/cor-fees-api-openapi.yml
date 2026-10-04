@@ -148,6 +148,37 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Fee:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        estimate:
+          type: number
+          format: float
+        work_order:
+          type: string
+        description:
+          type: string
+        frequency:
+          type: integer
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+        estimated_time:
+          type: integer
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+        currency_id:
+          type: integer
     PaginatedFeesResponse:
       type: object
       description: Paginated response for fees list
@@ -214,37 +245,6 @@ components:
         currency_id:
           type: integer
           description: Currency of fee
-    Fee:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        estimate:
-          type: number
-          format: float
-        work_order:
-          type: string
-        description:
-          type: string
-        frequency:
-          type: integer
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-        estimated_time:
-          type: integer
-        start:
-          type: string
-          format: date
-        end:
-          type: string
-          format: date
-        currency_id:
-          type: integer
   securitySchemes:
     bearerAuth:
       type: http

@@ -176,6 +176,56 @@ components:
           type: integer
         refresh_token:
           type: string
+    UserBase:
+      type: object
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        picture:
+          type: string
+          description: URL to user's profile picture
+        email:
+          type: string
+          format: email
+        cuil:
+          type: string
+        remaining_hours:
+          type: number
+        user_position_id:
+          type: integer
+        role_id:
+          type: integer
+          description: 1=C-Level, 2=Director, 3=Project Manager, 4=Collaborator, 5=Freelancer, 6=Client
+        daily_hours:
+          type: number
+        plan_id:
+          type: integer
+          description: 4=Project Management, 5=Capacity Planning
+        plan_name:
+          type: string
+        hidden:
+          type: boolean
+        position_name:
+          type: string
+          nullable: true
+        category_id:
+          type: integer
+          nullable: true
+        category_name:
+          type: string
+          nullable: true
+        gmt:
+          type: string
+          description: UTC offset from the user's last login location. Indicates the timezone configured at their last login.
+          example: -03:00
+        leaves:
+          type: array
+          items:
+            $ref: '#/components/schemas/Leave'
     Leave:
       type: object
       properties:
@@ -241,56 +291,6 @@ components:
             items:
               $ref: '#/components/schemas/Label'
             nullable: true
-    UserBase:
-      type: object
-      properties:
-        id:
-          type: integer
-        first_name:
-          type: string
-        last_name:
-          type: string
-        picture:
-          type: string
-          description: URL to user's profile picture
-        email:
-          type: string
-          format: email
-        cuil:
-          type: string
-        remaining_hours:
-          type: number
-        user_position_id:
-          type: integer
-        role_id:
-          type: integer
-          description: 1=C-Level, 2=Director, 3=Project Manager, 4=Collaborator, 5=Freelancer, 6=Client
-        daily_hours:
-          type: number
-        plan_id:
-          type: integer
-          description: 4=Project Management, 5=Capacity Planning
-        plan_name:
-          type: string
-        hidden:
-          type: boolean
-        position_name:
-          type: string
-          nullable: true
-        category_id:
-          type: integer
-          nullable: true
-        category_name:
-          type: string
-          nullable: true
-        gmt:
-          type: string
-          description: UTC offset from the user's last login location. Indicates the timezone configured at their last login.
-          example: -03:00
-        leaves:
-          type: array
-          items:
-            $ref: '#/components/schemas/Leave'
   securitySchemes:
     bearerAuth:
       type: http

@@ -83,18 +83,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Contact:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        email:
-          type: string
-          format: email
-        phone:
-          type: string
     PaginatedContactsResponse:
       type: object
       description: Paginated response for contacts list
@@ -118,6 +106,18 @@ components:
           description: Array of contacts for the current page
           items:
             $ref: '#/components/schemas/Contact'
+    Contact:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

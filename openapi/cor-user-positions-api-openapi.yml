@@ -268,38 +268,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    UserPosition:
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        user_position_category_id:
-          type: number
-        type:
-          type: string
-          enum:
-          - C
-          - P
-          description: 'Type of position: ''C'' for category, ''P'' for position'
-        rate:
-          type: integer
-        seniority:
-          type: string
-        company_id:
-          type: integer
-    UserPositionsGroupedByCategoryItem:
-      type: object
-      description: Category bucket when `groupedByCategory` is truthy
-      properties:
-        categoryName:
-          type: string
-        categoryId:
-          type: integer
-        positions:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserPositionActiveInCategory'
     UserPositionInput:
       type: object
       required:
@@ -350,14 +318,6 @@ components:
           format: int32
         message:
           type: string
-    UserPositionActiveInCategory:
-      type: object
-      description: Position object inside a category group
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
     UserPositionUpdateInput:
       type: object
       properties:
@@ -375,6 +335,26 @@ components:
           type: string
           nullable: true
           description: Segment label used to group positions. Required only if company has feature flag to manage positions by labels enabled. Ignored if feature flag is not enabled.
+    UserPosition:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        user_position_category_id:
+          type: number
+        type:
+          type: string
+          enum:
+          - C
+          - P
+          description: 'Type of position: ''C'' for category, ''P'' for position'
+        rate:
+          type: integer
+        seniority:
+          type: string
+        company_id:
+          type: integer
     UserPositionActiveFlatItem:
       type: object
       description: Active position row in flat list responses
@@ -391,6 +371,26 @@ components:
         category_name:
           type: string
           description: Category name (localized when `lang` is used)
+    UserPositionsGroupedByCategoryItem:
+      type: object
+      description: Category bucket when `groupedByCategory` is truthy
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: integer
+        positions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserPositionActiveInCategory'
+    UserPositionActiveInCategory:
+      type: object
+      description: Position object inside a category group
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -357,18 +357,14 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    LeaveDeleteInput:
+    LeaveTypeInput:
       type: object
       required:
-      - id
-      - userId
+      - name
       properties:
-        id:
-          type: integer
-          description: Leave ID to delete
-        userId:
-          type: integer
-          description: User ID
+        name:
+          type: string
+          description: Name of the leave type
     LeaveUpdateInput:
       type: object
       required:
@@ -391,6 +387,26 @@ components:
           type: string
           format: date-time
           description: End date in UTC format
+    LeaveDeleteInput:
+      type: object
+      required:
+      - id
+      - userId
+      properties:
+        id:
+          type: integer
+          description: Leave ID to delete
+        userId:
+          type: integer
+          description: User ID
+    LeaveTypeDeleteInput:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: integer
+          description: Leave type ID to delete
     Leave:
       type: object
       properties:
@@ -422,32 +438,6 @@ components:
           type: boolean
         leaveType:
           $ref: '#/components/schemas/LeaveType'
-    LeaveInput:
-      type: object
-      required:
-      - userId
-      - leaveTypeId
-      - start
-      - end
-      properties:
-        userId:
-          type: integer
-          description: User ID
-        leaveTypeId:
-          type: integer
-          description: Leave type ID
-        start:
-          type: string
-          format: date-time
-          description: Start date in UTC format (e.g., 2024-11-18T03:00:00Z)
-        end:
-          type: string
-          format: date-time
-          description: End date in UTC format
-        allDay:
-          type: boolean
-          description: Whether the leave is for the entire day
-          default: false
     LeaveType:
       type: object
       properties:
@@ -495,22 +485,32 @@ components:
           description: Array of leave types for the current page
           items:
             $ref: '#/components/schemas/LeaveType'
-    LeaveTypeDeleteInput:
+    LeaveInput:
       type: object
       required:
-      - id
+      - userId
+      - leaveTypeId
+      - start
+      - end
       properties:
-        id:
+        userId:
           type: integer
-          description: Leave type ID to delete
-    LeaveTypeInput:
-      type: object
-      required:
-      - name
-      properties:
-        name:
+          description: User ID
+        leaveTypeId:
+          type: integer
+          description: Leave type ID
+        start:
           type: string
-          description: Name of the leave type
+          format: date-time
+          description: Start date in UTC format (e.g., 2024-11-18T03:00:00Z)
+        end:
+          type: string
+          format: date-time
+          description: End date in UTC format
+        allDay:
+          type: boolean
+          description: Whether the leave is for the entire day
+          default: false
   securitySchemes:
     bearerAuth:
       type: http

@@ -190,6 +190,29 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    PaginatedRatecardsResponse:
+      type: object
+      description: Paginated response for ratecards list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of ratecards
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of ratecards for the current page
+          items:
+            $ref: '#/components/schemas/Ratecard'
     RatecardInput:
       type: object
       required:
@@ -214,29 +237,6 @@ components:
         external_key:
           type: string
           description: External key for integration with external systems
-    PaginatedRatecardsResponse:
-      type: object
-      description: Paginated response for ratecards list
-      properties:
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of ratecards
-        perPage:
-          type: integer
-          description: Number of items per page
-        page:
-          type: integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of ratecards for the current page
-          items:
-            $ref: '#/components/schemas/Ratecard'
     RatecardUpdate:
       type: object
       description: Input schema for updating an existing ratecard

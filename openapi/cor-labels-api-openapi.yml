@@ -169,6 +169,17 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    CORCustomError:
+      type: object
+      properties:
+        status:
+          type: integer
+        name:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
     Label:
       type: object
       properties:
@@ -198,17 +209,6 @@ components:
         error:
           type: integer
           format: int32
-        message:
-          type: string
-    CORCustomError:
-      type: object
-      properties:
-        status:
-          type: integer
-        name:
-          type: string
-        code:
-          type: string
         message:
           type: string
     Category:

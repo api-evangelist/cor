@@ -135,29 +135,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    PaginatedProductsResponse:
-      type: object
-      description: Paginated response for products list
-      properties:
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of products
-        perPage:
-          type: integer
-          description: Number of items per page
-        page:
-          type: integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of products for the current page
-          items:
-            $ref: '#/components/schemas/Product'
     Product:
       type: object
       properties:
@@ -185,6 +162,29 @@ components:
         brand_id:
           type: integer
           description: Brand ID
+    PaginatedProductsResponse:
+      type: object
+      description: Paginated response for products list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of products
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of products for the current page
+          items:
+            $ref: '#/components/schemas/Product'
   securitySchemes:
     bearerAuth:
       type: http

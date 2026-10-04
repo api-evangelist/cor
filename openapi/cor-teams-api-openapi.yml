@@ -222,43 +222,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    PaginatedTeamsResponse:
-      type: object
-      description: Paginated response for teams list
-      properties:
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of teams
-        perPage:
-          type: integer
-          description: Number of items per page
-        page:
-          type: integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of teams for the current page
-          items:
-            $ref: '#/components/schemas/Team'
-    TeamInput:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Team Name
-        description:
-          type: string
-          description: Team description
-        workspace_id:
-          type: integer
-          description: Workspace ID
     TeamUsersInput:
       type: object
       required:
@@ -331,6 +294,43 @@ components:
                   format: email
                 company_id:
                   type: integer
+    TeamInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Team Name
+        description:
+          type: string
+          description: Team description
+        workspace_id:
+          type: integer
+          description: Workspace ID
+    PaginatedTeamsResponse:
+      type: object
+      description: Paginated response for teams list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of teams
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of teams for the current page
+          items:
+            $ref: '#/components/schemas/Team'
   securitySchemes:
     bearerAuth:
       type: http
