@@ -145,26 +145,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Label:
-      type: object
-      properties:
-        id:
-          type: integer
-        hex:
-          type: string
-          description: Hex color code
-        hsl:
-          type: string
-          nullable: true
-        rgb:
-          type: string
-          nullable: true
-        lang:
-          type: string
-        name:
-          type: string
-        color_id:
-          type: integer
     AuthResponse:
       type: object
       properties:
@@ -176,6 +156,16 @@ components:
           type: integer
         refresh_token:
           type: string
+    User:
+      allOf:
+      - $ref: '#/components/schemas/UserBase'
+      - type: object
+        properties:
+          labels:
+            type: array
+            items:
+              $ref: '#/components/schemas/Label'
+            nullable: true
     UserBase:
       type: object
       properties:
@@ -226,6 +216,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Leave'
+    Label:
+      type: object
+      properties:
+        id:
+          type: integer
+        hex:
+          type: string
+          description: Hex color code
+        hsl:
+          type: string
+          nullable: true
+        rgb:
+          type: string
+          nullable: true
+        lang:
+          type: string
+        name:
+          type: string
+        color_id:
+          type: integer
     Leave:
       type: object
       properties:
@@ -281,16 +291,6 @@ components:
           nullable: true
         icon_name:
           type: string
-    User:
-      allOf:
-      - $ref: '#/components/schemas/UserBase'
-      - type: object
-        properties:
-          labels:
-            type: array
-            items:
-              $ref: '#/components/schemas/Label'
-            nullable: true
   securitySchemes:
     bearerAuth:
       type: http

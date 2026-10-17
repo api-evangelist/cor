@@ -106,77 +106,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    PaginatedContractPositionRatesResponse:
-      type: object
-      description: Paginated response for contract positions list
-      properties:
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of contract position rates
-        perPage:
-          type:
-          - string
-          - integer
-          description: Number of items per page
-        page:
-          type:
-          - string
-          - integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of contract positions for the current page
-          items:
-            $ref: '#/components/schemas/ContractPositionRate'
-      example:
-        total: '1'
-        perPage: 20
-        page: 1
-        lastPage: 1
-        data:
-        - id: 1
-          user_positions_header_id: 1
-          contract_id: 1
-          position_id: 1
-          team_id: 1
-          rate: 1.0
-          hours: 10
-          currency_id: 1
-          currency:
-            id: 1
-            name: USD
-          team:
-            id: 1
-            name: Team 1
-            workspace_id: null
-          position:
-            id: 1
-            name: User Position 1
-    ContractPositionCreateInput:
-      type: object
-      required:
-      - position_id
-      - team_id
-      - rate
-      - hours
-      properties:
-        position_id:
-          type: integer
-          description: Position ID
-        team_id:
-          type: integer
-          description: Team ID
-        rate:
-          type: number
-          description: Hourly rate to assign
-        hours:
-          type: number
-          description: Hours to assign
     ContractPositionRate:
       type: object
       description: Contract position rate configuration
@@ -235,6 +164,26 @@ components:
             seniority:
               type: string
               description: Seniority name
+    ContractPositionCreateInput:
+      type: object
+      required:
+      - position_id
+      - team_id
+      - rate
+      - hours
+      properties:
+        position_id:
+          type: integer
+          description: Position ID
+        team_id:
+          type: integer
+          description: Team ID
+        rate:
+          type: number
+          description: Hourly rate to assign
+        hours:
+          type: number
+          description: Hours to assign
     ContractPositionUpdateInput:
       type: object
       properties:
@@ -244,6 +193,57 @@ components:
         hours:
           type: number
           description: Updated hours
+    PaginatedContractPositionRatesResponse:
+      type: object
+      description: Paginated response for contract positions list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of contract position rates
+        perPage:
+          type:
+          - string
+          - integer
+          description: Number of items per page
+        page:
+          type:
+          - string
+          - integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of contract positions for the current page
+          items:
+            $ref: '#/components/schemas/ContractPositionRate'
+      example:
+        total: '1'
+        perPage: 20
+        page: 1
+        lastPage: 1
+        data:
+        - id: 1
+          user_positions_header_id: 1
+          contract_id: 1
+          position_id: 1
+          team_id: 1
+          rate: 1.0
+          hours: 10
+          currency_id: 1
+          currency:
+            id: 1
+            name: USD
+          team:
+            id: 1
+            name: Team 1
+            workspace_id: null
+          position:
+            id: 1
+            name: User Position 1
   securitySchemes:
     bearerAuth:
       type: http

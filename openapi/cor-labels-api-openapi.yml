@@ -169,6 +169,17 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/Label'
     CORCustomError:
       type: object
       properties:
@@ -180,6 +191,21 @@ components:
           type: string
         message:
           type: string
+    ProjectLabelsResponse:
+      type: object
+      required:
+      - labels
+      properties:
+        labels:
+          type: array
+          description: Categories with their labels, scoped to the project label entity type.
+          items:
+            $ref: '#/components/schemas/Category'
+        selected:
+          type: array
+          description: Labels currently assigned to the project (present when a valid `project_id` is provided).
+          items:
+            $ref: '#/components/schemas/Label'
     Label:
       type: object
       properties:
@@ -211,32 +237,6 @@ components:
           format: int32
         message:
           type: string
-    Category:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        labels:
-          type: array
-          items:
-            $ref: '#/components/schemas/Label'
-    ProjectLabelsResponse:
-      type: object
-      required:
-      - labels
-      properties:
-        labels:
-          type: array
-          description: Categories with their labels, scoped to the project label entity type.
-          items:
-            $ref: '#/components/schemas/Category'
-        selected:
-          type: array
-          description: Labels currently assigned to the project (present when a valid `project_id` is provided).
-          items:
-            $ref: '#/components/schemas/Label'
   securitySchemes:
     bearerAuth:
       type: http

@@ -127,32 +127,83 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ContractListBodyInput:
+    ContractUpdateInput:
       type: object
       properties:
-        with_milestones:
-          type: boolean
-          description: Include milestones in each contract response.
-        with_ratecards:
-          type: boolean
-          description: Include ratecards in each contract response.
-        with_positions:
-          type: boolean
-          description: Include contract positions in each contract response.
-        status:
+        client_id:
+          type: integer
+          description: Client ID
+        json_integrations:
+          type:
+          - object
+          - array
+          - string
+          - number
+          - boolean
+          - 'null'
+          description: Integration payload stored as JSON
+        name:
           type: string
-          description: Filter contracts by status.
-          example: expired
+          description: Contract name
         type:
           type: string
-          description: Filter contracts by type.
-          example: time_and_materials
-      example:
-        with_milestones: true
-        with_ratecards: true
-        with_positions: true
-        status: expired
-        type: time_and_materials
+          description: Contract type
+        source:
+          type: string
+          description: Source of the contract
+        status:
+          type: string
+          description: Contract status
+        company_id:
+          type: integer
+          description: Company ID
+        start:
+          type: string
+          format: date-time
+          description: Contract start date-time
+        end:
+          type: string
+          format: date-time
+          description: Contract end date-time
+        frequency:
+          type: string
+          description: Contract billing frequency
+        currency_id:
+          type: integer
+          description: Currency ID
+        url:
+          type: string
+          description: External URL
+        url_name:
+          type: string
+          description: External URL name
+        user_positions_header_id:
+          type: integer
+          description: User positions header ID
+    PaginatedContractsResponse:
+      type: object
+      description: Paginated response for contracts list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of contracts
+        perPage:
+          type:
+          - string
+          - integer
+          description: Number of items per page
+        page:
+          type:
+          - string
+          - integer
+          description: Current page number
+        data:
+          type: array
+          description: Array of contracts for the current page
+          items:
+            $ref: '#/components/schemas/Contract'
     ContractCreateInput:
       type: object
       required:
@@ -217,6 +268,32 @@ components:
         user_positions_header_id:
           type: integer
           description: User positions header ID
+    ContractListBodyInput:
+      type: object
+      properties:
+        with_milestones:
+          type: boolean
+          description: Include milestones in each contract response.
+        with_ratecards:
+          type: boolean
+          description: Include ratecards in each contract response.
+        with_positions:
+          type: boolean
+          description: Include contract positions in each contract response.
+        status:
+          type: string
+          description: Filter contracts by status.
+          example: expired
+        type:
+          type: string
+          description: Filter contracts by type.
+          example: time_and_materials
+      example:
+        with_milestones: true
+        with_ratecards: true
+        with_positions: true
+        status: expired
+        type: time_and_materials
     Contract:
       type: object
       description: Contract entity
@@ -297,83 +374,6 @@ components:
           - 'null'
           format: date-time
           description: Deletion timestamp (soft delete)
-    ContractUpdateInput:
-      type: object
-      properties:
-        client_id:
-          type: integer
-          description: Client ID
-        json_integrations:
-          type:
-          - object
-          - array
-          - string
-          - number
-          - boolean
-          - 'null'
-          description: Integration payload stored as JSON
-        name:
-          type: string
-          description: Contract name
-        type:
-          type: string
-          description: Contract type
-        source:
-          type: string
-          description: Source of the contract
-        status:
-          type: string
-          description: Contract status
-        company_id:
-          type: integer
-          description: Company ID
-        start:
-          type: string
-          format: date-time
-          description: Contract start date-time
-        end:
-          type: string
-          format: date-time
-          description: Contract end date-time
-        frequency:
-          type: string
-          description: Contract billing frequency
-        currency_id:
-          type: integer
-          description: Currency ID
-        url:
-          type: string
-          description: External URL
-        url_name:
-          type: string
-          description: External URL name
-        user_positions_header_id:
-          type: integer
-          description: User positions header ID
-    PaginatedContractsResponse:
-      type: object
-      description: Paginated response for contracts list
-      properties:
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of contracts
-        perPage:
-          type:
-          - string
-          - integer
-          description: Number of items per page
-        page:
-          type:
-          - string
-          - integer
-          description: Current page number
-        data:
-          type: array
-          description: Array of contracts for the current page
-          items:
-            $ref: '#/components/schemas/Contract'
   securitySchemes:
     bearerAuth:
       type: http

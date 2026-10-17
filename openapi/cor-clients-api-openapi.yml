@@ -162,39 +162,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ClientInput:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Name of client
-        business_name:
-          type: string
-          description: Business Name
-        name_contact:
-          type: string
-          description: Contact First name
-        last_name_contact:
-          type: string
-          description: Contact Last name
-        email_contact:
-          type: string
-          format: email
-          description: Contact email
-        website:
-          type: string
-          description: Website
-        description:
-          type: string
-          description: Description or comments
-        condition:
-          type: string
-          description: Client condition
-        phone:
-          type: string
-          description: Phone
     Client:
       type: object
       properties:
@@ -242,6 +209,39 @@ components:
           description: Array of clients for the current page
           items:
             $ref: '#/components/schemas/Client'
+    ClientInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of client
+        business_name:
+          type: string
+          description: Business Name
+        name_contact:
+          type: string
+          description: Contact First name
+        last_name_contact:
+          type: string
+          description: Contact Last name
+        email_contact:
+          type: string
+          format: email
+          description: Contact email
+        website:
+          type: string
+          description: Website
+        description:
+          type: string
+          description: Description or comments
+        condition:
+          type: string
+          description: Client condition
+        phone:
+          type: string
+          description: Phone
   securitySchemes:
     bearerAuth:
       type: http

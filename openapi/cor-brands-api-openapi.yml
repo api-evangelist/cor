@@ -132,6 +132,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    BrandInput:
+      type: object
+      required:
+      - name
+      - client_id
+      properties:
+        name:
+          type: string
+          description: Brand Name
+        client_id:
+          type: integer
+          description: Client ID
     PaginatedBrandsResponse:
       type: object
       description: Paginated response for brands list
@@ -155,18 +167,6 @@ components:
           description: Array of brands for the current page
           items:
             $ref: '#/components/schemas/Brand'
-    BrandInput:
-      type: object
-      required:
-      - name
-      - client_id
-      properties:
-        name:
-          type: string
-          description: Brand Name
-        client_id:
-          type: integer
-          description: Client ID
     Brand:
       type: object
       properties:

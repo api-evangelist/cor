@@ -365,7 +365,7 @@ components:
         name:
           type: string
           description: Name of the leave type
-    LeaveUpdateInput:
+    LeaveInput:
       type: object
       required:
       - userId
@@ -382,11 +382,23 @@ components:
         start:
           type: string
           format: date-time
-          description: Start date in UTC format
+          description: Start date in UTC format (e.g., 2024-11-18T03:00:00Z)
         end:
           type: string
           format: date-time
           description: End date in UTC format
+        allDay:
+          type: boolean
+          description: Whether the leave is for the entire day
+          default: false
+    LeaveTypeDeleteInput:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: integer
+          description: Leave type ID to delete
     LeaveDeleteInput:
       type: object
       required:
@@ -399,14 +411,6 @@ components:
         userId:
           type: integer
           description: User ID
-    LeaveTypeDeleteInput:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: integer
-          description: Leave type ID to delete
     Leave:
       type: object
       properties:
@@ -438,6 +442,51 @@ components:
           type: boolean
         leaveType:
           $ref: '#/components/schemas/LeaveType'
+    PaginatedLeaveTypesResponse:
+      type: object
+      description: Paginated response for leave types list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of leave types
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of leave types for the current page
+          items:
+            $ref: '#/components/schemas/LeaveType'
+    LeaveUpdateInput:
+      type: object
+      required:
+      - userId
+      - leaveTypeId
+      - start
+      - end
+      properties:
+        userId:
+          type: integer
+          description: User ID
+        leaveTypeId:
+          type: integer
+          description: Leave type ID
+        start:
+          type: string
+          format: date-time
+          description: Start date in UTC format
+        end:
+          type: string
+          format: date-time
+          description: End date in UTC format
     LeaveType:
       type: object
       properties:
@@ -462,55 +511,6 @@ components:
           nullable: true
         icon_name:
           type: string
-    PaginatedLeaveTypesResponse:
-      type: object
-      description: Paginated response for leave types list
-      properties:
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of leave types
-        perPage:
-          type: integer
-          description: Number of items per page
-        page:
-          type: integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of leave types for the current page
-          items:
-            $ref: '#/components/schemas/LeaveType'
-    LeaveInput:
-      type: object
-      required:
-      - userId
-      - leaveTypeId
-      - start
-      - end
-      properties:
-        userId:
-          type: integer
-          description: User ID
-        leaveTypeId:
-          type: integer
-          description: Leave type ID
-        start:
-          type: string
-          format: date-time
-          description: Start date in UTC format (e.g., 2024-11-18T03:00:00Z)
-        end:
-          type: string
-          format: date-time
-          description: End date in UTC format
-        allDay:
-          type: boolean
-          description: Whether the leave is for the entire day
-          default: false
   securitySchemes:
     bearerAuth:
       type: http

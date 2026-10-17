@@ -580,6 +580,148 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    TaskAttachmentDeleteResponse:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        elements:
+          type: array
+          description: Attachments from the last page that fill the gaps left by deleted items
+          items:
+            $ref: '#/components/schemas/TaskAttachmentDetail'
+    TaskCollaborator:
+      type: object
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        picture:
+          type: string
+        user_position_id:
+          type: integer
+          nullable: true
+        role_id:
+          type: integer
+        userPosition:
+          type: object
+          nullable: true
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+        pivot:
+          type: object
+          properties:
+            user_id:
+              type: integer
+            task_log_id:
+              type: integer
+            created_at:
+              type: string
+            estimated_by_user:
+              type: integer
+    TaskAttachmentSourceResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        source:
+          type: string
+          description: Source provider (e.g. `GoogleDrive`)
+        size:
+          type: integer
+        file_type:
+          type: string
+        media_type:
+          type: string
+        user_id:
+          type: integer
+        discussions_id:
+          type: integer
+          nullable: true
+        session_token:
+          type: string
+          nullable: true
+    TaskAttachmentListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of attachments
+        perPage:
+          type: integer
+          description: Items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last page number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskAttachmentDetail'
+    CORErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
+    TaskUpdateInput:
+      type: object
+      required:
+      - title
+      properties:
+        title:
+          type: string
+          description: Task Title
+        project_id:
+          type: integer
+          description: Project ID
+        description:
+          type: string
+          description: Description
+        deadline:
+          type: string
+          format: date-time
+          description: Deadline
+        status:
+          type: string
+          enum:
+          - nueva
+          - en_proceso
+          - estancada
+          - finalizada
+          description: Task status
+        priority:
+          type: integer
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          description: 'Task Priority: 0 = Low, 1 = Medium, 2 = High, 3 = Urgent'
+        archived:
+          type: boolean
+          description: Archived task
     CORCustomError:
       type: object
       properties:
@@ -588,6 +730,127 @@ components:
         name:
           type: string
         code:
+          type: string
+        message:
+          type: string
+    MessageInput:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Text Message
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentInput'
+          description: Optional attachments
+    TaskInput:
+      type: object
+      required:
+      - title
+      properties:
+        title:
+          type: string
+          description: Task Title
+        project_id:
+          type: integer
+          description: Project ID
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+    TaskCollaboratorsInput:
+      type: object
+      required:
+      - collaborators
+      properties:
+        collaborators:
+          type: array
+          items:
+            type: integer
+          description: Array of user IDs that should be assigned to the task. Pass an empty array [] to remove all collaborators.
+        reasignEstimate:
+          type: boolean
+          default: false
+          description: If true, redistributes the estimated hours evenly among the new collaborators.
+    TaskAttachmentUploadResponse:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskAttachmentUploadedFile'
+        files_q:
+          type: integer
+          description: Total number of attachments currently on the task
+        errors:
+          type: array
+          description: Present only when individual files failed (size exceeded or invalid extension)
+          items:
+            $ref: '#/components/schemas/AttachmentUploadError'
+    UserBase:
+      type: object
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        picture:
+          type: string
+          description: URL to user's profile picture
+        email:
+          type: string
+          format: email
+        cuil:
+          type: string
+        remaining_hours:
+          type: number
+        user_position_id:
+          type: integer
+        role_id:
+          type: integer
+          description: 1=C-Level, 2=Director, 3=Project Manager, 4=Collaborator, 5=Freelancer, 6=Client
+        daily_hours:
+          type: number
+        plan_id:
+          type: integer
+          description: 4=Project Management, 5=Capacity Planning
+        plan_name:
+          type: string
+        hidden:
+          type: boolean
+        position_name:
+          type: string
+          nullable: true
+        category_id:
+          type: integer
+          nullable: true
+        category_name:
+          type: string
+          nullable: true
+        gmt:
+          type: string
+          description: UTC offset from the user's last login location. Indicates the timezone configured at their last login.
+          example: -03:00
+        leaves:
+          type: array
+          items:
+            $ref: '#/components/schemas/Leave'
+    AttachmentUploadError:
+      type: object
+      properties:
+        filename:
           type: string
         message:
           type: string
@@ -674,6 +937,97 @@ components:
         createdFrom:
           type: string
           description: 'Origin: `task_panel`, `rework`, or `feedback`'
+    Label:
+      type: object
+      properties:
+        id:
+          type: integer
+        hex:
+          type: string
+          description: Hex color code
+        hsl:
+          type: string
+          nullable: true
+        rgb:
+          type: string
+          nullable: true
+        lang:
+          type: string
+        name:
+          type: string
+        color_id:
+          type: integer
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        project_id:
+          type: integer
+        description:
+          type: string
+        deadline:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+          - nueva
+          - en_proceso
+          - estancada
+          - finalizada
+        priority:
+          type: integer
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          description: 0 = Low, 1 = Medium, 2 = High, 3 = Urgent
+        archived:
+          type: boolean
+    AttachmentUploadBadRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ERROR
+        code:
+          type: string
+          example: FS001
+        message:
+          type: string
+          example: Unable to upload any file
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentUploadError'
+    LeaveType:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type_code:
+          type: string
+        company_id:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        icon_name:
+          type: string
     TaskCollaboratorSummary:
       type: object
       description: Summary of a collaborator assigned to a task (used in GET /tasks/{task_id}/collaborators)
@@ -690,34 +1044,82 @@ components:
           type: number
         estimated_by_user:
           type: integer
-    CORErrorResponse:
+    ValidationErrorArray:
+      type: array
+      items:
+        type: object
+        properties:
+          field:
+            type: string
+          validation:
+            type: string
+          message:
+            type: string
+    Attachment:
       type: object
       properties:
-        status:
+        id:
+          type: integer
+        name:
           type: string
-        code:
+        url:
           type: string
-        message:
+        type:
           type: string
-    TaskAttachmentListResponse:
+        created_at:
+          type: string
+          format: date-time
+    PaginatedTasksResponse:
       type: object
+      description: Paginated response for tasks list
       properties:
         total:
-          type: integer
-          description: Total number of attachments
+          type:
+          - string
+          - integer
+          description: Total number of tasks
         perPage:
           type: integer
-          description: Items per page
+          description: Number of items per page
         page:
           type: integer
           description: Current page number
         lastPage:
           type: integer
-          description: Last page number
+          description: Last available page number
         data:
           type: array
+          description: Array of tasks for the current page
           items:
-            $ref: '#/components/schemas/TaskAttachmentDetail'
+            $ref: '#/components/schemas/Task'
+    User:
+      allOf:
+      - $ref: '#/components/schemas/UserBase'
+      - type: object
+        properties:
+          labels:
+            type: array
+            items:
+              $ref: '#/components/schemas/Label'
+            nullable: true
+    AttachmentInput:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID Attachment
+        name:
+          type: string
+          description: Name of file
+        url:
+          type: string
+          description: public-url provided by COR
+        type:
+          type: string
+          description: File type
+        source:
+          type: string
+          description: 'Source of file: attachments S#, Drive, One Drive, Dropbox'
     Leave:
       type: object
       properties:
@@ -749,268 +1151,6 @@ components:
           type: boolean
         leaveType:
           $ref: '#/components/schemas/LeaveType'
-    LeaveType:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        type_code:
-          type: string
-        company_id:
-          type: integer
-          nullable: true
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        deleted_at:
-          type: string
-          format: date-time
-          nullable: true
-        icon_name:
-          type: string
-    MessageInput:
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Text Message
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentInput'
-          description: Optional attachments
-    TaskInput:
-      type: object
-      required:
-      - title
-      properties:
-        title:
-          type: string
-          description: Task Title
-        project_id:
-          type: integer
-          description: Project ID
-    AttachmentInput:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: ID Attachment
-        name:
-          type: string
-          description: Name of file
-        url:
-          type: string
-          description: public-url provided by COR
-        type:
-          type: string
-          description: File type
-        source:
-          type: string
-          description: 'Source of file: attachments S#, Drive, One Drive, Dropbox'
-    ValidationErrorArray:
-      type: array
-      items:
-        type: object
-        properties:
-          field:
-            type: string
-          validation:
-            type: string
-          message:
-            type: string
-    TaskAttachmentSourceResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-        url:
-          type: string
-        name:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        source:
-          type: string
-          description: Source provider (e.g. `GoogleDrive`)
-        size:
-          type: integer
-        file_type:
-          type: string
-        media_type:
-          type: string
-        user_id:
-          type: integer
-        discussions_id:
-          type: integer
-          nullable: true
-        session_token:
-          type: string
-          nullable: true
-    AttachmentUploadBadRequest:
-      type: object
-      properties:
-        status:
-          type: string
-          example: ERROR
-        code:
-          type: string
-          example: FS001
-        message:
-          type: string
-          example: Unable to upload any file
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentUploadError'
-    AttachmentUploadError:
-      type: object
-      properties:
-        filename:
-          type: string
-        message:
-          type: string
-    Message:
-      type: object
-      properties:
-        id:
-          type: integer
-        message:
-          type: string
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Attachment'
-    TaskAttachmentDeleteResponse:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        elements:
-          type: array
-          description: Attachments from the last page that fill the gaps left by deleted items
-          items:
-            $ref: '#/components/schemas/TaskAttachmentDetail'
-    TaskCollaboratorsInput:
-      type: object
-      required:
-      - collaborators
-      properties:
-        collaborators:
-          type: array
-          items:
-            type: integer
-          description: Array of user IDs that should be assigned to the task. Pass an empty array [] to remove all collaborators.
-        reasignEstimate:
-          type: boolean
-          default: false
-          description: If true, redistributes the estimated hours evenly among the new collaborators.
-    TaskUpdateInput:
-      type: object
-      required:
-      - title
-      properties:
-        title:
-          type: string
-          description: Task Title
-        project_id:
-          type: integer
-          description: Project ID
-        description:
-          type: string
-          description: Description
-        deadline:
-          type: string
-          format: date-time
-          description: Deadline
-        status:
-          type: string
-          enum:
-          - nueva
-          - en_proceso
-          - estancada
-          - finalizada
-          description: Task status
-        priority:
-          type: integer
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          description: 'Task Priority: 0 = Low, 1 = Medium, 2 = High, 3 = Urgent'
-        archived:
-          type: boolean
-          description: Archived task
-    TaskCollaborator:
-      type: object
-      properties:
-        id:
-          type: integer
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-          format: email
-        picture:
-          type: string
-        user_position_id:
-          type: integer
-          nullable: true
-        role_id:
-          type: integer
-        userPosition:
-          type: object
-          nullable: true
-          properties:
-            id:
-              type: integer
-            name:
-              type: string
-        pivot:
-          type: object
-          properties:
-            user_id:
-              type: integer
-            task_log_id:
-              type: integer
-            created_at:
-              type: string
-            estimated_by_user:
-              type: integer
-    PaginatedTasksResponse:
-      type: object
-      description: Paginated response for tasks list
-      properties:
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of tasks
-        perPage:
-          type: integer
-          description: Number of items per page
-        page:
-          type: integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of tasks for the current page
-          items:
-            $ref: '#/components/schemas/Task'
     TaskAttachmentUploadedFile:
       type: object
       properties:
@@ -1076,146 +1216,6 @@ components:
           nullable: true
         created_from:
           type: string
-    Label:
-      type: object
-      properties:
-        id:
-          type: integer
-        hex:
-          type: string
-          description: Hex color code
-        hsl:
-          type: string
-          nullable: true
-        rgb:
-          type: string
-          nullable: true
-        lang:
-          type: string
-        name:
-          type: string
-        color_id:
-          type: integer
-    TaskAttachmentUploadResponse:
-      type: object
-      properties:
-        files:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskAttachmentUploadedFile'
-        files_q:
-          type: integer
-          description: Total number of attachments currently on the task
-        errors:
-          type: array
-          description: Present only when individual files failed (size exceeded or invalid extension)
-          items:
-            $ref: '#/components/schemas/AttachmentUploadError'
-    Attachment:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        url:
-          type: string
-        type:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-    Task:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        project_id:
-          type: integer
-        description:
-          type: string
-        deadline:
-          type: string
-          format: date-time
-        status:
-          type: string
-          enum:
-          - nueva
-          - en_proceso
-          - estancada
-          - finalizada
-        priority:
-          type: integer
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          description: 0 = Low, 1 = Medium, 2 = High, 3 = Urgent
-        archived:
-          type: boolean
-    UserBase:
-      type: object
-      properties:
-        id:
-          type: integer
-        first_name:
-          type: string
-        last_name:
-          type: string
-        picture:
-          type: string
-          description: URL to user's profile picture
-        email:
-          type: string
-          format: email
-        cuil:
-          type: string
-        remaining_hours:
-          type: number
-        user_position_id:
-          type: integer
-        role_id:
-          type: integer
-          description: 1=C-Level, 2=Director, 3=Project Manager, 4=Collaborator, 5=Freelancer, 6=Client
-        daily_hours:
-          type: number
-        plan_id:
-          type: integer
-          description: 4=Project Management, 5=Capacity Planning
-        plan_name:
-          type: string
-        hidden:
-          type: boolean
-        position_name:
-          type: string
-          nullable: true
-        category_id:
-          type: integer
-          nullable: true
-        category_name:
-          type: string
-          nullable: true
-        gmt:
-          type: string
-          description: UTC offset from the user's last login location. Indicates the timezone configured at their last login.
-          example: -03:00
-        leaves:
-          type: array
-          items:
-            $ref: '#/components/schemas/Leave'
-    User:
-      allOf:
-      - $ref: '#/components/schemas/UserBase'
-      - type: object
-        properties:
-          labels:
-            type: array
-            items:
-              $ref: '#/components/schemas/Label'
-            nullable: true
   securitySchemes:
     bearerAuth:
       type: http

@@ -115,6 +115,25 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ProjectCost:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        cost:
+          type: number
+          format: float
+        datetime:
+          type: string
+          format: date
+        label_id:
+          type: integer
+        project_estimate_id:
+          type: integer
+        id_project_history:
+          type: integer
     ProjectCostInput:
       type: object
       required:
@@ -142,25 +161,6 @@ components:
         id_project_history:
           type: integer
           description: Related project history
-    ProjectCost:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        cost:
-          type: number
-          format: float
-        datetime:
-          type: string
-          format: date
-        label_id:
-          type: integer
-        project_estimate_id:
-          type: integer
-        id_project_history:
-          type: integer
   securitySchemes:
     bearerAuth:
       type: http

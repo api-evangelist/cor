@@ -222,6 +222,29 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    PaginatedTeamsResponse:
+      type: object
+      description: Paginated response for teams list
+      properties:
+        total:
+          type:
+          - string
+          - integer
+          description: Total number of teams
+        perPage:
+          type: integer
+          description: Number of items per page
+        page:
+          type: integer
+          description: Current page number
+        lastPage:
+          type: integer
+          description: Last available page number
+        data:
+          type: array
+          description: Array of teams for the current page
+          items:
+            $ref: '#/components/schemas/Team'
     TeamUsersInput:
       type: object
       required:
@@ -232,23 +255,6 @@ components:
           items:
             type: integer
           description: Array of user IDs to add or remove from the team
-    Team:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        description:
-          type: string
-        workspace_id:
-          type: integer
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
     TeamUserRelation:
       type: object
       properties:
@@ -294,6 +300,23 @@ components:
                   format: email
                 company_id:
                   type: integer
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        workspace_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     TeamInput:
       type: object
       required:
@@ -308,29 +331,6 @@ components:
         workspace_id:
           type: integer
           description: Workspace ID
-    PaginatedTeamsResponse:
-      type: object
-      description: Paginated response for teams list
-      properties:
-        total:
-          type:
-          - string
-          - integer
-          description: Total number of teams
-        perPage:
-          type: integer
-          description: Number of items per page
-        page:
-          type: integer
-          description: Current page number
-        lastPage:
-          type: integer
-          description: Last available page number
-        data:
-          type: array
-          description: Array of teams for the current page
-          items:
-            $ref: '#/components/schemas/Team'
   securitySchemes:
     bearerAuth:
       type: http
