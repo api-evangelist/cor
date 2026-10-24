@@ -447,6 +447,8 @@ apis:
   humanURL: https://developers.projectcor.com
   baseURL: https://api.projectcor.com/v1
   tags:
+  - Rate Cards
+  tags_raw:
   - Rate cards
   properties:
   - type: OpenAPI
